@@ -71,8 +71,8 @@ static int	open_heredoc(t_token *id_class, t_token *curr, t_data *data)
 	char	*del;
 	char	*gename;
 
-	if (!sef_doc(id_class, data, HERE_SEF))
-		return (0);
+	// if (!sef_doc(id_class, data, HERE_SEF))
+	// 	return (0);
 	gename = name_generator();
 	del = scrap_del(get_delimiter(curr));
 	data->here_fd = open(gename, O_CREAT | O_WRONLY, 0777);

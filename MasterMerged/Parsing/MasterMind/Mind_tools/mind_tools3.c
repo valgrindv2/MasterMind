@@ -15,6 +15,7 @@
 int	algo(t_token *curr, t_token **op_field, t_token *in, t_token **yard)
 {
 	in = add_identity(ft_strdup(curr->identity), curr->tok, INIT, curr);
+	printf("in in algo >> %s\n", in->identity);
 	if (!in || !algorithm_options(curr, op_field, yard, in))
 		return (S);
 	return (F);

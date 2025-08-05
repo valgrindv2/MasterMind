@@ -65,7 +65,7 @@ int	main(int argc, char **argv, char **env)
 			add_history(input);
 		tree = masterpasrse(input, &data, &re_built);
 		print_tree(tree);
-		execute_tree(tree, &data, env, re_built);
+		// execute_tree(tree, &data, env, re_built);
 	}
 	return (free_argv(data.env_vec), free_envlist(data.env),
 		free(input), EXIT_SUCCESS);

@@ -19,15 +19,18 @@ t_tree	*build_tree(t_token *id_class)
 
 	tree = NULL;
 	yard = NULL;
+	// debbuger_tk(id_class);
 	if (id_class == NULL)
 		return (NULL);
 	yard = shunting_yard_algorithm(id_class);
 	if (!yard)
-		return (clean_id_class(&id_class, CLEAN), NULL);
+		return (printf("here"), clean_id_class(&id_class, CLEAN), NULL);
 	clean_id_class(&id_class, CLEAN);
-	if (recursive_build(yard, &tree) == ANOMALY)
-		return (clean_yard(&yard, FAIL), NULL);
-	clean_yard(&yard, CLEAN);
+	printf("yard >> \n");
+	debbuger_tk(yard);
+	// if (recursive_build(yard, &tree) == ANOMALY)
+	// 	return (clean_yard(&yard, FAIL), NULL);
+	clean_yard(&yard, FAIL); // CLEAN BLAST FAIL
 	return (tree);
 }
 

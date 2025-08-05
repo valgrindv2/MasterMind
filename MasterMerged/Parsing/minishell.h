@@ -24,6 +24,7 @@
 # include <fcntl.h>
 # include <limits.h>
 # include <dirent.h>
+# include <sys/wait.h>
 
 // Macros
 # define F 1

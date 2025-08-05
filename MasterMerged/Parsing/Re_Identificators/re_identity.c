@@ -80,6 +80,7 @@ t_token	*re_identity(t_token *id_class)
 		cmd_arg(&curr, &string);
 		curr = curr->next;
 	}
+	only_files(id_class);
 	if (!arg_system(id_class))
 		return (clean_id_class(&id_class, FAIL), NULL);
 	return (re_builder(id_class));

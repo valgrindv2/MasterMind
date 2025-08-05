@@ -19,6 +19,7 @@ int	add_token(t_token *curr, t_token **list)
 	in = add_identity(ft_strdup(curr->identity), curr->tok, INIT, curr);
 	if (!in)
 		return (S);
+	printf("token added >> %s\n", in->identity);
 	add_back_identity(list, in, D_INIT);
 	return (F);
 }
