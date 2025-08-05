@@ -1,0 +1,42 @@
+void	escapenv(char **env, t_exec *exec, int *i)
+{
+	while (env[*i])
+	{
+		if (ft_strnstr(env[*i], "PATH=", 5))
+			break ;
+		(*i)++;
+	}
+	exec->path = ft_splitchars(env[*i], ':');
+}
+
+char	*findpath(char **args, char **env, t_exec *exec)
+{
+	int	i;
+
+	if (args[0] == NULL || env == NULL)
+		return (NULL);
+	i = 0;
+	escapenv(env, exec, &i);
+	if (exec->path)
+	{
+		i = 0;
+		while (exec->path[i])
+		{
+			exec->partjoin = ft_strjoin(exec->path[i], "/");
+			exec->cmdjoined = ft_strjoin(exec->partjoin, args[0]);
+			free(exec->partjoin);
+			if (access(exec->cmdjoined, X_OK) == 0)
+				return (exec->cmdjoined);
+			free(exec->cmdjoined);
+			i++;
+		}	
+	}
+	return (NULL);
+}
+
+typedef struct s_exec
+{
+	char	**path;
+	char	*partjoin;
+	char	*cmdjoined;
+}	t_exec;

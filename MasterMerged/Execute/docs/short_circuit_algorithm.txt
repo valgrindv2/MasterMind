@@ -1,0 +1,34 @@
+short circuit evaluation is a way to evaluate operand expression && and ||
+gointg from left to right ----> 
+and it is called shor circuit because like in electrical shor circuit once u find the minimal route
+meaning the minimal evaluation needed to know the answer of that expression u exit
+
+for example
+
+A && B: if A is false A = 0, we don't have to check be because we already know the entire expression if false
+so we short circuit and exit with both of them false.
+
+A || B: for example if A is true A = 1, same thing we dont need to check be one of them is already true, so we exit
+with both true
+
+
+The Short Circuit Algorithm (for &&, || execution): in the "AST"
+
+in short terms, this Algorithm as i call it "ched lisr"
+
+--> you have a base condition to execute simple cmd
+--> else if && :
+    ->> recurse left and depending on the exit status
+        --> if true (meaning success)
+            // execute right
+        --> else if false (meaning failure)
+            // recurse back out 
+--> else if || :
+    ->> recurse left and depending on the exit status
+        --> if true (meaning success)
+            // recurse out one already is true
+        --> if false (meaning failure)
+            // execute right.
+
+utilzing Depth-First-Traversal, meaning in short going as deep as u can in the tree before backtracking 🌳
+.

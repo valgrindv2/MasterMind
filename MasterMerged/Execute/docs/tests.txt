@@ -1,0 +1,50 @@
+ls -la || echo hi && echo test
+
+had test katbuilda tree ghalat
+khas tbda mn &&
+
+((ls -la || echo hi) && echo test)
+
+
+a9was kayforsiwha tkon hkak
+
+
+
+in this test there should not be a redirection in the and operator why is there a red in the and.
+
+2.0> echo foo echo foo | grep foo > log && echo "found" > success || echo "nope" > fail
+└─ OR [||]
+   ├─ AND [&&]
+   │  ├─ PIPE [|]
+   │  │  ├─ COMMAND [echo foo echo foo]
+   │  │  └─ COMMAND [grep foo]
+      └─  [Red]  > log --> ID-> OUTPUT_FILE_ID
+   │  └─ COMMAND [echo found]
+   └─ COMMAND [echo nope]
+      └─  [Red]  > success --> ID-> OUTPUT_FILE_ID
+      └─  [Red]  > fail --> ID-> OUTPUT_FILE_ID
+found
+Master@Mindv2.0> 
+
+in MasterMind
+
+this command does:
+creates log file > containing "foo echo foo"
+and outputs into [Terminal] > "found"
+
+in Bash
+
+this command does:
+creates log file > containing "foo echo foo"
+creates success file > containing "foo echo foo"
+
+
+
+
+
+echo "'$HOME''$HOME''$HOME'" "'$HOME'" '$HOME        '                 "'$HOME'""'$HOME        '"
+
+Bash
+'/Users/oussmac''/Users/oussmac''/Users/oussmac' '/Users/oussmac' $HOME         '/Users/oussmac''/Users/oussmac        '
+'/Users/oussmac''/Users/oussmac''/Users/oussmac' '/Users/oussmac' $HOME         '/Users/oussmac''/Users/oussmac        '
+me
