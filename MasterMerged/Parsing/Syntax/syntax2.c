@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   syntax2.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ayel-bou <ayel-bou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/03 19:38:12 by ayel-bou          #+#    #+#             */
-/*   Updated: 2025/08/03 19:38:14 by ayel-bou         ###   ########.fr       */
+/*   Updated: 2025/08/06 07:18:45 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,10 +103,8 @@ int	doubles_verify(t_token *token, t_data *data)
 		}
 		curr = curr->next;
 	}
-	if (!closing_evaluation(token, data))
-	{
-		print_error(BRACE_ERR, NULL, 0);
-		return (0);
-	}
+	if (!closing_evaluation(token, data)
+		&& data->no_sef == true)
+		return (print_error(BRACE_ERR, NULL, 0), 0);
 	return (1);
 }

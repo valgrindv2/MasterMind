@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ayel-bou <ayel-bou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/03 19:15:02 by ayel-bou          #+#    #+#             */
-/*   Updated: 2025/08/05 01:28:49 by ayel-bou         ###   ########.fr       */
+/*   Updated: 2025/08/06 07:20:33 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,10 +36,15 @@ void	voiders(int argc, char **argv, char **env)
 t_tree	*masterpasrse(char *input, t_data *data, t_token **prompts)
 {
 	t_token	*token;
-
+	
+	if (!edge_braces(input, data))
+		return (NULL);
+	// printf("no_sef > %d\n", data->no_sef);
 	token = get_identity(input, data);
-	*prompts = re_identity(token);
-	return (build_tree(*prompts));
+	clean_id_class(&token, FAIL);
+	// *prompts = re_identity(token);
+	// return (build_tree(*prompts));
+	return (NULL);
 }
 
 int	main(int argc, char **argv, char **env)

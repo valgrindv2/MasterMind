@@ -6,7 +6,7 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/04 03:32:22 by ayel-bou          #+#    #+#             */
-/*   Updated: 2025/08/06 01:53:22 by codespace        ###   ########.fr       */
+/*   Updated: 2025/08/06 06:46:29 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -202,6 +202,7 @@ typedef struct s_data
 	bool			check;
 	bool			unreach;
 	bool			chpwd;
+	bool			no_sef;
 	int				flag;
 	char			*home_p;
 	int				saved_in;
@@ -320,9 +321,12 @@ char				*ft_substr(char *s, unsigned int start, size_t len);
 
 // Syntax Verification
 void				puterror(char *str);
+void				pop_out_brace(t_token **token);
 t_token				*get_all_braces(t_token *token);
 int					scan_for_doubles(t_token *token);
+int					edge_braces(char *input, t_data *data);
 int					doubles_verify(t_token *token, t_data *data);
+int					operations_braces(char *braces, t_data *data);
 int					push_br(t_token **stack_br, t_token *to_push);
 void				print_error(char *error, char *err, int mode);
 void				syntax_error_found(t_token *curr, t_data *data);

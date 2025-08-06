@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   syntax3.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ayel-bou <ayel-bou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/03 19:39:40 by ayel-bou          #+#    #+#             */
-/*   Updated: 2025/08/03 19:44:44 by ayel-bou         ###   ########.fr       */
+/*   Updated: 2025/08/06 07:20:14 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,11 +63,9 @@ int	sef_doc(t_token *id_class, t_data *data, int mode)
 	set_ops(new_class);
 	if (!syntax_verify(new_class, data, mode))
 	{
-		clean_fd(new_class);
 		list_cleaner(&new_class);
 		return (0);
 	}
-	clean_fd(new_class);
 	list_cleaner(&new_class);
 	return (1);
 }

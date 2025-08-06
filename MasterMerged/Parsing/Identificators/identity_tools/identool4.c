@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   identool4.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ayel-bou <ayel-bou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/04 03:19:33 by ayel-bou          #+#    #+#             */
-/*   Updated: 2025/08/05 03:06:46 by ayel-bou         ###   ########.fr       */
+/*   Updated: 2025/08/06 03:36:09 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,8 +71,8 @@ static int	open_heredoc(t_token *id_class, t_token *curr, t_data *data)
 	char	*del;
 	char	*gename;
 
-	// if (!sef_doc(id_class, data, HERE_SEF))
-	// 	return (0);
+	if (!sef_doc(id_class, data, HERE_SEF))
+		return (0);
 	gename = name_generator();
 	del = scrap_del(get_delimiter(curr));
 	data->here_fd = open(gename, O_CREAT | O_WRONLY, 0777);

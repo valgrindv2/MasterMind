@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   identool7.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ayel-bou <ayel-bou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/04 03:26:47 by ayel-bou          #+#    #+#             */
-/*   Updated: 2025/08/04 21:57:37 by ayel-bou         ###   ########.fr       */
+/*   Updated: 2025/08/06 06:46:14 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ t_token	*get_all_braces(t_token *token)
 	return (braces);
 }
 
-static void	pop_out_brace(t_token **token)
+void	pop_out_brace(t_token **token)
 {
 	t_token	*reserve;
 

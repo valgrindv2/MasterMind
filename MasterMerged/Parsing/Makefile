@@ -15,6 +15,7 @@ SRC = minishell.c Identificators/identity_tools/identool0.c\
 		tools/tools6.c \
 		tools/tools7.c \
 		Syntax/syntax.c Syntax/syntax2.c Syntax/syntax3.c\
+		Syntax/syntax4.c Syntax/syntax5.c\
 		Identificators/identity_tools/identool2.c\
 		Identificators/identity_tools/identool3.c\
 		Identificators/identity_tools/identool4.c\
