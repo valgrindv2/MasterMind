@@ -121,9 +121,11 @@ void debbuger_tk(t_token *id_class)
             if (trav->arg)
                 printer_arg(trav->arg, "Ags ");
             if (trav->was_single_quote == 1)
-                printf("was s quoted\n");
+                printf("       └─ Was s quoted\n");
             else
-                printf("not quoted\n");
+                printf("       └─ Not Quoted\n");
+            if (trav->fake == true)
+                printf("       └─ FAKE CMD\n");
 
         }
         else if (trav->tok == 17)
@@ -135,7 +137,7 @@ void debbuger_tk(t_token *id_class)
                 printf("End Marked\n");
         }
         trav = trav->next;
-        // printf("****************\n");
+        printf("****************\n");
     }
     printf("***************************************\n");
 }

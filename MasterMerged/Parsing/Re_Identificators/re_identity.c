@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   re_identity.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ayel-bou <ayel-bou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/03 20:54:56 by ayel-bou          #+#    #+#             */
-/*   Updated: 2025/08/03 20:54:57 by ayel-bou         ###   ########.fr       */
+/*   Updated: 2025/08/06 01:57:25 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,8 +80,7 @@ t_token	*re_identity(t_token *id_class)
 		cmd_arg(&curr, &string);
 		curr = curr->next;
 	}
-	only_files(id_class);
-	if (!arg_system(id_class))
+	if (!fake_system(id_class) || !arg_system(id_class))
 		return (clean_id_class(&id_class, FAIL), NULL);
 	return (re_builder(id_class));
 }

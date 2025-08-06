@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   identool0.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ayel-bou <ayel-bou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/04 03:10:27 by ayel-bou          #+#    #+#             */
-/*   Updated: 2025/08/04 03:12:25 by ayel-bou         ###   ########.fr       */
+/*   Updated: 2025/08/06 01:53:00 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ t_token	*ft_lstlast(t_token *lst)
 	return (lst);
 }
 
-static void	init_properties(t_token *new)
+void	init_properties(t_token *new)
 {
 	new->br = 0;
 	new->op = 0;
@@ -46,6 +46,7 @@ static void	init_properties(t_token *new)
 	new->here_document_act = false;
 	new->al_used = false;
 	new->cmd_added = false;
+	new->fake = false;
 	new->quotes_syntax = 0;
 }
 
@@ -72,6 +73,7 @@ static void	re_initialization(t_token *new, t_token *old)
 	new->here_document_act = old->here_document_act;
 	new->al_used = old->al_used;
 	new->cmd_added = old->cmd_added;
+	new->fake = old->fake;
 	new->quotes_syntax = old->quotes_syntax;
 }
 

@@ -29,6 +29,7 @@ SRC = minishell.c Identificators/identity_tools/identool0.c\
 		Re_Identificators/re_identity_tools/re_identool4.c\
 		Re_Identificators/re_identity_tools/re_identool5.c\
 		Re_Identificators/re_identity_tools/re_identool6.c\
+		Re_Identificators/re_identity_tools/re_identool7.c\
 		MasterMind/system_mind0.c MasterMind/system_mind1.c\
 		MasterMind/Mind_tools/mind_tools1.c\
 		MasterMind/Mind_tools/mind_tools2.c MasterMind/Mind_tools/mind_tools3.c \

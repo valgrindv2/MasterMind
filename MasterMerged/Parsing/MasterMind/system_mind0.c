@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   system_mind0.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ayel-bou <ayel-bou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/04 02:28:08 by ayel-bou          #+#    #+#             */
-/*   Updated: 2025/08/04 02:40:49 by ayel-bou         ###   ########.fr       */
+/*   Updated: 2025/08/06 02:26:47 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ t_tree	*build_tree(t_token *id_class)
 		return (NULL);
 	yard = shunting_yard_algorithm(id_class);
 	if (!yard)
-		return (printf("here"), clean_id_class(&id_class, CLEAN), NULL);
+		return (printf("YARD FAILED\n"), clean_id_class(&id_class, CLEAN), NULL);
 	clean_id_class(&id_class, CLEAN);
 	printf("yard >> \n");
 	debbuger_tk(yard);

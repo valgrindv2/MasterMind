@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ayel-bou <ayel-bou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/04 03:32:22 by ayel-bou          #+#    #+#             */
-/*   Updated: 2025/08/04 23:05:30 by ayel-bou         ###   ########.fr       */
+/*   Updated: 2025/08/06 01:53:22 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,11 +44,14 @@
 # define INIT 0
 # define MARK 0
 # define DEMARK 1
+# define LAST 0
+# define INSIDE 1
 # define D_INIT 1
 # define OLDPWD 0
 # define L_POW 1
 # define M_POW 2
 # define H_POW 3
+# define FAKE "F4K3"
 # define SEF_DOC 1
 # define HERE_SEF 0
 # define SEF_ALL 1
@@ -232,6 +235,7 @@ typedef struct s_token
 	int				quotes_syntax;
 	bool			here_document_act;
 	bool			del_fd;
+	bool			fake;
 	bool			cmd_up_next;
 	bool			cmd_added;
 	struct s_token	*next;
@@ -348,7 +352,9 @@ int					requirements(t_token *curr, t_token *id_class,
 						t_data *data);
 
 // Re_Identification Of Tokens
+void				init_properties(t_token *new);
 t_token				*re_builder(t_token *id_class);
+int					fake_system(t_token *id_class);
 t_token				*re_identity(t_token *id_class);
 void				cmd_arg(t_token **curr, int *string);
 void				identify_argument(t_token **id_class);
