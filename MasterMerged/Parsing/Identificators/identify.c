@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   identify.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ayel-bou <ayel-bou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/04 03:08:26 by ayel-bou          #+#    #+#             */
-/*   Updated: 2025/08/05 02:02:24 by ayel-bou         ###   ########.fr       */
+/*   Updated: 2025/08/07 03:24:48 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,6 +88,7 @@ t_token	*get_identity(char *input, t_data *dt)
 			break ;
 		unit_call_space_next(id_class, input, &dt->i);
 	}
+	// printf("hererps\n");
 	if (!syntax_verify(id_class, dt, SEF_ALL))
 	{
 		clean_fd(id_class);

@@ -3,22 +3,24 @@
 /*                                                        :::      ::::::::   */
 /*   identool5.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ayel-bou <ayel-bou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/04 03:21:21 by ayel-bou          #+#    #+#             */
-/*   Updated: 2025/08/04 03:21:22 by ayel-bou         ###   ########.fr       */
+/*   Updated: 2025/08/07 05:03:09 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
 
-void	takeoff_quotes(t_token *tok)
+int	takeoff_quotes(t_token *tok)
 {
 	char	*no_quotes;
 
 	if (tok->tok == S_QUOTE_ID)
 	{
 		no_quotes = ft_strtrim(tok->identity, "\'");
+		if (!no_quotes)
+			return (0);
 		free(tok->identity);
 		tok->identity = no_quotes;
 		tok->was_single_quote = 1;
@@ -26,10 +28,13 @@ void	takeoff_quotes(t_token *tok)
 	else if (tok->tok == D_QUOTE_ID)
 	{
 		no_quotes = ft_strtrim(tok->identity, "\"");
+		if (!no_quotes)
+			return (0);
 		free(tok->identity);
 		tok->identity = no_quotes;
 		tok->was_double_quote = 1;
 	}
+	return (1);
 }
 
 int	change_id(t_token *next_heredoc, t_data *data)
@@ -41,12 +46,13 @@ int	change_id(t_token *next_heredoc, t_data *data)
 	}
 	if (!delimiter_next(next_heredoc, data))
 	{
-		if (data->fail == 1)
+		if (data->fail == true)
 			return (data->fail = false, 0);
 	}
 	else
 		return (1);
-	takeoff_quotes(next_heredoc);
+	if (!takeoff_quotes(next_heredoc))
+		return (0);
 	next_heredoc->tok = DEL_ID;
 	return (1);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tools3.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ayel-bou <ayel-bou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/03 20:02:56 by ayel-bou          #+#    #+#             */
-/*   Updated: 2025/08/03 20:10:16 by ayel-bou         ###   ########.fr       */
+/*   Updated: 2025/08/07 03:46:54 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,5 +33,6 @@ void	init_data_struct(t_data *data, char **env)
 	data->chpwd = false;
 	data->unreach = false;
 	data->home_p = NULL;
+	data->br_fail = false;
 	data->pwd_reserve = NULL;
 }

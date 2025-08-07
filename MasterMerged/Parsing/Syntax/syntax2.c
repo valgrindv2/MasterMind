@@ -6,7 +6,7 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/03 19:38:12 by ayel-bou          #+#    #+#             */
-/*   Updated: 2025/08/07 02:36:15 by codespace        ###   ########.fr       */
+/*   Updated: 2025/08/07 03:46:34 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,17 +97,16 @@ int	doubles_verify(t_token *token, t_data *data)
 			if (!non_print(curr->next->identity) && !flag_in
 				|| (curr->tok == BRACE_O_ID && curr->next->tok == BRACE_C_ID))
 			{
-				printf("ERROR1\n");
 				syntax_error_found(curr->next, data);
 				return (0);
 			}
 		}
 		curr = curr->next;
 	}
-	data->fail = closing_evaluation(token, data);
-	if (data->fail == ANOMALY)
+	data->br_fail = closing_evaluation(token, data);
+	if (data->br_fail == ANOMALY)
 		return (0);
-	if (data->fail == 0 && data->no_sef == true)
+	if (data->br_fail == 0 && data->no_sef == true)
 		return (print_error(BRACE_ERR, NULL, 0), 0);
 	return (1);
 }

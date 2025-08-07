@@ -6,7 +6,7 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/03 19:15:02 by ayel-bou          #+#    #+#             */
-/*   Updated: 2025/08/07 02:56:53 by codespace        ###   ########.fr       */
+/*   Updated: 2025/08/07 03:05:41 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ t_tree	*masterpasrse(char *input, t_data *data, t_token **prompts)
 	token = get_identity(input, data);
 	// clean_id_class(&token, FAIL);
 	*prompts = re_identity(token);
-	clean_id_class(&prompts, FAIL);
+	clean_id_class(prompts, FAIL);
 	// return (build_tree(*prompts));
 	return (NULL);
 }
@@ -76,3 +76,7 @@ int	main(int argc, char **argv, char **env)
 	return (free_argv(data.env_vec), free_envlist(data.env),
 		free(input), EXIT_SUCCESS);
 }
+
+/*
+		'ls' || (cat | ls ) && << eof | cat -e << ok | "cat" 
+*/

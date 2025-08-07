@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   identool6.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ayel-bou <ayel-bou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/04 03:23:39 by ayel-bou          #+#    #+#             */
-/*   Updated: 2025/08/04 03:23:39 by ayel-bou         ###   ########.fr       */
+/*   Updated: 2025/08/07 05:03:56 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,8 @@ int	delimiter_next(t_token *next_heredoc, t_data *data)
 		return (0);
 	while (next_heredoc)
 	{
-		takeoff_quotes(next_heredoc);
+		if (!takeoff_quotes(next_heredoc))
+			return (data->fail = true, free(del_join), 0);
 		del_join = join_delimiter(del_join, next_heredoc, index);
 		if (!del_join)
 			return (data->fail = true, 0);
@@ -111,6 +112,5 @@ int	delimiter_next(t_token *next_heredoc, t_data *data)
 		next_heredoc = next_heredoc->next;
 		index++;
 	}
-	free_nodes_del(delimiter, del_join);
-	return (1);
+	return (free_nodes_del(delimiter, del_join), 1);
 }

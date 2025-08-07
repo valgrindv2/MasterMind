@@ -6,7 +6,7 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/04 03:32:22 by ayel-bou          #+#    #+#             */
-/*   Updated: 2025/08/06 08:07:50 by codespace        ###   ########.fr       */
+/*   Updated: 2025/08/07 03:46:26 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -204,6 +204,7 @@ typedef struct s_data
 	bool			chpwd;
 	bool			no_sef;
 	int				ch_fail;
+	bool			br_fail;
 	int				flag;
 	char			*home_p;
 	int				saved_in;
@@ -340,7 +341,7 @@ int					realt_quotes(char *input, int doubles_case,
 char				*ft_itoa(int n);
 void				set_free(t_token *curr);
 int					list_size(t_token *list);
-void				takeoff_quotes(t_token *tok);
+int					takeoff_quotes(t_token *tok);
 void				space_flag(t_token *id_class);
 char				*get_delimiter(t_token *token);
 int					get_here_times(t_token *id_class);
