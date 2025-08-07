@@ -26,7 +26,7 @@
 
 	> if the PWD AND OLDPWD are unetted nothing of them is updated, yet if exported they need to be changed (TO CHECK AFTER EXPORT IS WORKING)
 
-	> Update the OLDPWD Also (TODO in Cd)
+	> Update the OLDPWD Also (TODO in Cd) (CHECKED)
 
 	> Ft_strdup Failure in building the tree recursively (TODO) NEED TO CHECK CAREFULLY HOW IT SHOULD BE PROTECTED
 

@@ -6,7 +6,7 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/03 19:15:02 by ayel-bou          #+#    #+#             */
-/*   Updated: 2025/08/06 07:20:33 by codespace        ###   ########.fr       */
+/*   Updated: 2025/08/07 02:56:53 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,8 +41,9 @@ t_tree	*masterpasrse(char *input, t_data *data, t_token **prompts)
 		return (NULL);
 	// printf("no_sef > %d\n", data->no_sef);
 	token = get_identity(input, data);
-	clean_id_class(&token, FAIL);
-	// *prompts = re_identity(token);
+	// clean_id_class(&token, FAIL);
+	*prompts = re_identity(token);
+	clean_id_class(&prompts, FAIL);
 	// return (build_tree(*prompts));
 	return (NULL);
 }
@@ -69,7 +70,7 @@ int	main(int argc, char **argv, char **env)
 		if (input[0] != '\0')
 			add_history(input);
 		tree = masterpasrse(input, &data, &re_built);
-		print_tree(tree);
+		// print_tree(tree);
 		// execute_tree(tree, &data, env, re_built);
 	}
 	return (free_argv(data.env_vec), free_envlist(data.env),

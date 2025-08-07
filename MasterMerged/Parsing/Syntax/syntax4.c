@@ -60,10 +60,11 @@ int	edge_braces(char *input, t_data *data)
 
 	data->no_sef = false;
 	if (!check_braces(input))
-		return (0);
+		return (1);
 	braces = all_braces(input);
 	if (!braces || !operations_braces(braces, data))
 	{
+		free(input);
 		free(braces);
 		return (0);
 	}

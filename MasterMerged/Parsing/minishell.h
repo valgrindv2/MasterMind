@@ -6,7 +6,7 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/04 03:32:22 by ayel-bou          #+#    #+#             */
-/*   Updated: 2025/08/06 06:46:29 by codespace        ###   ########.fr       */
+/*   Updated: 2025/08/06 08:07:50 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -203,6 +203,7 @@ typedef struct s_data
 	bool			unreach;
 	bool			chpwd;
 	bool			no_sef;
+	int				ch_fail;
 	int				flag;
 	char			*home_p;
 	int				saved_in;

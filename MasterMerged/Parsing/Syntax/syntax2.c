@@ -6,7 +6,7 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/03 19:38:12 by ayel-bou          #+#    #+#             */
-/*   Updated: 2025/08/06 07:18:45 by codespace        ###   ########.fr       */
+/*   Updated: 2025/08/07 02:36:15 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ static int	closing_evaluation(t_token *token, t_data *data)
 	braces = get_all_braces(token);
 	point = braces;
 	if (!braces)
-		return (0);
+		return (ANOMALY);
 	while (braces != NULL)
 	{
 		if (!push_br(&stack_br, braces))
@@ -97,14 +97,17 @@ int	doubles_verify(t_token *token, t_data *data)
 			if (!non_print(curr->next->identity) && !flag_in
 				|| (curr->tok == BRACE_O_ID && curr->next->tok == BRACE_C_ID))
 			{
+				printf("ERROR1\n");
 				syntax_error_found(curr->next, data);
 				return (0);
 			}
 		}
 		curr = curr->next;
 	}
-	if (!closing_evaluation(token, data)
-		&& data->no_sef == true)
+	data->fail = closing_evaluation(token, data);
+	if (data->fail == ANOMALY)
+		return (0);
+	if (data->fail == 0 && data->no_sef == true)
 		return (print_error(BRACE_ERR, NULL, 0), 0);
 	return (1);
 }

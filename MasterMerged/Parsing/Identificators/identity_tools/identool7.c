@@ -6,7 +6,7 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/04 03:26:47 by ayel-bou          #+#    #+#             */
-/*   Updated: 2025/08/06 06:46:14 by codespace        ###   ########.fr       */
+/*   Updated: 2025/08/06 08:16:46 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ t_token	*get_all_braces(t_token *token)
 			in = add_identity(ft_strdup(token->identity),
 					token->tok, D_INIT, NULL);
 			if (!in)
-				return (NULL);
+				return (list_cleaner(&braces), NULL);
 			add_back_identity(&braces, in, D_INIT);
 		}
 		token = token->next;
