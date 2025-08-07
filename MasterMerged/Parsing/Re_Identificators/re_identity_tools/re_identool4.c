@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   re_identool4.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ayel-bou <ayel-bou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/04 01:57:51 by ayel-bou          #+#    #+#             */
-/*   Updated: 2025/08/04 01:57:52 by ayel-bou         ###   ########.fr       */
+/*   Updated: 2025/08/07 09:24:32 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,20 +55,23 @@ t_red	*redirection_cop(t_token *id_class, int *fail)
 	if (!id_class)
 		return (*fail = 0, NULL);
 	new = malloc(sizeof(t_red));
+	// new = NULL;
 	if (!new)
 		return (*fail = 1, NULL);
 	new->value = ft_strdup(id_class->identity);
+	// new->value = NULL;
 	if (!new->value)
-		return (*fail = 1, NULL);
+		return (*fail = 1, free(new), NULL);
 	new->tok = id_class->tok;
 	new->was_d_quote = id_class->was_double_quote;
 	new->was_s_quote = id_class->was_single_quote;
 	new->next = NULL;
 	if (new->tok == DEL_ID && id_class->here_doc_fd != -1)
 	{
-		new->fd_here_doc = dup(id_class->here_doc_fd);
+		// new->fd_here_doc = dup(id_class->here_doc_fd);
+		new->fd_here_doc = -1;
 		if (new->fd_here_doc == -1)
-			return (*fail = 1, NULL);
+			return (*fail = 1, free(new->value), free(new), NULL);
 		close(id_class->here_doc_fd);
 	}
 	else if (id_class->here_doc_fd == -1)

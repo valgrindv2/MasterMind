@@ -6,7 +6,7 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/03 20:54:56 by ayel-bou          #+#    #+#             */
-/*   Updated: 2025/08/07 03:03:10 by codespace        ###   ########.fr       */
+/*   Updated: 2025/08/07 06:49:22 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,7 @@ static int	remove_q(t_token *curr, int mode)
 	}
 	else if (mode == DQ)
 	{
-		// removed = ft_strtrim(curr->identity, "\"");
-		removed = NULL;
+		removed = ft_strtrim(curr->identity, "\"");
 		if (!removed)
 			return (S);
 		free(curr->identity);
@@ -71,7 +70,7 @@ t_token	*re_identity(t_token *id_class)
 	string = 0;
 	curr = id_class;
 	if (!quotes_removal(id_class))
-		return (clean_fd(id_class), list_cleaner(&id_class), puts("QUOTES REMOVAL FAILED"), NULL);
+		return (clean_fd(id_class), list_cleaner(&id_class), NULL);
 	while (curr != NULL)
 	{
 		if (curr->tok == PIPE_ID || curr->tok == OR_ID

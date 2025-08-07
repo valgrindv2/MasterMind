@@ -105,3 +105,46 @@ only from fds since we cleaned the yard containing the red and arg system struct
 		}
 		curr = curr->next;
 	}
+
+During the Big Scan, check for any function that add a node into a list 
+then check after strdup Failure, u need to free the allocated node
+before returning the NULL.
+
+in case of arg system failing suddenly check the uncommented part in arg_system function
+
+static int	operations(t_token *id_class)
+{
+	t_arg	*class;
+	t_arg	*new;
+	t_token	*arg;
+
+	if (id_class->cmd_added == false)
+	{
+		class = new_argument(id_class);
+		if (!class)
+			return (free(new), free(new->value), 0);
+		printf("class2 > %s\n", class->value);
+		add_arg_to_list(&id_class->arg, class);
+		id_class->cmd_added = true;
+	}
+	arg = get_argument(id_class);
+	if (!arg)
+	{
+		// class = new_argument(id_class);
+		// if (!class)
+		// 	return (0);
+		// printf("class1 > %s\n", class->value);
+		// add_arg_to_list(&id_class->arg, class);
+		return (1);
+	}
+	new = new_argument(arg);
+	printf("new > %s\n", new->value);
+	if (!new)
+		return (0);
+	return (add_arg_to_list(&id_class->arg, new), 1);
+}
+
+
+CASE 
+
+ls -la || cat '-e' | pwd && cat -e| > f1 > f2 << ok << eof

@@ -6,7 +6,7 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/04 03:26:47 by ayel-bou          #+#    #+#             */
-/*   Updated: 2025/08/06 08:16:46 by codespace        ###   ########.fr       */
+/*   Updated: 2025/08/07 06:34:14 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,7 @@ int	store_fd(t_token *id_class, t_data *data)
 			if (data->here_fd != -1)
 				curr->here_doc_fd = dup(data->here_fd);
 			if (curr->here_doc_fd == -1)
-				return (0);
+				return (close(data->here_fd), 0);
 			close(data->here_fd);
 			curr->del_fd = true;
 			break ;

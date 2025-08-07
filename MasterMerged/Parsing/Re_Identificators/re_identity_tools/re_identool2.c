@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   re_identool2.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ayel-bou <ayel-bou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/03 20:58:42 by ayel-bou          #+#    #+#             */
-/*   Updated: 2025/08/03 20:59:49 by ayel-bou         ###   ########.fr       */
+/*   Updated: 2025/08/07 09:07:36 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,25 +53,25 @@ static void	delete_args(t_token *id_class)
 
 static int	operations(t_token *id_class)
 {
+	t_arg	*class;
 	t_arg	*new;
 	t_token	*arg;
 
+	if (id_class->cmd_added == false)
+	{
+		class = new_argument(id_class);
+		if (!class)
+			return (0);
+		add_arg_to_list(&id_class->arg, class);
+		id_class->cmd_added = true;
+	}
 	arg = get_argument(id_class);
 	if (!arg)
-	{
-		add_arg_to_list(&id_class->arg, new_argument(id_class));
 		return (1);
-	}
 	new = new_argument(arg);
 	if (!new)
 		return (0);
-	if (id_class->cmd_added == false)
-	{
-		add_arg_to_list(&id_class->arg, new_argument(id_class));
-		id_class->cmd_added = true;
-	}
-	add_arg_to_list(&id_class->arg, new);
-	return (1);
+	return (add_arg_to_list(&id_class->arg, new), 1);
 }
 
 int	arg_system(t_token *id_class)

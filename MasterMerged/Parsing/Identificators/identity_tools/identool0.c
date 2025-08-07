@@ -6,7 +6,7 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/04 03:10:27 by ayel-bou          #+#    #+#             */
-/*   Updated: 2025/08/06 01:53:00 by codespace        ###   ########.fr       */
+/*   Updated: 2025/08/07 09:03:02 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,11 +100,11 @@ t_token	*add_identity(char *content, enum grammar tok, int mode, t_token *infos)
 
 	new_node = malloc(sizeof(t_token));
 	if (!content || !new_node)
-		return (NULL);
+		return (free(new_node), NULL);
 	new_node->identity = ft_strdup(content);
 	free(content);
 	if (!new_node->identity)
-		return (NULL);
+		return (free(new_node), NULL);
 	new_node->tok = tok;
 	new_node->next = NULL;
 	if (mode == INIT)
@@ -114,7 +114,7 @@ t_token	*add_identity(char *content, enum grammar tok, int mode, t_token *infos)
 		{
 			new_node->here_doc_fd = dup(infos->here_doc_fd);
 			if (new_node->here_doc_fd == -1)
-				return (NULL);
+				return (free(new_node->identity), free(new_node), NULL);
 			close(infos->here_doc_fd);
 		}
 		else

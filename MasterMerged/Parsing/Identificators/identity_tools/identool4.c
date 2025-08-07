@@ -6,7 +6,7 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/04 03:19:33 by ayel-bou          #+#    #+#             */
-/*   Updated: 2025/08/07 04:25:22 by codespace        ###   ########.fr       */
+/*   Updated: 2025/08/07 06:32:53 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,10 +74,14 @@ static int	open_heredoc(t_token *id_class, t_token *curr, t_data *data)
 	if (!sef_doc(id_class, data, HERE_SEF))
 		return (0);
 	gename = name_generator();
+	if (!gename)
+		return (0);
 	del = scrap_del(get_delimiter(curr));
+	if (!del)
+		return (free(gename), 0);
 	data->here_fd = open(gename, O_CREAT | O_WRONLY, 0777);
 	if (data->here_fd == -1)
-		return (0);
+		return (free(del), free(gename), 0);
 	unlink(gename);
 	if (!here_doc_ops(id_class, data, del))
 		return (free(del), free(gename), 0);

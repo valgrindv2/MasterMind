@@ -6,7 +6,7 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/03 19:39:40 by ayel-bou          #+#    #+#             */
-/*   Updated: 2025/08/07 04:22:32 by codespace        ###   ########.fr       */
+/*   Updated: 2025/08/07 06:34:52 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,6 @@ int	sef_doc(t_token *id_class, t_data *data, int mode)
 		return (data->fail = 0, 0);
 	else if (!new_class && data->fail == 0)
 		return (1);
-	// printer(new_class, "NEW CLASS >");
 	set_ops(new_class);
 	if (!syntax_verify(new_class, data, mode))
 	{

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tools9.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ayel-bou <ayel-bou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/03 20:48:04 by ayel-bou          #+#    #+#             */
-/*   Updated: 2025/08/05 03:01:20 by ayel-bou         ###   ########.fr       */
+/*   Updated: 2025/08/07 06:35:40 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,13 +47,10 @@ int	here_doc_ops(t_token *id_class, t_data *data, char *del)
 	in = readline("Here_doc> ");
 	while (ft_strcmp(del, in))
 	{
-		// why sigheredoc didnt work on the inside of the loop ?
-		// how does the global var gets reseted to zero after the singla (CTRL + C) ?
 		if (!in)
 		{
 			here_doc_interruption(in, data, sv);
 			return (0);
-			// may check for fd and laeks
 		}
 		cpy_to_file(in, data);
 		in = readline("Here_doc> ");
