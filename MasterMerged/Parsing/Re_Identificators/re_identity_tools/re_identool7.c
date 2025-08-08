@@ -51,7 +51,3 @@ int	fake_system(t_token *id_class)
 	}
 	return (1);
 }
-/*
-		> f1 > f3 || << ok cat | >f2
-		 >f1 > f2 || >f3 << ok && >> f4
-*/

@@ -6,7 +6,7 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/03 20:57:05 by ayel-bou          #+#    #+#             */
-/*   Updated: 2025/08/07 09:29:20 by codespace        ###   ########.fr       */
+/*   Updated: 2025/08/08 05:00:41 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,19 +32,14 @@ static int	no_command(t_token *id_class)
 	return (0);
 }
 
-static void	all_cleaner(t_token **id_class, t_token **re_built, int mode)
+static void	all_cleaner(t_token **id_class, t_token **re_built)
 {
-	debbuger_tk(*re_built);
-	if (mode == RED_ARG_CLEAN)
-	{
-		cleaner_arg(*id_class);
-		cleaner_red(*id_class);
-	}
+	cleaner_arg(*re_built);
+	cleaner_red(*re_built);
 	clean_fd(*id_class);
 	list_cleaner(id_class);
 	clean_fd(*re_built);
 	list_cleaner(re_built);
-	// cleaner_red(*re_built);
 }
 
 static int	redirection_sys(t_token **re_built, t_token **id_class)
@@ -53,7 +48,7 @@ static int	redirection_sys(t_token **re_built, t_token **id_class)
 	{
 		command_ahead(*re_built);
 		if (red_system(re_built) == ANOMALY)
-			return (puts("REDSYS FAILED"),0);
+			return (0);
 	}
 	return (1);
 }
@@ -66,21 +61,19 @@ t_token	*re_builder(t_token *id_class)
 
 	re_built = NULL;
 	curr = id_class;
-	printer(id_class, "IDCLASS >");
 	while (curr != NULL)
 	{
 		if (!(1 <= curr->tok && curr->tok <= 4))
 		{
 			in = add_identity(ft_strdup(curr->identity), curr->tok, INIT, curr);
 			if (!in)
-				return (all_cleaner(&id_class, &re_built, RED_ARG_CLEAN), NULL);
+				return (all_cleaner(&id_class, &re_built), NULL);
 			add_back_identity(&re_built, in, D_INIT);
 		}
 		curr = curr->next;
 	}
-	if (!redirection_sys(&re_built, &id_class))
-		return (all_cleaner(&id_class, &re_built,
-			RED_ARG_CLEAN), NULL);
+	if (!redirection_sys(&re_built, &id_class) || !arg_system(re_built))
+		return (all_cleaner(&id_class, &re_built), NULL);
 	clean_id_class(&id_class, CLEAN);
 	return (re_built);
 }
