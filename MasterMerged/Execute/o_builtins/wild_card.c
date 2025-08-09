@@ -1,6 +1,6 @@
 #include "../execute.h"
 
-static bool has_star(char *str)
+bool has_star(char *str)
 {
     int i;
 
@@ -35,7 +35,7 @@ static char **get_all_files(void)
     count = 0;
     while ((entry = readdir(dir)))
         if (entry->d_name[0] != '.' && entry->d_name[0] != '*')
-            files[count++] = strdup(entry->d_name);
+            files[count++] = ft_strdup(entry->d_name);
     files[count] = NULL;
     return (closedir(dir), files);
 }
@@ -76,8 +76,8 @@ typedef struct s_linkpattern
     int     j;
     int     k;
 }   t_linkpattern;
-
-static int link_patterns_to_argv(t_tree *node)
+// change this to work on a single t_arg linked list string with was single quoted params and double qouted.
+int link_patterns_to_argv(t_tree *node)
 {
     t_linkpattern lp;
 
@@ -98,10 +98,10 @@ static int link_patterns_to_argv(t_tree *node)
         {
             lp.j = 0;
             while (lp.files[lp.j])
-                lp.new_argv[lp.k++] = strdup(lp.files[lp.j++]);
+                lp.new_argv[lp.k++] = ft_strdup(lp.files[lp.j++]);
         }
         else
-            lp.new_argv[lp.k++] = strdup(node->argv[lp.i]);
+            lp.new_argv[lp.k++] = ft_strdup(node->argv[lp.i]);
         lp.i++;
     }
     lp.new_argv[lp.k] = NULL;

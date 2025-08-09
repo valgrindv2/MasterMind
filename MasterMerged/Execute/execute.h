@@ -4,6 +4,8 @@
 # include "../Parsing/minishell.h"
 # define RECURS_LIMIT (size_t)500
 # define EXECVE_FAILURE 127
+# define EXPORTED true
+# define NO_VALUE false
 
 
 
@@ -19,17 +21,17 @@
 # define RST "\e[97m"
 
 
-// ----------------------------------------------------------------------------
-#pragma once
-// Enable/disable failing malloc
-void trigger_malloc_fail_next(const char *file, int line);
+// // ----------------------------------------------------------------------------
+// #pragma once
+// // Enable/disable failing malloc
+// void trigger_malloc_fail_next(const char *file, int line);
 
-// The actual malloc wrapper
-void *fail_malloc(size_t size, const char *file, int line);
+// // The actual malloc wrapper
+// void *fail_malloc(size_t size, const char *file, int line);
 
-// Macro to replace malloc() with our controlled version
-#define malloc(size) fail_malloc(size, __FILE__, __LINE__)
-// ----------------------------------------------------------------------------
+// // Macro to replace malloc() with our controlled version
+// #define malloc(size) fail_malloc(size, __FILE__, __LINE__)
+// // ----------------------------------------------------------------------------
 
 
 

@@ -1,40 +1,59 @@
 #include "../execute.h"
 
-static char *get_value(char *str)
+char *get_value(char *str)
 {
     int     equals;
+    bool    has_equal;
     char    *value;
+    char    anon[2];
 
     if (!str)
         return (perror("NULL Key in envp."), NULL);
     equals = 0;
+    has_equal = false;
+    anon[0] = (char)127;
+    anon[1] = '\0';
     while (str[equals])
     {
         if (str[equals++] == '=')
+        {
+            has_equal = true;
             break ;
+        }
     }
-    value = ft_substr(str, equals, o_ft_strlen(str));
+    if (has_equal)
+        value = ft_substr(str, equals, o_ft_strlen(str));
+    else
+        value = ft_strdup(anon);
     return (value);
 }
 
-static char *get_key(char *str)
+char *get_key(char *str)
 {
     int     equals;
+    bool    has_equal;
     char    *key;
 
     if (!str)
         return (perror("NULL Key in envp."), NULL); // cant ever happen unless i pass it.
     equals = 0;
+    has_equal = false;
     while (str[equals])
     {
         if (str[equals++] == '=')
+        {
+            has_equal = true;
             break ;
+        }
     }
-    key = ft_substr(str, 0, equals - 1); // if this fails it will return a NULL.
+    if (has_equal)
+        key = ft_substr(str, 0, equals - 1); // if this fails it will return a NULL.
+    else
+        key = ft_strdup(str);
     return (key);
 }
 
-int add_to_envlist(t_envlist **envlist, char *str)
+int add_to_envlist(t_envlist **envlist, char *str, bool exported)
 {
     t_envlist   *new_env;
     t_envlist   *curr;
@@ -49,7 +68,7 @@ int add_to_envlist(t_envlist **envlist, char *str)
     if (!new_env->value)
         return (free(new_env), free(new_env->variable), EXIT_FAILURE);
     new_env->pointed = false;
-    new_env->exported = true; // comes from parent by default exported.
+    new_env->exported = exported; // comes from parent by default exported.
     new_env->next = NULL;
     if (!*envlist)
         *envlist = new_env;

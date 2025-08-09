@@ -48,3 +48,5 @@ Bash
 '/Users/oussmac''/Users/oussmac''/Users/oussmac' '/Users/oussmac' $HOME         '/Users/oussmac''/Users/oussmac        '
 '/Users/oussmac''/Users/oussmac''/Users/oussmac' '/Users/oussmac' $HOME         '/Users/oussmac''/Users/oussmac        '
 me
+
+ls -l -a > b a

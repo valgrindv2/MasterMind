@@ -35,4 +35,7 @@ void	init_data_struct(t_data *data, char **env)
 	data->home_p = NULL;
 	data->br_fail = 0;
 	data->pwd_reserve = NULL;
+	// added.
+	data->pid = 1111;
+    data->last_executed = NULL;
 }

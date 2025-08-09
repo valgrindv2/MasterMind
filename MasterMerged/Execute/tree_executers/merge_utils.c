@@ -8,7 +8,7 @@ static int  create_envlist(t_envlist **envlist, char **envp)
     *envlist = NULL;
     while (envp[i]) // iterating over og **envp
     {
-        if (add_to_envlist(envlist, envp[i++]) != EXIT_SUCCESS)
+        if (add_to_envlist(envlist, envp[i++], EXPORTED) != EXIT_SUCCESS)
             return (EXIT_FAILURE);
     }
     return (EXIT_SUCCESS);
@@ -20,7 +20,7 @@ static int tree_traverser(t_tree *root,t_data *data, size_t *recurs_count)
         return (EXIT_FAILURE);
     (*recurs_count)++;
     if (root->tok == COMMAND_ID)
-    { 
+    {
         root->argv = convert_list_to_argv(root->arg, data); // matnsach tfreei fldakhl
         if (!root->argv)
             return (EXIT_FAILURE);
@@ -46,7 +46,6 @@ static int  merge_env(t_data *data, char **env)
     if (create_envlist(&data->env, env) != EXIT_SUCCESS || !data->env)
         return (EXIT_FAILURE);
     data->env_vec = convert_list_to_envp(data->env);
-    data->pwd_reserve = ft_strdup(get_path(data->env, P_W_D));
     if (!data->env_vec)
         return (EXIT_FAILURE);
     data->env_is_set = true;
@@ -63,6 +62,7 @@ int merger(t_tree *root, t_data *data, char **env)
         // here not cleaned up yet check all the things that happen in merge_env.
         return (perror("Failed To Merge ENV"), EXIT_FAILURE);
     }
+    data->head = root;
     if (tree_traverser(root, data, &r_c) != EXIT_SUCCESS)
     {
         r_c = 0;

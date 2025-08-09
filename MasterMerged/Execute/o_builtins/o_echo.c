@@ -5,6 +5,18 @@ static void ft_putchar(char c)
     write(STDOUT_FILENO, &c, 1);
 }
 
+static  void ft_putstr(char *str)
+{
+    int i;
+
+    i = 0;
+    while (str[i])
+    {
+        ft_putchar(str[i]);
+        i++;
+    }
+}
+
 static bool validate_echo_option(char *str)
 {
     int j;
@@ -57,6 +69,7 @@ int o_echo(t_tree *node)
     newline = false;
     i = 1; // start from 1 : [0) echo] [1)hello]<-- (here)  [2)world] [NULL]; 
     // echo has already been validated in teh strcmp.
+    ft_putstr(YLW);
     while (node->argv[i])
     {
         if (i == 1)
@@ -67,6 +80,7 @@ int o_echo(t_tree *node)
             ft_putchar(' ');
         i++;
     }
+    ft_putstr(RST);
     if (!newline)
         ft_putchar('\n');
 

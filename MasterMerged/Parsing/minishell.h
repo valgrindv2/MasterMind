@@ -184,6 +184,16 @@ typedef struct s_exportlist
 	struct s_exportlist	*next;
 }	t_exportlist;
 
+// pocket insertion struct.
+typedef struct s_pocket
+{
+    int		i;
+	int		j;
+	int		keylen;
+	char	*value;
+    size_t  cap;
+} t_pocket;
+
 // Struct Holding MasterMind Data
 typedef struct s_data
 {
@@ -208,10 +218,16 @@ typedef struct s_data
 	int				br_fail;
 	int				flag;
 	char			*home_p;
-	int				saved_in;
-	int				saved_out;
 	char			*pwd_reserve;
-	bool			env_is_set;
+	// Exec Data
+    int saved_in;
+    int saved_out;
+    bool    env_is_set; // tracks if we already built env.
+    int     pid;
+    t_pocket pc;
+    t_tree *head;
+    char *last_executed;
+    int anon_start;
 }	t_data;
 
 // Linked List To Store Each Entity
@@ -429,43 +445,129 @@ int					printer(t_token *curr, char *name);
 int					printer_arg(t_arg *curr, char *name);
 int					printer_red(t_red *curr, char *name);
 
+
+
+
 // ouss functions  ---------------------
-typedef struct s_exp_tokens
+
+#include <dirent.h>
+
+typedef struct s_plist
 {
-	char				*string;
-	bool				is_env_var;
-	bool				double_q;
-	bool				single_q;
-	bool				wrap_me;
-	int					index;
-	struct s_exp_tokens	*next;
-}	t_exp_tokens;
+    t_tree *cmd_node;
+    struct s_plist *next;
+}   t_plist;
+
+typedef struct s_ifs
+{
+    char        *string;
+    struct s_ifs *next;
+}   t_ifs;
+
+typedef struct s_ifs_vars
+{
+    char    **ifs_split;
+    char    **new_argv;
+    t_ifs   *ifs_list;
+    int     i;
+    int     j;
+}   t_ifs_vars;
+
+typedef struct s_convert
+{
+    char        **argv;
+    char        **new_argv;
+    size_t      argc;
+    int         i;
+    t_arg       *free_head;
+}   t_convert;
+
 
 // Main Exec Functionality.
-int					exec_node(t_tree *node,
-						t_data *data);
-int					merger(t_tree *root,
-						t_data *data, char **env);
-int					recursive_execution(t_tree *node,
-						t_data *data);
-int					execute_pipeline(t_tree *node,
-						t_data *data, int input_fd);
-int					execute_tree(t_tree *root,
-						t_data *data, char **env, void *re_built);
-int					short_circuit_operand(t_tree *node,
-						t_grammar operand_id, t_data *data);
+int                 exec_node(t_tree *node, t_data *data);
+int                 merger(t_tree *root, t_data *data, char **env);
+int                 recursive_execution(t_tree *node, t_data *data);
+int                 execute_pipeline(t_tree *node, t_data *data, int input_fd);
+int                 execute_tree(t_tree *root, t_data *data, char **env, void *re_built);
+int                 short_circuit_operand(t_tree *node, t_grammar operand_id, t_data *data);
 
 // Builtins
-int					o_echo(t_tree *node);
-size_t				arg_count(char **argv);
-bool				validate_builtin(char *str);
-int					o_cd(t_tree *node, t_data *data);
-int					o_pwd(t_tree *node, t_data *data);
-int					o_env(t_tree *node, t_data *data);
-int					o_exit(t_tree *node, t_data *data);
-int					o_unset(t_tree *node, t_data *data);
-int					o_export(t_tree *node, t_data *data);
-int					exec_builtin(t_tree *node, t_data *data);
+int                 o_echo(t_tree *node);
+bool                validate_builtin(char *str);
+int                 o_cd(t_tree *node, t_data *data);
+int                 o_pwd(t_tree *node, t_data *data);
+int                 o_env(t_tree *node, t_data *data);
+int                 o_exit(t_tree *node, t_data *data);
+int                 o_unset(t_tree *node, t_data *data);
+int                 o_export(t_tree *node, t_data *data);
+int                 exec_builtin(t_tree *node, t_data *data);
+size_t              arg_count(char **argv);
+
+// Export
+int                 add_last_executed(t_tree *node, t_data *data);
+char                *get_key(char *str);
+char                *get_value(char *str);
+
+// Expanding enrty functions.
+int                 expand_wild_cards(t_tree *node);
+int                 expand_list(t_arg *arg, t_data *data);
+char                *expand_var(char *str, t_data *data, bool was_d_quoted);
+char                **convert_list_to_argv(t_arg *arg, t_data *data);
+int                 pocket_insertion(char **pockets, char *str, t_data *data, bool was_d_quoted);
+// Expansion Utils.
+char                *expand_key_wrapper(char *str, t_data *data);
+char                *standalone(int *i);
+char                *normal_text(char *str, int *i);
+char                *expand_key(char *str, t_data *data, int keylen, int *i);
+char                *join_system(t_arg **p_arg);
+char	            *pocket_joiner(char **pockets);
+char	            *o_ft_itoa(int n);
+size_t	            o_ft_strlen(char *s);
+char                **realloc_pockets(char **old_pocket, size_t old_cap, size_t new_cap);
+int                 internal_field_seperator(char *raw, t_data *data, char ***pockets);
+bool                has_space(char *str);
+bool                has_delim(char *str);
+char                **IFS_pass(char **argv);
+void                fail_procedure(char **pockets, t_data *data);
+bool                ft_isalnum(int c);
+char                *expand_special_cases(char *str, t_data *data, int *i);
+int                 add_ifs_back(t_ifs **head, char *str);
+void                free_ifs_list(t_ifs *ifs);
+char                **ifs_list_to_argv(t_ifs *head);
+// Anon system.
+bool                anon(t_tree *node, size_t argc);
+bool                still_has_anon(char *str);
+char                **terminate_inside_anons(char **argv);
+
+// Wildcard
+bool                has_star(char *str);
+int                 link_patterns_to_argv(t_tree *node);
+
+
+// Linked env
+size_t              o_ft_strlen(char *str);
+size_t              envlist_size(t_envlist *env);
+char                *convert_node_to_str(t_envlist *env_node);
+char                **convert_list_to_envp(t_envlist *envlist);
+int                 add_to_envlist(t_envlist **envlist, char *str, bool exported);
+
+// Redirections 
+int                 handle_red(t_tree *node, t_data *data);
+void                restore_IO(int saved_in, int saved_out);
+
+
+// Utilsin pipleine cuz i didnt recurs it back to rec exec.
+char                *get_absolute_path(char *cmd);
+
+// Free_tree (error handling)
+void                free_argv(char **argv);
+void                clean_up(t_tree *tree, t_data *data);
+void                free_envlist(t_envlist *env);
+
+
+void print_argv(char **argv);
+
+
 
 // Builtins Tools
 int					con_check(t_tree *node);
@@ -483,47 +585,6 @@ void				check_dots(t_tree *node, int *one_dot,
 						int *two_dot);
 int					change_pwd(char *name, t_envlist *env,
 						char *update);
-
-// Expanding.
-char				*o_ft_itoa(int n);
-char				*trim_quotes(char *str); // temp
-char				*list_to_string(char **lst);
-char				*trim_edge_quotes(char *str); // temp
-int					expand_wild_cards(t_tree *node);
-bool				is_fully_single_quoted(char *str); // temp
-bool				has_quotes_in_both_edges(char *str); // temp
-void				expand_env_variables(t_tree *node, t_data *data);
-int					o_ft_strncmp(const char *s1, const char *s2, size_t n);
-
-// expanding o2
-char				**convert_list_to_argv(t_arg *arg, t_data *data);
-
-// Linked env
-size_t				o_ft_strlen(char *str);
-size_t				envlist_size(t_envlist *env);
-char				*convert_node_to_str(t_envlist *env_node);
-char				**convert_list_to_envp(t_envlist *envlist);
-int					add_to_envlist(t_envlist **envlist, char *str);
-
-// Redirections 
-int					handle_red(t_tree *node, t_data *data);
-void				restore_IO(int saved_in, int saved_out);
-
-// Utilsin pipleine cuz i didnt recurs it back to rec exec.
-char				*get_absolute_path(char *cmd);
-
-// Free_tree (error handling)
-void				free_argv(char **argv);
-void				clean_up(t_tree *tree, t_data *data);
-void				free_envlist(t_envlist *env);
-
-void				print_argv(char **argv);
-
-typedef struct s_plist
-{
-	t_tree			*cmd_node;
-	struct s_plist	*next;
-}	t_plist;
 
 // ----------------------------------------------------------------------------
 #endif

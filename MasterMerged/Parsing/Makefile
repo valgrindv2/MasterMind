@@ -1,7 +1,7 @@
 CC = cc 
 SANITIZE= #-fsanitize=address -g3
 CFLAG = -I$(READLINE_DIR)/include # zdt readline library (MAC) -Wall -Wextra -Werror
-READLINE_DIR := #../lib/readline/install
+READLINE_DIR := ../lib/readline/install
 LDFLAGS += -L$(READLINE_DIR)/lib -lreadline -lhistory -lncurses
 H = minishell.h 
 NAME = minishell
@@ -48,10 +48,16 @@ SRC = minishell.c Identificators/identity_tools/identool0.c\
 		../Execute/o_builtins/o_exit.c ../Execute/o_builtins/o_export.c \
 		../Execute/o_builtins/o_pwd.c ../Execute/o_builtins/o_unset.c \
 		../Execute/o_builtins/wild_card.c ../Execute/tree_executers/merge_env.c \
-		../Execute/tree_executers/merge_env_utils.c ../Execute/Expansion/expanding.c \
-		../Execute/Expansion/expanding_utils.c ../Execute/Expansion/expanding_utils2.c \
-		../Execute/fail_malloc.c ../Execute/o_builtins/builtin_utils.c \
-		../Execute/tree_executers/merge_arg_list.c
+		../Execute/tree_executers/merge_env_utils.c \
+		../Execute/fail_malloc.c ../Execute/o_builtins/builtin_utils.c 					\
+		../Execute/Expansion/expand_arglist.c ../Execute/Expansion/expand_key.c 		\
+		../Execute/Expansion/join_system.c ../Execute/Expansion/merge_arglist.c 		\
+		../Execute/Expansion/pocket_expantion.c ../Execute/Expansion/pocket_insertion.c \
+		../Execute/Expansion/expansion_utils.c ../Execute/tree_executers/last_exec.c 	\
+		../Execute/Expansion/ft_realloc.c ../Execute/Expansion/split_IFS.c 				\
+		../Execute/Expansion/internal_field_seperator_pass.c 							\
+		../Execute/Expansion/pocket_insertion_utils.c ../Execute/anon_system/anon.c		\
+		../Execute/anon_system/anon_terminator.c
 
 OBJ = $(SRC:.c=.o)
 

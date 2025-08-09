@@ -1,5 +1,99 @@
 #include "../execute.h"
 
+// static bool single_anon(char *str)
+// {
+//     if (str[0] == (char)127 && str[1] == '\0')
+//         return (true);
+//     return (false);
+// }
+
+// static bool still_has_anon(char *str)
+// {
+//     int i;
+
+//     i = 0;
+//     while (str[i])
+//     {
+//         if (str[i] == (char)127)
+//             return (true);
+//         i++;
+//     }
+//     return (false);
+// }
+
+// static int anon_index(char *str)
+// {
+//     int i;
+
+//     i = 0;
+//     while (str[i])
+//     {
+//         if (str[i] == (char)127)
+//             return (i);
+//         i++;
+//     }
+//     return (i); // fall back shouldnt happen.
+// }
+
+// static void init_terminator(t_ifs **args, int *i)
+// {
+//     *args = NULL;
+//     *i = 0;
+// }
+
+// static char **terminate_inside_anons(char **argv)
+// {
+//     t_ifs   *args;
+//     char    **new_argv;
+//     char    *cut;
+//     int     i;
+
+//     init_terminator(&args, &i);
+//     while (argv[i])
+//     {
+//         if (!single_anon(argv[i]))
+//         {
+//             if (still_has_anon(argv[i]))
+//             {
+//                 cut = ft_substr(argv[i], anon_index(argv[i]) + 1, o_ft_strlen(argv[i]));
+//                 if (!cut)
+//                     return (free_ifs_list(args), free_argv(argv), NULL);
+//                 free(argv[i]);
+//                 argv[i] = cut;
+//             }
+//             if (add_ifs_back(&args, argv[i]) != EXIT_SUCCESS)
+//                 return (free_ifs_list(args), free_argv(argv), NULL);
+//         }
+//         i++;
+//     }
+//     new_argv = ifs_list_to_argv(args);
+//     if (!new_argv)
+//         return (free_ifs_list(args),  free_argv(argv), NULL);
+//     return(free_ifs_list(args), free_argv(argv), new_argv);
+// }
+
+// static bool has_anons_inside(int from, int till, char **argv)
+// {
+//     while (from <= till)
+//         if (still_has_anon(argv[from++]))
+//             return (true);
+//     return (false);
+// }
+
+
+// static bool anon(t_tree *node, size_t argc)
+// {
+//     if (argc == 1 && node->argv[0][0] == (char)127 && node->argv[0][1] == '\0')
+//         return (true);
+//     if (!has_anons_inside(0 , argc - 1, node->argv))
+//         return (false);
+//     node->argv = terminate_inside_anons(node->argv);
+//     if (!node->argv)
+//         return (true);
+//     return (false);
+// }
+
+
 // help function with forbidden functions
 // will code our own.
 char    *get_absolute_path(char *cmd)
@@ -31,18 +125,18 @@ int     exec_node(t_tree *node, t_data *data)
 
     if (id == 0)
     {
-        execve(get_absolute_path(node->argv[0]), node->argv, data->env_vec);
-        if (node->argv[0] && node->argv[0][0] == '/') // use strchr
-            dprintf(STDERR_FILENO, "Migrane: %s: No such file or directory\n", node->argv[0]);
-        else
-            dprintf(STDERR_FILENO, "Migrane: command not found: %s \n", node->argv[0]);
-        // maybe free();
-        exit(EXECVE_FAILURE); // exit child process if execve fails
+            execve(get_absolute_path(node->argv[0]), node->argv, data->env_vec);
+            if (node->argv[0] && node->argv[0][0] == '/') // use strchr
+                dprintf(STDERR_FILENO, "Migrane: %s: No such file or directory\n", node->argv[0]); // change this to print error.
+            else
+                dprintf(STDERR_FILENO, "Migrane: %s: command not found\n", node->argv[0]);
+            // maybe free();
+            clean_up(data->head, data);
+            free_argv(data->env_vec);
+            free_envlist(data->env);
+            exit(EXECVE_FAILURE); // exit child process if execve fails
     }
-
-    // Parent:
-    waitpid(id, &ex_status, 0);
-
+    waitpid(id, &ex_status, 0); // Parent:
     // ───── decode status ─────
     if (WIFEXITED(ex_status))
         return (WEXITSTATUS(ex_status));
@@ -55,16 +149,21 @@ int recursive_execution(t_tree *node, t_data *data) // not static cuz used in pi
 {
     if (node->tok == COMMAND_ID) // base case exec cmd
     {
-        expand_wild_cards(node);
+        // expand_wild_cards(node);
         if (node->red)
-        {
             if (handle_red(node, data) != EXIT_SUCCESS)
-                return (EXIT_FAILURE);
+                return (EXIT_FAILURE); // restore io
+        if (add_last_executed(node, data) != EXIT_SUCCESS)
+            return (EXIT_FAILURE); // restore io
+        if (!anon(node, arg_count(node->argv)) && node->argv[0])
+        {
+            if (validate_builtin(node->argv[0]))
+                data->exit_status = exec_builtin(node, data);
+            else
+                data->exit_status = exec_node(node, data);
         }
-        if (validate_builtin(node->argv[0]))
-            data->exit_status = exec_builtin(node, data);
         else
-            data->exit_status = exec_node(node, data);
+            data->exit_status = EXIT_SUCCESS;
         if (node->red)
             restore_IO(data->saved_in, data->saved_out); // if this fails check later.
         return (data->exit_status);

@@ -1,0 +1,138 @@
+# BASIC VARIABLE EXPANSION
+1. echo $HOME
+2. echo "$HOME"
+3. echo '$HOME'
+4. echo "'$HOME'"
+5. echo '"$HOME"'
+
+# EMPTY QUOTES
+6. echo ''
+7. echo "" //this case fails for some reason..
+8. echo '' ""
+9. echo "" ''
+10. echo '' '' ''
+11. echo "" "" ""
+
+# MIXED QUOTE COMBINATIONS
+12. echo ''"$HOME"
+13. echo "$HOME"''
+14. echo ''"$HOME"''
+15. echo '"$HOME"'"'$HOME'"
+16. echo "'$HOME'"'"$HOME"'
+17. echo ''"'$HOME'"''
+18. echo ""'"$HOME"'"" 
+
+# SPECIAL CHARACTERS
+19. echo '$$$' 
+20. echo "$$$" 
+21. echo '\$HOME'
+22. echo "\$HOME"
+23. echo "'\$HOME'"
+24. echo '"\$HOME"'
+25. echo ''\''$HOME'\'''
+
+# NESTED QUOTES
+26. echo '"$HOME"'
+27. echo "'$HOME'"
+28. echo '""$HOME""'
+29. echo "''$HOME''"
+30. echo '"'\''$HOME'\''"'
+31. echo "'\"$HOME\"'"
+
+# MULTIPLE VARIABLES
+32. echo $HOME$USER
+33. echo "$HOME$USER"
+34. echo '$HOME$USER'
+35. echo "'$HOME'$USER"
+36. echo "$HOME"'$USER'"
+
+# SPACE HANDLING
+37. echo "hello   world"
+38. echo 'hello   world'
+39. echo hello   world
+40. echo "hello"   "world"
+41. echo 'hello'   'world'
+
+# EDGE CASES
+42. echo $
+43. echo "$"
+44. echo '$'
+45. echo "'$'"
+46. echo '"$"'
+47. echo ''$''
+48. echo ""$""
+49. echo '''$'''
+50. echo """$"""
+
+# COMBINED STRESS TESTS
+51. echo '''''$HOME'''''
+52. echo """""$HOME"""""
+53. echo '"'"'"$HOME"'"'"'
+54. echo "'"'"'$HOME'"'"'"
+55. echo ''"''"'$HOME'"''"''"'
+56. echo ""'"''"$HOME"'''"'""
+
+# ESCAPE CHARACTER TESTS
+57. echo \'$HOME\'
+58. echo \"$HOME\"
+59. echo \'\"$HOME\"\'
+60. echo \"\'$HOME\'\"
+61. echo '\'$HOME\''
+62. echo "\"$HOME\""
+
+# MULTI-LINE INPUTS
+63. echo 'line1
+line2'
+64. echo "line1
+line2"
+65. echo line1 \
+line2
+
+# COMMAND SUBSTITUTION (if implemented)
+66. echo `echo $HOME`
+67. echo "`echo $HOME`"
+68. echo '`echo $HOME`'
+
+# ARITHMETIC EXPANSION (if implemented)
+69. echo $((1+1))
+70. echo "$((1+1))"
+71. echo '$((1+1))'
+
+# PARAMETER EXPANSION (if implemented)
+72. echo ${HOME}
+73. echo "${HOME}"
+74. echo '${HOME}'
+
+# WILDCARDS (if implemented)
+75. echo *
+76. echo "*"
+77. echo '*'
+
+# SPECIAL PARAMETERS
+78. echo $?
+79. echo "$?"
+80. echo '$?'
+81. echo $$
+82. echo "$$"
+83. echo '$$'
+
+# STRANGE COMBINATIONS
+84. echo ""''""''""''"$HOME"''""''""''""
+85. echo ''''''''''''''''''''''''''
+86. echo """"""""""""""""""""""""""
+87. echo '"""""""""""""""""""""""""'
+88. echo "'''''''''''''''''''''''''"
+89. echo '"'"'"'"'"'"'"'"'"'"'"'"'
+90. echo "'"'"'"'"'"'"'"'"'"'"'"'"
+
+# REAL-WORLD EXAMPLES
+91. echo "Today is $(date)"
+92. echo 'Today is $(date)'
+93. echo "PATH=$PATH"
+94. echo 'PATH=$PATH'
+95. echo "Hello $USER, your home is $HOME"
+96. echo 'Hello $USER, your home is $HOME'
+97. echo "This is a backslash: \\"
+98. echo 'This is a backslash: \\'
+99. echo "She said: \"Hello\""
+100. echo 'He said: '\''Hi'\'''

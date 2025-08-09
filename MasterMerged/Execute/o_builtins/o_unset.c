@@ -49,7 +49,7 @@ static void unset_node(char *argument, t_envlist **env)
 {
     t_envlist *curr;
 
-    if (!*env)
+    if (!*env || ft_strcmp(argument, "_") == 0)
         return ; // gotta check if env is 
     curr = *env;
     while (curr)
