@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
+/*   By: ayel-bou <ayel-bou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/04 03:32:22 by ayel-bou          #+#    #+#             */
-/*   Updated: 2025/08/07 03:46:26 by codespace        ###   ########.fr       */
+/*   Updated: 2025/08/09 05:45:46 by ayel-bou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -137,6 +137,7 @@ typedef struct s_arg
 	char			*value;
 	t_grammar		tok;
 	int				was_s_quote;
+	int				was_d_quote;
 	bool			space_next;
 	struct s_arg	*next;
 }	t_arg;
@@ -204,7 +205,7 @@ typedef struct s_data
 	bool			chpwd;
 	bool			no_sef;
 	int				ch_fail;
-	bool			br_fail;
+	int				br_fail;
 	int				flag;
 	char			*home_p;
 	int				saved_in;
@@ -414,13 +415,13 @@ int					algorithm_options(t_token *curr, t_token **op_field,
 						t_token **yard, t_token *in);
 
 // Cleaners Functions
+void				clean_node(t_token *in);
 void				cleaner_red(t_token *list);
 void				cleaner_arg(t_token *list);
 void				clean_fd(t_token *id_class);
 void				list_cleaner(t_token **list);
 void				clean_yard(t_token **yard, int mode);
 void				clean_id_class(t_token **id_class, int mode);
-
 // test to be removed after
 void				print_tree(t_tree *root);
 int					printer(t_token *curr, char *name);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
+/*   By: ayel-bou <ayel-bou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/03 19:15:02 by ayel-bou          #+#    #+#             */
-/*   Updated: 2025/08/07 09:33:14 by codespace        ###   ########.fr       */
+/*   Updated: 2025/08/09 02:10:39 by ayel-bou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,13 +39,11 @@ t_tree	*masterpasrse(char *input, t_data *data, t_token **prompts)
 	
 	if (!edge_braces(input, data))
 		return (NULL);
-	// printf("no_sef > %d\n", data->no_sef);
 	token = get_identity(input, data);
-	// clean_id_class(&token, FAIL);
 	*prompts = re_identity(token);
-	clean_id_class(prompts, FAIL);
-	// return (build_tree(*prompts));
-	return (NULL);
+	// clean_id_class(prompts, FAIL);
+	return (build_tree(*prompts));
+	// return (NULL);
 }
 
 int	main(int argc, char **argv, char **env)

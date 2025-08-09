@@ -148,3 +148,8 @@ static int	operations(t_token *id_class)
 CASE 
 
 ls -la || cat '-e' | pwd && cat -e| > f1 > f2 << ok << eof
+MAKE SURE THAT ALL NAMES IN MINISHELL ARE LOWERCASE
+
+ADD -Wall -Wextra -Werror Flags
+
+HEREDOC CTRL + C dammage the normal state of CTRL + C signal in the main

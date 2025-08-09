@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   re_identool6.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
+/*   By: ayel-bou <ayel-bou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/04 02:00:11 by ayel-bou          #+#    #+#             */
-/*   Updated: 2025/08/07 07:13:45 by codespace        ###   ########.fr       */
+/*   Updated: 2025/08/09 00:39:32 by ayel-bou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ t_arg	*new_argument(t_token *new)
 			return (free(arg), NULL);
 		arg->tok = new->tok;
 		arg->was_s_quote = new->was_single_quote;
+		arg->was_d_quote = new->was_double_quote;
 		arg->space_next = new->space_next;
 		arg->next = NULL;
 	}

@@ -6,7 +6,7 @@
 /*   By: ayel-bou <ayel-bou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/04 03:02:13 by ayel-bou          #+#    #+#             */
-/*   Updated: 2025/08/04 03:03:10 by ayel-bou         ###   ########.fr       */
+/*   Updated: 2025/08/09 05:54:08 by ayel-bou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,9 @@ int	add_token(t_token *curr, t_token **list)
 	t_token	*in;
 
 	in = add_identity(ft_strdup(curr->identity), curr->tok, INIT, curr);
+	// in = NULL; // NOLEAKS
 	if (!in)
-		return (S);
-	printf("token added >> %s\n", in->identity);
+		return (puts("ADD_TOKEN FAILED"), S);
 	add_back_identity(list, in, D_INIT);
 	return (F);
 }
@@ -71,13 +71,13 @@ t_token	*shunting_yard_algorithm(t_token *id_class)
 	while (curr != NULL)
 	{
 		if (!curr->op_case && !curr->br && !add_token(curr, &yard))
-			return (clean_yard(&yard, FAIL), NULL);
+			return (list_cleaner(&op_field), clean_yard(&yard, CLEAN), NULL);
 		else if ((curr->op_case || curr->br)
 			&& !operations_field(curr, &op_field, &yard))
-			return (clean_yard(&yard, FAIL), NULL);
+			return (list_cleaner(&op_field), clean_yard(&yard, CLEAN), NULL);
 		curr = curr->next;
 	}
-	if (!add_all_to_yard(&yard, &op_field))
-		return (clean_yard(&yard, FAIL), NULL);
+	if (!add_all_to_yard(&yard, &op_field)) // NO_LEAKS
+		return (list_cleaner(&op_field), clean_yard(&yard, CLEAN), NULL);
 	return (yard);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   system_mind0.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
+/*   By: ayel-bou <ayel-bou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/04 02:28:08 by ayel-bou          #+#    #+#             */
-/*   Updated: 2025/08/06 02:26:47 by codespace        ###   ########.fr       */
+/*   Updated: 2025/08/09 05:54:17 by ayel-bou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,15 +22,16 @@ t_tree	*build_tree(t_token *id_class)
 	// debbuger_tk(id_class);
 	if (id_class == NULL)
 		return (NULL);
-	yard = shunting_yard_algorithm(id_class);
+	yard = shunting_yard_algorithm(id_class); // NO_LEAKS
 	if (!yard)
-		return (printf("YARD FAILED\n"), clean_id_class(&id_class, CLEAN), NULL);
+		return (printf("YARD FAILED\n"), clean_id_class(&id_class, FAIL), NULL);
 	clean_id_class(&id_class, CLEAN);
 	printf("yard >> \n");
 	debbuger_tk(yard);
+	clean_id_class(&yard, FAIL);
 	// if (recursive_build(yard, &tree) == ANOMALY)
 	// 	return (clean_yard(&yard, FAIL), NULL);
-	clean_yard(&yard, FAIL); // CLEAN BLAST FAIL
+	// clean_yard(&yard, FAIL); // CLEAN BLAST FAIL
 	return (tree);
 }
 
