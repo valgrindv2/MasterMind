@@ -31,7 +31,6 @@ static t_token	*extract_list(t_token *id_class, t_data *data)
 	extract = NULL;
 	while (id_class != NULL)
 	{
-		printf("id_class < %s, tok > %d\n", id_class->identity, id_class->tok);
 		if (con_verifications(id_class, i))
 			break ;
 		id = add_identity(ft_strdup(id_class->identity),
@@ -54,7 +53,6 @@ int	sef_doc(t_token *id_class, t_data *data, int mode)
 	t_token	*new_class;
 
 	new_class = extract_list(id_class, data);
-	printer(new_class, "NEWCLASS >");
 	if (!new_class && data->fail == 1)
 		return (data->fail = 0, 0);
 	else if (!new_class && data->fail == 0)

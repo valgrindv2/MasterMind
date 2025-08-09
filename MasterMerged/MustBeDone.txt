@@ -153,3 +153,7 @@ MAKE SURE THAT ALL NAMES IN MINISHELL ARE LOWERCASE
 ADD -Wall -Wextra -Werror Flags
 
 HEREDOC CTRL + C dammage the normal state of CTRL + C signal in the main
+
+Master@Mindv3.0> << f4|
+MasterMind: Syntax Error Near Unexpected Token `|' (TODO)
+Add exit to be written when CTRL + D is made in the main (TODO)

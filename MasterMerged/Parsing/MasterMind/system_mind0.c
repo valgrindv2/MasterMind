@@ -26,11 +26,11 @@ t_tree	*build_tree(t_token *id_class)
 	if (!yard)
 		return (printf("YARD FAILED\n"), clean_id_class(&id_class, FAIL), NULL);
 	clean_id_class(&id_class, CLEAN);
-	printf("yard >> \n");
-	debbuger_tk(yard);
-	clean_id_class(&yard, FAIL);
-	// if (recursive_build(yard, &tree) == ANOMALY)
-	// 	return (clean_yard(&yard, FAIL), NULL);
+	// printf("yard >> \n");
+	// debbuger_tk(yard);
+	// clean_id_class(&yard, FAIL);
+	if (recursive_build(yard, &tree) == ANOMALY)
+		return (clean_yard(&yard, FAIL), NULL);
 	// clean_yard(&yard, FAIL); // CLEAN BLAST FAIL
 	return (tree);
 }

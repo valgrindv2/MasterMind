@@ -72,7 +72,7 @@ static int	open_heredoc(t_token *id_class, t_token *curr, t_data *data)
 	char	*gename;
 
 	if (!sef_doc(id_class, data, HERE_SEF))
-		return (puts("SEF"), 0);
+		return (0);
 	gename = name_generator();
 	if (!gename)
 		return (0);

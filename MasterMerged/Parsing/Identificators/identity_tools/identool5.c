@@ -39,10 +39,8 @@ int	takeoff_quotes(t_token *tok)
 
 int	change_id(t_token *next_heredoc, t_data *data)
 {
-	printer(next_heredoc, "NEXT HERE>>");
 	if (next_heredoc->op || next_heredoc->br)
 	{
-		puts("HEROS");
 		syntax_error_found(next_heredoc, data);
 		return (0);
 	}
