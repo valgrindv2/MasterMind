@@ -6,7 +6,7 @@
 /*   By: ayel-bou <ayel-bou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/03 19:15:02 by ayel-bou          #+#    #+#             */
-/*   Updated: 2025/08/09 02:10:39 by ayel-bou         ###   ########.fr       */
+/*   Updated: 2025/08/09 06:15:05 by ayel-bou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,4 +77,5 @@ int	main(int argc, char **argv, char **env)
 
 /*
 		'ls' || (cat | ls ) && << eof | cat -e << ok | "cat" 
+		<< eof << ok << ok2 l <<f << f2 << f4 | cat << eof << ok2 | (cat | clear) FAIL HEREDOC DELIMITER SCRAPP
 */

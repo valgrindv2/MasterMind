@@ -14,12 +14,9 @@
 
 static int	con_verifications(t_token *id_class, int i)
 {
-	if ((id_class->tok == HERE_DOC_ID && id_class->next
-			&& id_class->next->tok != DEL_ID))
-		 		// && id_class->next->tok == HERE_DOC_ID && i != 0)
-		// || ((id_class->tok == PIPE_ID || id_class->tok == AND_ID
-		// 		|| id_class->tok == OR_ID)
-		return (1);
+	if (id_class->tok == HERE_DOC_ID && id_class->next
+			&& id_class->next->tok == DEL_ID && id_class->alre_doc == false)
+		return (id_class->alre_doc = true, 1);
 	return (0);
 }
 
@@ -34,6 +31,7 @@ static t_token	*extract_list(t_token *id_class, t_data *data)
 	extract = NULL;
 	while (id_class != NULL)
 	{
+		printf("id_class < %s, tok > %d\n", id_class->identity, id_class->tok);
 		if (con_verifications(id_class, i))
 			break ;
 		id = add_identity(ft_strdup(id_class->identity),
@@ -56,6 +54,7 @@ int	sef_doc(t_token *id_class, t_data *data, int mode)
 	t_token	*new_class;
 
 	new_class = extract_list(id_class, data);
+	printer(new_class, "NEWCLASS >");
 	if (!new_class && data->fail == 1)
 		return (data->fail = 0, 0);
 	else if (!new_class && data->fail == 0)

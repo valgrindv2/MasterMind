@@ -242,6 +242,7 @@ typedef struct s_token
 	bool			fake;
 	bool			cmd_up_next;
 	bool			cmd_added;
+	bool			alre_doc;
 	struct s_token	*next;
 	enum grammar	tok;
 	char			*identity;

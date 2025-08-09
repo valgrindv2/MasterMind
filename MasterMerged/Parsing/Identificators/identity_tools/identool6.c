@@ -49,6 +49,7 @@ static void	free_nodes_del(t_token *delimiter, char *del_join)
 
 	free(delimiter->identity);
 	delimiter->identity = del_join;
+	printf("new Del >> %s\n", delimiter->identity);
 	delimiter->tok = DEL_ID;
 	after_delimiter = delimiter->next;
 	get_quotes_state(delimiter);

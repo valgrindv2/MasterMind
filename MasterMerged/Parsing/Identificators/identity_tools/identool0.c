@@ -47,6 +47,7 @@ void	init_properties(t_token *new)
 	new->al_used = false;
 	new->cmd_added = false;
 	new->fake = false;
+	new->alre_doc = false;
 	new->quotes_syntax = 0;
 }
 
@@ -74,6 +75,7 @@ static void	re_initialization(t_token *new, t_token *old)
 	new->al_used = old->al_used;
 	new->cmd_added = old->cmd_added;
 	new->fake = old->fake;
+	new->alre_doc = old->alre_doc;
 	new->quotes_syntax = old->quotes_syntax;
 }
 
