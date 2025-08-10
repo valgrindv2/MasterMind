@@ -148,7 +148,7 @@ static int	operations(t_token *id_class)
 CASE 
 
 ls -la || cat '-e' | pwd && cat -e| > f1 > f2 << ok << eof
-MAKE SURE THAT ALL NAMES IN MINISHELL ARE LOWERCASE
+MAKE SURE THAT ALL NAMES IN MINISHELL ARE LOWERCASE (CHECKED)
 
 ADD -Wall -Wextra -Werror Flags
 
@@ -157,3 +157,46 @@ HEREDOC CTRL + C dammage the normal state of CTRL + C signal in the main
 Master@Mindv3.0> << f4|
 MasterMind: Syntax Error Near Unexpected Token `|' (CHECKED)
 Add exit to be written when CTRL + D is made in the main (CHECKED)
+
+
+to Ouss
+
+Master@Mindv3.0> [wd
+└─ COMMAND [[wd]
+      └─  [Arg]  > [wd --> Quoted > 0
+==389800== Syscall param execve(filename) points to unaddressable byte(s)
+==389800==    at 0x4A1908B: execve (syscall-template.S:120)
+==389800==    by 0x40AA0A: exec_node (in /home/ayel-bou/Desktop/MasterGit/MasterMerged/MasterMerged/parsing/minishell)
+==389800==    by 0x40AC5F: recursive_execution (in /home/ayel-bou/Desktop/MasterGit/MasterMerged/MasterMerged/parsing/minishell)
+==389800==    by 0x40AE4A: execute_tree (in /home/ayel-bou/Desktop/MasterGit/MasterMerged/MasterMerged/parsing/minishell)
+==389800==    by 0x401576: main (in /home/ayel-bou/Desktop/MasterGit/MasterMerged/MasterMerged/parsing/minishell)
+==389800==  Address 0x0 is not stack'd, malloc'd or (recently) free'd
+==389800== 
+Migrane: [wd: command not found
+
+
+Master@Mindv3.0> cd ..
+└─ COMMAND [cd]
+      └─  [Arg]  > cd --> Quoted > 0
+      └─ Space Next True
+      └─  [Arg]  > .. --> Quoted > 0
+Master@Mind: Permission Denied
+Master@Mindv3.0> echo $?
+└─ COMMAND [echo]
+      └─  [Arg]  > echo --> Quoted > 0
+      └─ Space Next True
+      └─  [Arg]  > $? --> Quoted > 0
+-1
+Master@Mindv3.0> cd ..
+└─ COMMAND [cd]
+      └─  [Arg]  > cd --> Quoted > 0
+      └─ Space Next True
+      └─  [Arg]  > .. --> Quoted > 0
+Master@Mindv3.0> echo $?
+└─ COMMAND [echo]
+      └─  [Arg]  > echo --> Quoted > 0
+      └─ Space Next True
+      └─  [Arg]  > $? --> Quoted > 0
+-1
+
+WATCH OUT FROM EXIT STATUS IT SHOULD BE ZERO

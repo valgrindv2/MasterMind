@@ -1,5 +1,4 @@
 #include "../execute.h"
-#include <dirent.h>
 
 static int new_wdir_t(t_tree *node, t_data *data, int *chpwd)
 {
@@ -39,26 +38,27 @@ static int unreachable(t_tree *node, t_data *data)
     else if (node->argv[1][0] == '.' && node->argv[1][1] == '.'
         && node->argv[1][2] == '\0')
     {
-        puts(data->pwd_reserve);
-        tmp = ft_substr(data->pwd_reserve, 0, get_last_slash(data->pwd_reserve, 4) + 1);
+        tmp = ft_substr(data->pwd_reserve, 0,
+            get_last_slash(data->pwd_reserve, 4) + 1);
         if (!tmp)
             return (1);
         if (chdir(tmp) == -1)
-            return (0); 
+            return (free(tmp), 0);
+        free(tmp);
     }
     return (data->unreach = true, 0);
 }
 
 static int op_dir(t_tree *node, t_data *data, int *x)
 {
-    char *tmp;
     DIR *dir;
+    char *tmp;
 
     tmp = ft_substr(data->pwd_reserve, 0, get_last_slash(data->pwd_reserve, 1) + 1);
     dir = opendir(tmp);
     if (!dir)
-        return (puterror("Master@Mind: Permission Denied\n"), data->exit_status = 1,
-            EXIT_FAILURE);
+        return (puterror("Master@Mind: Permission Denied\n"),
+            free(tmp), data->exit_status = 1, EXIT_FAILURE);
     else
     {
         closedir(dir);
@@ -66,6 +66,7 @@ static int op_dir(t_tree *node, t_data *data, int *x)
         node->argv[1] = tmp;
         *x = 1;
         chdir(node->argv[1]);
+        data->unreach = true;
         return (EXIT_SUCCESS);
     }
 }
@@ -77,6 +78,7 @@ static int new_wdir(t_tree *node, t_data *data, int *chpwd)
     int x;
 
     x = 0;
+    data->unreach = false;
     if (update_old(node, data))
         return (data->exit_status = 1, EXIT_FAILURE);
     if (chdir(node->argv[1]) == -1)
@@ -90,7 +92,7 @@ static int new_wdir(t_tree *node, t_data *data, int *chpwd)
         if (!x && unreachable(node, data))
             return (data->exit_status = 1, EXIT_FAILURE);
         if (data->unreach == false)
-            return (puterror("Master@Mind: cd: Dir Or File Is Unreachable\n"),
+            return (puterror("Master@Mind:s cd: Dir Or File Is Unreachable\n"),
                 data->exit_status = 1, EXIT_FAILURE);
     }
     if (new_wdir_t(node, data, chpwd))

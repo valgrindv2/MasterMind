@@ -75,7 +75,7 @@ int	main(int argc, char **argv, char **env)
 		// print_tree(tree);
 		execute_tree(tree, &data, env, re_built);
 	}
-	return (free_argv(data.env_vec), free_envlist(data.env),
+	return (free(data.pwd_reserve), free_argv(data.env_vec), free_envlist(data.env),
 		free(input), EXIT_SUCCESS);
 }
 

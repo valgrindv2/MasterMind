@@ -5,36 +5,36 @@ READLINE_DIR := #../lib/readline/install
 LDFLAGS += -L$(READLINE_DIR)/lib -lreadline -lhistory -lncurses
 H = minishell.h 
 NAME = minishell
-SRC = minishell.c Identificators/identity_tools/identool0.c\
-		Identificators/identify.c Identificators/identity_tools/identool1.c \
+SRC = minishell.c identificators/identity_tools/identool0.c\
+		identificators/identify.c identificators/identity_tools/identool1.c \
 		tools/tool.c\
-		tools/tool2.c Identificators/units.c \
-		Debbugers/Tokens_db.c Debbugers/Linkedenv.c \
-		Signal_handlers/sig_handlers.c\
+		tools/tool2.c identificators/units.c \
+		debbugers/Tokens_db.c debbugers/Linkedenv.c \
+		signal_handlers/sig_handlers.c\
 		tools/tools3.c tools/tools4.c tools/tools5.c\
 		tools/tools6.c \
 		tools/tools7.c \
-		Syntax/syntax.c Syntax/syntax2.c Syntax/syntax3.c\
-		Syntax/syntax4.c Syntax/syntax5.c\
-		Identificators/identity_tools/identool2.c\
-		Identificators/identity_tools/identool3.c\
-		Identificators/identity_tools/identool4.c\
-		tools/tools8.c Identificators/identity_tools/identool5.c\
-		Identificators/identity_tools/identool6.c\
-		tools/tools9.c Identificators/identity_tools/identool7.c\
-		Identificators/identity_tools/identool8.c\
-		Re_Identificators/re_identity.c Re_Identificators/re_identity_tools/re_identool0.c\
-		Re_Identificators/re_identity_tools/re_identool1.c\
-		Re_Identificators/re_identity_tools/re_identool2.c\
-		Re_Identificators/re_identity_tools/re_identool3.c\
-		Re_Identificators/re_identity_tools/re_identool4.c\
-		Re_Identificators/re_identity_tools/re_identool5.c\
-		Re_Identificators/re_identity_tools/re_identool6.c\
-		Re_Identificators/re_identity_tools/re_identool7.c\
-		MasterMind/system_mind0.c MasterMind/system_mind1.c\
-		MasterMind/Mind_tools/mind_tools1.c\
-		MasterMind/Mind_tools/mind_tools2.c MasterMind/Mind_tools/mind_tools3.c \
-		Debbugers/dbg_tree.c tools/tools10.c tools/tools11.c\
+		syntax/syntax.c syntax/syntax2.c syntax/syntax3.c\
+		syntax/syntax4.c syntax/syntax5.c\
+		identificators/identity_tools/identool2.c\
+		identificators/identity_tools/identool3.c\
+		identificators/identity_tools/identool4.c\
+		tools/tools8.c identificators/identity_tools/identool5.c\
+		identificators/identity_tools/identool6.c\
+		tools/tools9.c identificators/identity_tools/identool7.c\
+		identificators/identity_tools/identool8.c\
+		re_identificators/re_identity.c re_identificators/re_identity_tools/re_identool0.c\
+		re_identificators/re_identity_tools/re_identool1.c\
+		re_identificators/re_identity_tools/re_identool2.c\
+		re_identificators/re_identity_tools/re_identool3.c\
+		re_identificators/re_identity_tools/re_identool4.c\
+		re_identificators/re_identity_tools/re_identool5.c\
+		re_identificators/re_identity_tools/re_identool6.c\
+		re_identificators/re_identity_tools/re_identool7.c\
+		mastermind/system_mind0.c mastermind/system_mind1.c\
+		mastermind/mind_tools/mind_tools1.c\
+		mastermind/mind_tools/mind_tools2.c mastermind/mind_tools/mind_tools3.c \
+		debbugers/dbg_tree.c tools/tools10.c tools/tools11.c\
 		\
 		\
 		../Execute/o_builtins/cd_tools/cd1.c \
