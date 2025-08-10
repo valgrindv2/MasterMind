@@ -19,27 +19,26 @@ t_tree	*build_tree(t_token *id_class)
 
 	tree = NULL;
 	yard = NULL;
-	// debbuger_tk(id_class);
 	if (id_class == NULL)
 		return (NULL);
 	yard = shunting_yard_algorithm(id_class); // NO_LEAKS
 	if (!yard)
 		return (printf("YARD FAILED\n"), clean_id_class(&id_class, FAIL), NULL);
 	clean_id_class(&id_class, CLEAN);
-	// printf("yard >> \n");
-	// debbuger_tk(yard);
-	// clean_id_class(&yard, FAIL);
 	if (recursive_build(yard, &tree) == ANOMALY)
-		return (clean_yard(&yard, FAIL), NULL);
-	// clean_yard(&yard, FAIL); // CLEAN BLAST FAIL
+		return (tree_cleaner(&tree), clean_yard(&yard, FAIL), NULL);
+	print_tree(tree);
+	// tree_cleaner(&tree);
+	clean_yard(&yard, CLEAN); // CLEAN BLAST FAIL
 	return (tree);
 }
 
-static void	init_tree(t_tree **node)
+static int	init_tree(t_tree **node)
 {
 	*node = malloc(sizeof(t_tree));
-	if (!*node)
-		exit(F); // CHECK THIS ONE EHOOOO !!!!!!!! :)
+	// *node = NULL;
+	if (!*node) // NO_LEAKS
+		return (puts("INIT_TREE FAILED"), ANOMALY); // CHECK THIS ONE EHOOOO !!!!!!!! :)
 	(*node)->value = NULL;
 	(*node)->left = NULL;
 	(*node)->right = NULL;
@@ -49,6 +48,7 @@ static void	init_tree(t_tree **node)
 	(*node)->was_s_quote = 0;
 	(*node)->was_d_quote = 0;
 	(*node)->op_case = 0;
+	return (1);
 }
 
 static t_token	*last_unchecked(t_token *yard)
@@ -68,8 +68,9 @@ static t_token	*last_unchecked(t_token *yard)
 static int	put_token(t_tree *tree, t_token *token)
 {
 	tree->value = ft_strdup(token->identity);
-	if (!tree->value)
-		return (ANOMALY);
+	// tree->value = NULL;
+	if (!tree->value) // NO_LEAKS
+		return (puts("PUT_TOKEN FAILED"), ANOMALY);
 	tree->tok = token->tok;
 	tree->op_case = token->op_case;
 	tree->red = token->red;
@@ -77,15 +78,6 @@ static int	put_token(t_tree *tree, t_token *token)
 	tree->was_d_quote = token->was_double_quote;
 	tree->arg = token->arg;
 	token->marked = true;
-	if (token->tok == DEL_ID && token->here_doc_fd != -1)
-	{
-		tree->here_doc_fd = dup(token->here_doc_fd);
-		if (tree->here_doc_fd == -1)
-			return (ANOMALY);
-		close(token->here_doc_fd);
-	}
-	else if (token->here_doc_fd == -1)
-		tree->here_doc_fd = -1;
 	return (1);
 }
 
@@ -93,7 +85,8 @@ int	recursive_build(t_token *yard, t_tree **tree)
 {
 	t_token	*token;
 
-	init_tree(tree);
+	if (init_tree(tree) == ANOMALY)
+		return (ANOMALY);
 	token = last_unchecked(yard);
 	if (put_token(*tree, token) == ANOMALY)
 		return (ANOMALY);

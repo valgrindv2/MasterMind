@@ -12,14 +12,6 @@
 
 #include "../minishell.h"
 
-static int	con_verifications(t_token *id_class, int i)
-{
-	if (id_class->tok == HERE_DOC_ID && id_class->next
-			&& id_class->next->tok == DEL_ID && id_class->alre_doc == false)
-		return (id_class->alre_doc = true, 1);
-	return (0);
-}
-
 static t_token	*extract_list(t_token *id_class, t_data *data)
 {
 	int			i;
@@ -31,16 +23,16 @@ static t_token	*extract_list(t_token *id_class, t_data *data)
 	extract = NULL;
 	while (id_class != NULL)
 	{
-		if (con_verifications(id_class, i))
-			break ;
 		id = add_identity(ft_strdup(id_class->identity),
 				id_class->tok, D_INIT, NULL);
 		if (!id)
-		{
-			data->fail = 1;
-			return (NULL);
-		}
+			return (data->fail = 1, NULL);
 		add_back_identity(&extract, id, D_INIT);
+		if (id_class->tok == DEL_ID && id_class->alre_doc == false)
+		{
+			id_class->alre_doc = true;
+			break ;
+		}
 		id_class = id_class->next;
 		i++;
 	}

@@ -79,6 +79,41 @@ int	main(int argc, char **argv, char **env)
 }
 
 /*
-		'ls' || (cat | ls ) && << eof | cat -e << ok | "cat" 
+
+	'ls' || (cat | ls ) && << eof | cat -e << ok | "cat" 
 		<< eof << ok << ok2 l <<f << f2 << f4 | cat << eof << ok2 | (cat | clear) FAIL HEREDOC DELIMITER SCRAPP
+		(ls -la > f2 << eof) && << ok3 SEF FALSE POSITIVE
+
+		Master@Mindv3.0> ls | cat << eof << ok2 << ok3 && (cat || pwd) | cd > f1 || (ls -la > f2 << eof) && << ok3 | >f10 >f11 echo $? || (ls *)
+		Here_doc> eof
+		Here_doc> ok2
+		Here_doc> ok3
+		new Del >> eof
+		Here_doc> eof
+		MasterMind: Syntax Error Near Unexpected Token `&&'
+		Master@Mindv3.0> (ls -la >(ls -la > f2 << eof) && << ok3
+		new Del >> eof
+		Here_doc> eof
+		MasterMind: Syntax Error Near Unexpected Token `&&'
+		Master@Mindv3.0> (ls -la >ls | cat << eof << ok2 << ok3 && (cat || pwd) | cd > f1 || (ls -la > f2 << eof) | << ok3 | >f10 >f11 echo $? || (ls *)
+		Here_doc> eof
+		Here_doc> ok2
+		Here_doc> ok3
+		new Del >> eof
+		Here_doc> eof
+		MasterMind: Syntax Error Near Unexpected Token `|'
+		Master@Mindv3.0> ls | cat << eof << ok2 << ok3 && (cat || pwd) | cd > f1 || ls -la > f2 << eof | << ok3 | >f10 >f11 echo $? || (ls *)
+		Here_doc> eof
+		Here_doc> ok2
+		Here_doc> ok3
+		Here_doc> eof
+		MasterMind: Syntax Error Near Unexpected Token `|'
+		Master@Mindv3.0> ls | cat << eof << ok2 << ok3 && (cat || pwd) | cd > f1 || << ok3 | >f10 >f11 echo $? || (ls *)
+		Here_doc> eof
+		Here_doc> ok2
+		Here_doc> ok2
+		Here_doc> ok3
+		MasterMind: Syntax Error Near Unexpected Token `||'
+		Master@Mindv3.0> ls | cat << eof << ok2 << ok3 && (cat || pwd) | cd > f1
+
 */

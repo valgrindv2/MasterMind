@@ -40,7 +40,7 @@ int	hold_and_check(t_token *hold, t_token *curr, int mode)
 	if ((hold->tok == STRING_ID && curr->tok == BRACE_O_ID)
 		|| hold->tok == BRACE_C_ID && curr->tok == STRING_ID
 		|| hold->tok == BRACE_C_ID && !curr->op_case && curr->tok != BRACE_C_ID
-		|| !hold->op && hold->tok != BRACE_O_ID && curr->tok == BRACE_O_ID)
+		|| !hold->op_case && hold->tok != BRACE_O_ID && curr->tok == BRACE_O_ID)
 		return (F);
 	if ((hold->tok == DEL_ID && curr->tok == BRACE_O_ID)
 		|| hold->tok == BRACE_C_ID && curr->tok == DEL_ID)

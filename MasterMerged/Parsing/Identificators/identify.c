@@ -88,7 +88,6 @@ t_token	*get_identity(char *input, t_data *dt)
 			break ;
 		unit_call_space_next(id_class, input, &dt->i);
 	}
-	// printf("hererps\n");
 	if (!syntax_verify(id_class, dt, SEF_ALL))
 	{
 		clean_fd(id_class);

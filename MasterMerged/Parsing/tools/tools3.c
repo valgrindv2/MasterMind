@@ -39,3 +39,16 @@ void	init_data_struct(t_data *data, char **env)
 	data->pid = 1111;
     data->last_executed = NULL;
 }
+
+void	tree_cleaner(t_tree **node)
+{
+	if (!*node)
+		return ;
+
+	if ((*node)->left)
+		tree_cleaner(&(*node)->left);
+	if ((*node)->right)
+		tree_cleaner(&(*node)->right);
+	free((*node)->value);
+	free((*node));
+}

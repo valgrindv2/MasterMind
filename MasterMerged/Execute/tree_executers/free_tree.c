@@ -56,7 +56,7 @@ void    free_tree(t_tree *node)
     free_argv(node->argv);
     free_redir(node->red);
     if (node->here_doc_fd != -1)
-        close(node->here_doc_fd);
+        close(node->here_doc_fd); // to TELL OUSS ABOUT
     free(node);
 }
 

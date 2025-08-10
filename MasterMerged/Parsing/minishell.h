@@ -439,6 +439,8 @@ void				clean_fd(t_token *id_class);
 void				list_cleaner(t_token **list);
 void				clean_yard(t_token **yard, int mode);
 void				clean_id_class(t_token **id_class, int mode);
+void				tree_cleaner(t_tree **node);
+
 // test to be removed after
 void				print_tree(t_tree *root);
 int					printer(t_token *curr, char *name);
