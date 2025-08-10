@@ -27,8 +27,8 @@ char    *get_absolute_path(char *cmd)
 int     exec_node(t_tree *node, t_data *data)
 {
     int     ex_status;
-    if (ft_strcmp(node->argv[0], FAKE) == 0)
-        return(puts("here"), EXIT_SUCCESS);
+    if (node->fake == true)
+        return(EXIT_SUCCESS);
     pid_t   id = fork();
 
     if (id == 0)
