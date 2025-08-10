@@ -59,5 +59,6 @@ int	here_doc_ops(t_token *id_class, t_data *data, char *del)
 	signal(SIGINT, sig_handler);
 	if (!store_fd(id_class, data))
 		return (free(in), 0);
+	// read_file_test(id_class);
 	return (free(in), 1);
 }
