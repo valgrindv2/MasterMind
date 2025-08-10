@@ -159,6 +159,7 @@ typedef struct s_tree
 	int				here_doc_fd;
 	int				was_s_quote;
 	int				was_d_quote;
+	bool			fake;
 	struct s_red	*red;
 	struct s_arg	*arg;
 	struct s_tree	*left;

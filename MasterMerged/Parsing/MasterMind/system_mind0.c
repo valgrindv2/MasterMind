@@ -47,6 +47,7 @@ static int	init_tree(t_tree **node)
 	(*node)->argv = NULL;
 	(*node)->was_s_quote = 0;
 	(*node)->was_d_quote = 0;
+	(*node)->fake = false;
 	(*node)->op_case = 0;
 	return (1);
 }
@@ -74,6 +75,7 @@ static int	put_token(t_tree *tree, t_token *token)
 	tree->tok = token->tok;
 	tree->op_case = token->op_case;
 	tree->red = token->red;
+	tree->fake = token->fake;
 	tree->was_s_quote = token->was_single_quote;
 	tree->was_d_quote = token->was_double_quote;
 	tree->arg = token->arg;

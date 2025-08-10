@@ -59,6 +59,7 @@ int	main(int argc, char **argv, char **env)
 	init_data_struct(&data, env);
 	signal(SIGINT, sig_handler);
 	signal(SIGQUIT, SIG_IGN);
+	// isatty
 	while (1)
 	{
 		g_flag = 0;

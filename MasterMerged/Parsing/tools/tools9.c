@@ -56,7 +56,7 @@ int	here_doc_ops(t_token *id_class, t_data *data, char *del)
 		in = readline("Here_doc> ");
 	}
 	close(sv);
-	signal(SIGINT, sig_handler);
+	signal(SIGINT, sig_handler); // NEWLINE AFTER CTRL + C IN HEREDOC
 	if (!store_fd(id_class, data))
 		return (free(in), 0);
 	// read_file_test(id_class);
