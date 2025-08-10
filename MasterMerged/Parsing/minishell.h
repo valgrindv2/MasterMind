@@ -534,10 +534,12 @@ char                *expand_special_cases(char *str, t_data *data, int *i);
 int                 add_ifs_back(t_ifs **head, char *str);
 void                free_ifs_list(t_ifs *ifs);
 char                **ifs_list_to_argv(t_ifs *head);
+
 // Anon system.
 bool                anon(t_tree *node, size_t argc);
 bool                still_has_anon(char *str);
 char                **terminate_inside_anons(char **argv);
+bool				single_anon(char *str);
 
 // Wildcard
 bool                has_star(char *str);
@@ -553,7 +555,7 @@ int                 add_to_envlist(t_envlist **envlist, char *str, bool exported
 
 // Redirections 
 int                 handle_red(t_tree *node, t_data *data);
-void                restore_IO(int saved_in, int saved_out);
+void    			restore_IO(int saved_in, int saved_out, bool no_red);
 
 
 // Utilsin pipleine cuz i didnt recurs it back to rec exec.

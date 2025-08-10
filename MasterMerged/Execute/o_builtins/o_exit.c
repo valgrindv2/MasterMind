@@ -36,7 +36,6 @@ int o_exit(t_tree *node, t_data *data)
     long exit_call;
     int in_parent;
 
-
     char **argv = node->argv;
     if (!count_args(argv))
     {
@@ -54,14 +53,7 @@ int o_exit(t_tree *node, t_data *data)
         puterror("Master@Mind: Exit Requires A Numeric Value\n");
         exit(255);
     }
-    // exit(data->exit_status);
     exit_call = ft_atol(argv[1]);
-    // if (exit_call == ANOMALY)
-    // {
-    //     printf("Master@mind: exit: %s: numeric argument required\n", argv[0]);
-    //     exit(2);
-    // }
-    // printf("exit call >> %ld\n", exit_call);
     exit(exit_call);
     return (EXIT_SUCCESS);
 }

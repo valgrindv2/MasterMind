@@ -1,18 +1,15 @@
-#include "../execute.h"
+#include "../../execute.h"
 
 char *get_value(char *str)
 {
     int     equals;
     bool    has_equal;
     char    *value;
-    char    anon[2];
 
     if (!str)
         return (perror("NULL Key in envp."), NULL);
     equals = 0;
     has_equal = false;
-    anon[0] = (char)127;
-    anon[1] = '\0';
     while (str[equals])
     {
         if (str[equals++] == '=')
@@ -24,7 +21,7 @@ char *get_value(char *str)
     if (has_equal)
         value = ft_substr(str, equals, o_ft_strlen(str));
     else
-        value = ft_strdup(anon);
+        value = ft_strdup("");
     return (value);
 }
 

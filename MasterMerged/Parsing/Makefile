@@ -40,15 +40,15 @@ SRC = minishell.c Identificators/identity_tools/identool0.c\
 		../Execute/o_builtins/cd_tools/cd1.c \
 		../Execute/o_builtins/cd_tools/cd2.c \
 		../Execute/o_builtins/cd_tools/cd3.c \
-		../Execute/tree_executers/execute_tree.c ../Execute/tree_executers/merge_utils.c \
+		../Execute/tree_executers/execute_tree.c ../Execute/tree_executers/merge_utils/merge_utils.c \
 		../Execute/tree_pipeline/tree_pipeline.c ../Execute/tree_executers/free_tree.c \
 		../Execute/tree_executers/shortcircuit.c ../Execute/tree_executers/handle_red.c \
 		../Execute/o_builtins/o_bultins.c ../Execute/o_builtins/o_echo.c \
 		../Execute/o_builtins/o_cd.c ../Execute/o_builtins/o_env.c \
 		../Execute/o_builtins/o_exit.c ../Execute/o_builtins/o_export.c \
 		../Execute/o_builtins/o_pwd.c ../Execute/o_builtins/o_unset.c \
-		../Execute/o_builtins/wild_card.c ../Execute/tree_executers/merge_env.c \
-		../Execute/tree_executers/merge_env_utils.c \
+		../Execute/o_builtins/wild_card.c ../Execute/tree_executers/merge_utils/merge_env.c \
+		../Execute/tree_executers/merge_utils/merge_env_utils.c \
 		../Execute/fail_malloc.c ../Execute/o_builtins/builtin_utils.c 					\
 		../Execute/Expansion/expand_arglist.c ../Execute/Expansion/expand_key.c 		\
 		../Execute/Expansion/join_system.c ../Execute/Expansion/merge_arglist.c 		\

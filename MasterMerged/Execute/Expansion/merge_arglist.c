@@ -54,8 +54,8 @@ char **convert_list_to_argv(t_arg *arg, t_data *data)
         }
     }
     cv.argv[cv.i] = NULL;
-    cv.new_argv = IFS_pass(cv.argv); // argv gets freed inside.
+    cv.new_argv = IFS_pass(cv.argv);
     if (!cv.new_argv)
-        return (free(cv.argv), free_arg_list(cv.free_head), NULL);
-    return (free(cv.argv), free_arg_list(cv.free_head), cv.new_argv);
+        return (free_argv(cv.argv), free_arg_list(cv.free_head), NULL);
+    return (free_argv(cv.argv), free_arg_list(cv.free_head), cv.new_argv);
 }

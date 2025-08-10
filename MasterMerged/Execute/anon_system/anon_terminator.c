@@ -14,7 +14,7 @@ static int anon_index(char *str)
     return (i); // fall back shouldnt happen.
 }
 
-static bool single_anon(char *str)
+bool single_anon(char *str)
 {
     if (str[0] == (char)127 && str[1] == '\0')
         return (true);

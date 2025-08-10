@@ -52,7 +52,7 @@ static char    *find_in_env(t_envlist *envlist, char *key)
         if (ft_strcmp(key, cur->variable) == 0)
         {
             if (cur->value[0] == '\0')
-                return (free(key), ft_strdup(anon));
+                return (free(key), ft_strdup(""));
             return (free(key), ft_strdup(cur->value)); // return value
         }
         cur = cur->next;

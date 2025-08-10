@@ -13,20 +13,6 @@ static size_t ifs_list_size(t_ifs *curr)
     return (size);
 }
 
-void free_ifs_list(t_ifs *ifs)
-{
-    t_ifs   *tmp;
-
-    if (!ifs)
-        return ;
-    while (ifs)
-    {
-        tmp = ifs->next;
-        free(ifs->string);
-        free(ifs);
-        ifs = tmp;
-    }
-}
 // gets used in terminate anons.
 int  add_ifs_back(t_ifs **head, char *str)
 {
@@ -86,6 +72,7 @@ static int append_ifs(t_ifs_vars *ifs, char *str)
     ifs->ifs_split = ft_split(str, (char)27);
     if (!ifs->ifs_split)
         return (EXIT_FAILURE);
+    print_argv(ifs->ifs_split);
     ifs->j = 0;
     while (ifs->ifs_split[ifs->j])
     {
@@ -108,7 +95,7 @@ char    **IFS_pass(char **argv)
         if (has_delim(argv[ifs.i]))
         {
             if (append_ifs(&ifs, argv[ifs.i]) != EXIT_SUCCESS)
-                return (NULL);
+                return (free_ifs_list(ifs.ifs_list), NULL);
         }
         else
         {
@@ -121,4 +108,24 @@ char    **IFS_pass(char **argv)
     if (!ifs.new_argv)
         return (free_ifs_list(ifs.ifs_list), NULL);
     return (free_ifs_list(ifs.ifs_list), ifs.new_argv);
+}
+
+char    *strjoiner(char **list, char *sep, size_t size)
+{
+    
+
+}
+
+char    *red_IFS_pass(char *str)
+{
+    char    **ifs_split;
+    char    *joined;
+
+    ifs_split = ft_split(str, (char)27);
+    if (!ifs_split)
+        return (NULL);
+    joined = strjoiner(ifs_split, " ", arg_count(ifs_split));
+    if (!joined)
+        return (free_argv(ifs_split), NULL);
+    return (joined);
 }

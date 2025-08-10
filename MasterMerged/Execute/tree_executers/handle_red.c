@@ -151,6 +151,17 @@ static int  redirect_current(t_red *curr_red, t_data *data)
     return (EXIT_SUCCESS);
 }
 
+static bool ambig_wrapper(char *str, bool ambig_dollar, bool dquoted)
+{
+    if (!ambig_dollar)
+        return (false);
+    if (!dquoted && has_space(str))
+        return (true);
+    if (!dquoted && str[0] == '\0')
+        return (true);
+    return (false);
+}
+
 int handle_red(t_tree *node, t_data *data)
 {
     t_red   *curr_red;
@@ -165,8 +176,8 @@ int handle_red(t_tree *node, t_data *data)
             return (EXIT_FAILURE);
         free(curr_red->value);
         curr_red->value = expanded;
-        if ((has_ifs(curr_red->value) && ambig) || (curr_red->value[0] == (char)127 && curr_red->value[1] == '\0'))
-            return (dprintf(2 , "Master@Mind: %s: ambiguous redirect\n", curr_red->value), EXIT_FAILURE);
+        if (ambig_wrapper(curr_red->value, ambig, curr_red->was_d_quote))
+            return (dprintf(2 , RED"Master@Mind: %s: ambiguous redirect\n"RST, curr_red->value), EXIT_FAILURE);
         if (redirect_current(curr_red, data) != EXIT_SUCCESS)
             return (EXIT_FAILURE);
         curr_red = curr_red->next;
@@ -174,8 +185,10 @@ int handle_red(t_tree *node, t_data *data)
     return (EXIT_SUCCESS);
 }
 
-void    restore_IO(int saved_in, int saved_out)
+void    restore_IO(int saved_in, int saved_out, bool no_red)
 {
+    if (no_red)
+        return ;
     // Always restore STDIN/STDOUT
     dup2(saved_in, STDIN_FILENO);
     dup2(saved_out, STDOUT_FILENO);

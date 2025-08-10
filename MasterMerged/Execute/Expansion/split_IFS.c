@@ -30,17 +30,36 @@ bool    has_space(char *str)
 
 static  char *append_delimiter(char *str)
 {
-    char    *new;
-    char    delim[3];
+    char    *first_border;
+    char    *last_border;
+    char    delim[2];
 
-    // delim[0] = (char)127;
     delim[0] = (char)27;
     delim[1] = '\0';
 
-    new = ft_strjoin(str, delim);
-    if (!new)
+    first_border= ft_strjoin(delim, str);
+    if (!first_border)
         return (NULL);
-    return (new);
+    last_border = ft_strjoin(first_border, delim);
+    if (!last_border)
+        return (free(first_border), NULL);
+    free(first_border);
+    return (last_border);
+}
+
+void free_ifs_list(t_ifs *ifs)
+{
+    t_ifs   *tmp;
+
+    if (!ifs)
+        return ;
+    while (ifs)
+    {
+        tmp = ifs->next;
+        free(ifs->string);
+        free(ifs);
+        ifs = tmp;
+    }
 }
 
 int internal_field_seperator(char *raw, t_data *data, char ***pockets)
