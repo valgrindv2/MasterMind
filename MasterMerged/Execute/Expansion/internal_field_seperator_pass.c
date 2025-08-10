@@ -110,21 +110,57 @@ char    **IFS_pass(char **argv)
     return (free_ifs_list(ifs.ifs_list), ifs.new_argv);
 }
 
-char    *strjoiner(char **list, char *sep, size_t size)
+char *strjoiner(char **list, char *sep, size_t size)
 {
-    
+    size_t  total_len;
+    size_t  strings_len;
+    size_t  i, j, k;
+    char    *joined;
 
+    if (!list || !sep || size == 0)
+        return (NULL);
+    if (size == 1)
+        return (ft_strdup(list[0]));
+    i = 0;
+    strings_len = 0;
+    while (list[i])
+        strings_len += o_ft_strlen(list[i++]);
+    total_len = strings_len + (o_ft_strlen(sep) * (size - 1));
+    joined = malloc(total_len + 1);
+    if (!joined)
+        return (NULL);
+    i = 0;
+    k = 0;
+    while (list[i])
+    {
+        j = 0;
+        while (list[i][j])
+            joined[k++] = list[i][j++];
+        if (i < size - 1)
+        {
+            j = 0;
+            while (sep[j])
+                joined[k++] = sep[j++];
+        }
+        i++;
+    }
+    joined[k] = '\0';
+    return (joined);
 }
+
 
 char    *red_IFS_pass(char *str)
 {
     char    **ifs_split;
     char    *joined;
 
+    if (str[0] == '\0')
+        return (ft_strdup(""));
     ifs_split = ft_split(str, (char)27);
     if (!ifs_split)
         return (NULL);
     joined = strjoiner(ifs_split, " ", arg_count(ifs_split));
+    puts(joined);
     if (!joined)
         return (free_argv(ifs_split), NULL);
     return (joined);

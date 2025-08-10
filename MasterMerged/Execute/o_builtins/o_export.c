@@ -225,7 +225,7 @@ static bool valid_char(char c)
 static bool is_printable(char c)
 {
     if (c == '=')
-        return (false);
+        return (true);
 	if (c >= 32 && c <= 126 || c == '\0')
 	{
 		return (true);
@@ -240,9 +240,8 @@ static bool valid_identifier(char *str)
 
     i = 0;
     standalone = true;
-    if (!valid_first_char(str[i]))
+    if (!valid_first_char(str[i++]))
         return (false);
-    i++;
     while (str[i])
     {
         if (!valid_char(str[i]))

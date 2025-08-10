@@ -19,6 +19,11 @@ bool    has_space(char *str)
     int i;
 
     i = 0;
+    if (!str)
+    {
+        printf("null str\n");
+        exit(1);
+    }
     while (str[i])
     {
         if (str[i] == ' ')
@@ -60,6 +65,20 @@ void free_ifs_list(t_ifs *ifs)
         free(ifs);
         ifs = tmp;
     }
+}
+
+bool only_spaces(char *raw)
+{
+    int i;
+
+    i = 0;
+    while (raw[i])
+    {
+        if (raw[i] != ' ')
+            return (false);
+        i++;
+    }
+    return (true);
 }
 
 int internal_field_seperator(char *raw, t_data *data, char ***pockets)

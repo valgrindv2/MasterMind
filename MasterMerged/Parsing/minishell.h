@@ -556,6 +556,8 @@ int                 add_to_envlist(t_envlist **envlist, char *str, bool exported
 // Redirections 
 int                 handle_red(t_tree *node, t_data *data);
 void    			restore_IO(int saved_in, int saved_out, bool no_red);
+char				*red_IFS_pass(char *str);
+bool 				only_spaces(char *raw);
 
 
 // Utilsin pipleine cuz i didnt recurs it back to rec exec.
