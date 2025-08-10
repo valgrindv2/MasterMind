@@ -67,44 +67,14 @@ static int  red_append(t_red *red, t_data *data)
     return (EXIT_SUCCESS);
 }
 
-static int red_here_doc(t_red *red)
+int red_here_doc(t_red *red)
 {
     if (dup2(red->fd_here_doc, STDIN_FILENO) == -1)
         return (perror("dup2"), EXIT_FAILURE);
-    // close(red->fd_here_doc);
-    // red->fd_here_doc = -1;
+    close(red->fd_here_doc);
+    red->fd_here_doc = -1;
     return (EXIT_SUCCESS);
 }
-
-
-// static char    *normalize_ifs(char *red_value, t_data *data)
-// {
-//     char    *expanded;
-//     char    *normalized;
-//     char    *trimmed;
-//     int     i;
-
-//     expanded = expand_var(red_value, data, true);
-//     if (!expanded)
-//         return (NULL);
-//     normalized = malloc (o_ft_strlen(expanded) + 1);
-//     if (!normalized)
-//         return (free(expanded), NULL);
-//     i = 0;
-//     while (expanded[i])
-//     {
-//         if (expanded[i] == (char)27)
-//             normalized[i] = ' ';
-//         else
-//             normalized[i] = expanded[i];
-//         i++;
-//     }
-//     normalized[i] = '\0';
-//     trimmed = ft_substr(normalized, 0 , o_ft_strlen(normalized) - 1); // trimm last space.
-//     if (!trimmed)
-//         return (free(expanded), free(normalized), NULL);
-//     return (free(expanded), free(normalized), trimmed);
-// }
 
 static bool check_expanded_malloc(char **expanded, t_data *data, t_red *curr_red)
 {

@@ -33,16 +33,16 @@ int     exec_node(t_tree *node, t_data *data)
 
     if (id == 0)
     {
-            execve(get_absolute_path(node->argv[0]), node->argv, data->env_vec);
-            if (node->argv[0] && node->argv[0][0] == '/') // use strchr
-                dprintf(STDERR_FILENO, "Migrane: %s: No such file or directory\n", node->argv[0]); // change this to print error.
-            else
-                dprintf(STDERR_FILENO, "Migrane: %s: command not found\n", node->argv[0]);
-            // maybe free();
-            clean_up(data->head, data);
-            free_argv(data->env_vec);
-            free_envlist(data->env);
-            exit(EXECVE_FAILURE); // exit child process if execve fails
+        execve(get_absolute_path(node->argv[0]), node->argv, data->env_vec);
+        if (node->argv[0] && node->argv[0][0] == '/') // use strchr
+            dprintf(STDERR_FILENO, "Migrane: %s: No such file or directory\n", node->argv[0]); // change this to print error.
+        else
+            dprintf(STDERR_FILENO, "Migrane: %s: command not found\n", node->argv[0]);
+        // maybe free();
+        clean_up(data->head, data);
+        free_argv(data->env_vec);
+        free_envlist(data->env);
+        exit(EXECVE_FAILURE); // exit child process if execve fails
     }
     waitpid(id, &ex_status, 0); // Parent:
     // ───── decode status ─────

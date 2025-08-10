@@ -559,6 +559,8 @@ void    			restore_IO(int saved_in, int saved_out, bool no_red);
 char				*red_IFS_pass(char *str);
 bool 				only_spaces(char *raw);
 
+int red_here_doc(t_red *red);
+
 
 // Utilsin pipleine cuz i didnt recurs it back to rec exec.
 char                *get_absolute_path(char *cmd);
