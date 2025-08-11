@@ -1,0 +1,34 @@
+mine
+
+--------------------------------------------------------
+Master@Mindv3.0> cd adsasdas
+└─ COMMAND [cd]
+      └─  [Arg]  > cd --> Quoted > 0
+      └─ Space Next True
+      └─  [Arg]  > adsasdas --> Quoted > 0
+
+      bash-3.2$ exit 23 3 3 3
+exit
+bash: exit: too many arguments
+bash-3.2$ exit asdas 23 3 3 3
+exit
+bash: exit: asdas: numeric argument required
+➜  parsing git:(master) ✗ 
+
+bash-3.2$ exit 232312312312312312312312
+exit
+bash: exit: 232312312312312312312312: numeric argument required
+
+---------------------------------------------------
+
+Master@Mindv3.0> (sd && ((pwd && ls )) || "") &&()
+MasterMind: Syntax Error Near Unexpected Token `)'
+Master@Mindv3.0> (sd && ((
+
+----------------------------------------------------
+
+cd to an invalid address does not print an error
+
+-----------------------------------------------------
+
+ADD -Wall -Wextra -Werror Flags

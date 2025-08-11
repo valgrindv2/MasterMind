@@ -92,7 +92,7 @@ static int new_wdir(t_tree *node, t_data *data, int *chpwd)
         if (!x && unreachable(node, data))
             return (data->exit_status = 1, EXIT_FAILURE);
         if (data->unreach == false)
-            return (puterror("Master@Mind:s cd: Dir Or File Is Unreachable\n"),
+            return (puterror("Master@Mind: cd: Dir Or File Is Unreachable\n"),
                 data->exit_status = 1, EXIT_FAILURE);
     }
     if (new_wdir_t(node, data, chpwd))

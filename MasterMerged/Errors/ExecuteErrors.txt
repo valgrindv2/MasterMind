@@ -1,0 +1,207 @@
+OUSS
+
+-----------------------------------------------------------------------------------
+Master@Mindv3.0> [wd
+└─ COMMAND [[wd]
+      └─  [Arg]  > [wd --> Quoted > 0
+==389800== Syscall param execve(filename) points to unaddressable byte(s)
+==389800==    at 0x4A1908B: execve (syscall-template.S:120)
+==389800==    by 0x40AA0A: exec_node (in /home/ayel-bou/Desktop/MasterGit/MasterMerged/MasterMerged/parsing/minishell)
+==389800==    by 0x40AC5F: recursive_execution (in /home/ayel-bou/Desktop/MasterGit/MasterMerged/MasterMerged/parsing/minishell)
+==389800==    by 0x40AE4A: execute_tree (in /home/ayel-bou/Desktop/MasterGit/MasterMerged/MasterMerged/parsing/minishell)
+==389800==    by 0x401576: main (in /home/ayel-bou/Desktop/MasterGit/MasterMerged/MasterMerged/parsing/minishell)
+==389800==  Address 0x0 is not stack'd, malloc'd or (recently) free'd
+==389800== 
+Migrane: [wd: command not found
+--------------------------------------------------------------------------------------
+
+Master@Mindv3.0> cd ..
+└─ COMMAND [cd]
+      └─  [Arg]  > cd --> Quoted > 0
+      └─ Space Next True
+      └─  [Arg]  > .. --> Quoted > 0
+Master@Mind: Permission Denied
+Master@Mindv3.0> echo $?
+└─ COMMAND [echo]
+      └─  [Arg]  > echo --> Quoted > 0
+      └─ Space Next True
+      └─  [Arg]  > $? --> Quoted > 0
+-1
+
+-----------------------------------------------------------------------------------------
+
+Master@Mind: export: `3_12312': not a valid identifier
+Master@Mindv3.0> echo $?
+└─ COMMAND [echo]
+      └─  [Arg]  > echo --> Quoted > 0
+      └─ Space Next True
+      └─  [Arg]  > $? --> Quoted > 0
+0
+
+-----------------------------------------------------------------------------------------
+
+case in exporing using expand (if the var isnt created, using append it must be created even if its not )
+export c+=$b (c does not exists, but must be created)
+
+-----------------------------------------------------------------------------------------
+
+ asdasMaster@Mindv3.0> echo -  - - - -- - asdas
+└─ COMMAND [echo]
+      └─  [Arg]  > echo --> Quoted > 0
+      └─ Space Next True
+      └─  [Arg]  > - --> Quoted > 0
+      └─ Space Next True
+      └─  [Arg]  > - --> Quoted > 0
+      └─ Space Next True
+      └─  [Arg]  > - --> Quoted > 0
+      └─ Space Next True
+      └─  [Arg]  > - --> Quoted > 0
+      └─ Space Next True
+      └─  [Arg]  > -- --> Quoted > 0
+      └─ Space Next True
+      └─  [Arg]  > - --> Quoted > 0
+      └─ Space Next True
+      └─  [Arg]  > asdas --> Quoted > 0
+ - - - -- - asdasMaster@Mindv3.0>
+
+  Master@Mindv3.0> echo -n -n  -n  asdas
+└─ COMMAND [echo]
+      └─  [Arg]  > echo --> Quoted > 0
+      └─ Space Next True
+      └─  [Arg]  > -n --> Quoted > 0
+      └─ Space Next True
+      └─  [Arg]  > -n --> Quoted > 0
+      └─ Space Next True
+      └─  [Arg]  > -n --> Quoted > 0
+      └─ Space Next True
+      └─  [Arg]  > asdas --> Quoted > 0
+ -n -n asdasMaster@Mindv3.0> echo -n -n  -n -nnnnnn  asdas
+└─ COMMAND [echo]
+      └─  [Arg]  > echo --> Quoted > 0
+      └─ Space Next True
+      └─  [Arg]  > -n --> Quoted > 0
+      └─ Space Next True
+      └─  [Arg]  > -n --> Quoted > 0
+      └─ Space Next True
+      └─  [Arg]  > -n --> Quoted > 0
+      └─ Space Next True
+      └─  [Arg]  > -nnnnnn --> Quoted > 0
+      └─ Space Next True
+      └─  [Arg]  > asdas --> Quoted > 0
+ -n -n -nnnnnn asdasMaster@Mindv3.0> 
+
+ ----------------------------------------------------------------------------------------------
+
+ Master@Mindv3.0> export a="    a"
+└─ COMMAND [export]
+      └─  [Arg]  > export --> Quoted > 0
+      └─ Space Next True
+      └─  [Arg]  > a= --> Quoted > 0
+      └─  [Arg]  >      a --> Quoted > 0
+Master@Mind: export: `a=        a': not a valid identifier
+
+-----------------------------------------------------------------------------------------------
+
+bash-3.2$ echo $a
+asdasd asdasdd
+bash-3.2$ ls
+Makefile                identificators          minishell               minishell.h             signal_handlers         tools
+debbugers               mastermind              minishell.c             re_identificators       syntax
+bash-3.2$ ./minishell 
+Master@Mindv3.0> echo $a
+└─ COMMAND [echo]
+      └─  [Arg]  > echo --> Quoted > 0
+      └─ Space Next True
+      └─  [Arg]  > $a --> Quoted > 0
+        asdasd  asdasdd (tabs should be changed into spaces, only seconds)
+
+----------------------------------------------------------------------------------------------------
+
+➜  parsing git:(master) ✗ env -i ./minishell 
+Master@Mindv3.0> ls
+└─ COMMAND [ls]
+      └─  [Arg]  > ls --> Quoted > 0
+Failed To Merge ENV: Undefined error: 0
+Merge Failed: Undefined error: 0
+
+-------------------------------------------------------------------------------------------------
+
+Master@Mindv3.0> unset PATH
+└─ COMMAND [unset]
+      └─  [Arg]  > unset --> Quoted > 0
+      └─ Space Next True
+      └─  [Arg]  > PATH --> Quoted > 0
+Master@Mindv3.0> ls
+└─ COMMAND [ls]
+      └─  [Arg]  > ls --> Quoted > 0
+Execute         MightHelp       MustBeDone.txt  README.md       attachment      file
+          lib             parsing
+
+---------------------------------------------------------------------------------------------------
+
+bash-3.2$ export a=2323123 && echo $a && (cd .. && pwd) && pwd
+2323123
+/mnt/homes/ayel-bou/Desktop/MasterGit/MasterMerged/MasterMerged
+/mnt/homes/ayel-bou/Desktop/MasterGit/MasterMerged/MasterMerged/parsing (exit status of cd)
+
+-----------------------------------------------------------------------------------------------------
+
+Master@Mindv3.0> ls > a > b > c 
+└─ COMMAND [ls]
+      └─  [Red]  > a --> ID-> OUTPUT_FILE_ID
+      └─  [Red]  > b --> ID-> OUTPUT_FILE_ID
+      └─  [Red]  > c --> ID-> OUTPUT_FILE_ID
+      └─  [Arg]  > ls --> Quoted > 0
+      └─ Space Next True
+a
+Master@Mindv3.0> cat c
+└─ COMMAND [cat]
+      └─  [Arg]  > cat --> Quoted > 0
+      └─ Space Next True
+      └─  [Arg]  > c --> Quoted > 0
+Makefile
+a
+b
+c
+debbugers
+identificators
+mastermind
+minishell
+minishell.c
+minishell.h
+re_identificators
+signal_handlers
+syntax
+tools
+Master@Mindv3.0> cat a 
+└─ COMMAND [cat]
+      └─  [Arg]  > cat --> Quoted > 0
+      └─ Space Next True
+      └─  [Arg]  > a --> Quoted > 0
+      └─ Space Next True
+b
+Master@Mindv3.0> cat b
+└─ COMMAND [cat]
+      └─  [Arg]  > cat --> Quoted > 0
+      └─ Space Next True
+      └─  [Arg]  > b --> Quoted > 0
+c
+-----------------------------------------------------------------------------------------------------------
+
+Master@Mindv3.0> echo "salam" > .
+└─ COMMAND [echo]
+      └─  [Red]  > . --> ID-> OUTPUT_FILE_ID
+      └─  [Arg]  > echo --> Quoted > 0
+      └─ Space Next True
+      └─  [Arg]  > salam --> Quoted > 0
+      └─ Space Next True
+.
+Master@Mind: . : Is a directory
+Master@Mindv3.0> echo $?
+└─ COMMAND [echo]
+      └─  [Arg]  > echo --> Quoted > 0
+      └─ Space Next True
+      └─  [Arg]  > $? --> Quoted > 0
+0
+
+-------------------------------------------------------------------------------------------------------

@@ -1,7 +1,7 @@
 CC = cc 
-SANITIZE= #-fsanitize=address -g3
-CFLAG = #-I$(READLINE_DIR)/include # zdt readline library (MAC) -Wall -Wextra -Werror
-READLINE_DIR := #../lib/readline/install
+#SANITIZE= -fsanitize=address -g3
+CFLAG = -I$(READLINE_DIR)/include # zdt readline library (MAC) -Wall -Wextra -Werror
+READLINE_DIR := ../lib/readline/install
 LDFLAGS += -L$(READLINE_DIR)/lib -lreadline -lhistory -lncurses
 H = minishell.h 
 NAME = minishell
@@ -64,13 +64,13 @@ OBJ = $(SRC:.c=.o)
 all: $(NAME)
 
 $(NAME): $(OBJ)
-	@$(CC) $(OBJ) $(CFLAG) $(SANITIZE) $(LDFLAGS) -lreadline -o $(NAME)
+	$(CC) $(OBJ) $(CFLAG) $(SANITIZE) $(LDFLAGS) -lreadline -o $(NAME)
 
 %.o: %.c $(H)
-	@$(CC) $(CFLAG) $(SANITIZE) -c $< -o $@
+	$(CC) $(CFLAG) $(SANITIZE) -c $< -o $@
 
 clean:
-	@rm -rf $(OBJ)
+	rm -rf $(OBJ)
 fclean: clean
-	@rm -rf $(NAME)
+	rm -rf $(NAME)
 re: fclean all     
