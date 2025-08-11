@@ -6,7 +6,7 @@
 /*   By: ayel-bou <ayel-bou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/03 19:15:02 by ayel-bou          #+#    #+#             */
-/*   Updated: 2025/08/11 11:48:48 by ayel-bou         ###   ########.fr       */
+/*   Updated: 2025/08/11 14:21:32 by ayel-bou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ int	main(int argc, char **argv, char **env)
 	while (1)
 	{
 		g_flag = 0;
-		input = readline("\033[32mMaster@Mindv3.0> \033[0m");
+		input = readline("Master@Mindv3.0> ");
 		if (input == NULL)
 		{
 			printf("exit\n");

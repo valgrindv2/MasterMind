@@ -1,0 +1,16 @@
+Master@Mindv3.0> cat
+└─ COMMAND [cat]
+      └─  [Arg]  > cat --> Quoted > 0
+^\
+
+^C
+Master@Mindv3.0> Master@Mindv3.0> 
+CTRL + \, should not do anuything in the parent, yet in the child let be as it is
+------------------------------------------------------------------------------------
+
+Master@Mindv3.0> login
+└─ COMMAND [login]
+      └─  [Arg]  > login --> Quoted > 0
+login: ^C
+Master@Mindv3.0> 
+login: 

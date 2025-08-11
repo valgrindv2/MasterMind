@@ -30,30 +30,67 @@ static int count_args(char **argv)
     return (1);       
 }
 
-// function entry.
-int o_exit(t_tree *node, t_data *data)
+static long	warn_exit(const char *str)
 {
-    long exit_call;
-    int in_parent;
+	size_t		i;
+	long long	result;
 
-    char **argv = node->argv;
-    if (!count_args(argv))
+	i = 0;
+	result = 0;
+	while (str[i] == ' ' || (str[i] >= 9 && str[i] <= 13))
+		i++;
+	while (str[i] >= '0' && str[i] <= '9')
+	{
+		if (result > (LLONG_MAX - (str[i] - '0')) / 10)
+			return (EXIT_OVER_LIMIT);
+		result = result * 10 + (str[i] - '0');
+		i++;
+	}
+	return (MAX_FLOW);
+}
+
+void    numeric_value(char *str, int in_parent)
+{
+    if (!ifnumber(str) || warn_exit(str) == EXIT_OVER_LIMIT)
     {
-        printf("exit\n");
-        puterror("exit: too many arguments\n");
-        return (1);
-    }
-    in_parent = isatty(STDIN_FILENO);
-    if (in_parent)
-        printf("exit\n");
-    if (count_args(argv) == 11)
-        exit(data->exit_status);
-    if (!ifnumber(argv[1]))
-    {
+        if (in_parent)
+            printf("exit\n");
         puterror("Master@Mind: Exit Requires A Numeric Value\n");
         exit(255);
     }
+}
+
+// function entry.
+
+// WE NEED A FLAG TO KNOW WHETHER WE ARE IN A CHILD OR NOT
+int o_exit(t_tree *node, t_data *data)
+{
+    char **argv;
+    int in_parent;
+    long exit_call;
+
+    argv = node->argv;
+    in_parent = isatty(STDIN_FILENO); // TO CHANGE
+    if (count_args(argv) == 11)
+        exit(data->exit_status);
+    numeric_value(argv[1], in_parent);
+    if (!count_args(argv))
+    {
+        if (in_parent)
+            printf("exit\n");
+        puterror("exit: too many arguments\n");
+        return (1);
+    }
+    if (in_parent)
+        printf("exit\n");
     exit_call = ft_atol(argv[1]);
     exit(exit_call);
     return (EXIT_SUCCESS);
 }
+/*
+    exit exclusevely will be in a child only if its piped, otherwhise its executed in the parent, 
+    and as u saw there a t_data *data struct, we can save a boolean flag, and mark it as true, 
+    in the last step before the parent fork the exit child in the pipe, 
+    this way the exit child will inherit the data struct boolean variable, 
+    and we will check for it, and remove the isatty logic, 
+*/

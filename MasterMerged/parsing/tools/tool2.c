@@ -6,7 +6,7 @@
 /*   By: ayel-bou <ayel-bou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/03 20:01:40 by ayel-bou          #+#    #+#             */
-/*   Updated: 2025/08/04 01:24:50 by ayel-bou         ###   ########.fr       */
+/*   Updated: 2025/08/11 16:39:15 by ayel-bou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ long	ft_atol(const char *str)
 	while (str[i] >= '0' && str[i] <= '9')
 	{
 		if (result > (LLONG_MAX - (str[i] - '0')) / 10)
-			return (ANOMALY);
+			return (EXIT_OVER_LIMIT);
 		result = result * 10 + (str[i] - '0');
 		i++;
 	}

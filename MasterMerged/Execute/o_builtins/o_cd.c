@@ -106,6 +106,7 @@ int o_cd(t_tree *node, t_data *data)
 
     chpwd = 0;
     data->unreach = false;
+    data->check = false;
     data->home_p = handle_no_arg(node, data);
     if (!data->home_p && data->check == true)
         return (EXIT_FAILURE);

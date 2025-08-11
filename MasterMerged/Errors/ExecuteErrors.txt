@@ -39,6 +39,46 @@ Master@Mindv3.0> echo $?
 0
 
 -----------------------------------------------------------------------------------------
+Master@Mindv3.0> ./a
+└─ COMMAND [./a]
+      └─  [Arg]  > ./a --> Quoted > 0
+Migrane: ./a: command not found
+You have access to multiple processes named minishell:
+    a) 44099 ./minishell
+    b) 44247 ./minishell
+Which process? (letter or PID) b
+
+Process:         minishell [44247]
+Path:            /Volumes/VOLUME/*/minishell
+Load Address:    0x107647000
+Identifier:      minishell
+Version:         ???
+Code Type:       X86-64
+Parent Process:  minishell [44099]
+
+Date/Time:       2025-08-11 10:36:01.997 +0100
+Launch Time:     2025-08-11 10:36:00.777 +0100
+OS Version:      Mac OS X 10.15.7 (19H2026)
+Report Version:  7
+Analysis Tool:   /Applications/Xcode.app/Contents/Developer/usr/bin/leaks
+Analysis Tool Version:  Xcode 12.4 (12D4e)
+
+Physical footprint:         304K
+Physical footprint (peak):  304K
+----
+
+leaks Report Version: 4.0
+Process 44247: 420 nodes malloced for 338 KB
+Process 44247: 3 leaks for 48 total leaked bytes.
+
+    3 (48 bytes) << TOTAL >>
+
+      2 (32 bytes) ROOT LEAK: 0x7fcc83704240 [16]
+         1 (16 bytes) 0x7fcc83705c60 [16]  length: 1  "a"
+
+      1 (16 bytes) ROOT LEAK: 0x7fcc83705060 [16]  length: 1  "a"
+
+------------------------------------------------------------------------------------------
 
 case in exporing using expand (if the var isnt created, using append it must be created even if its not )
 export c+=$b (c does not exists, but must be created)
@@ -205,3 +245,35 @@ Master@Mindv3.0> echo $?
 0
 
 -------------------------------------------------------------------------------------------------------
+
+Master@Mindv3.0> $cmd
+└─ COMMAND [$cmd]
+      └─  [Arg]  > $cmd --> Quoted > 0
+ == >[0]: ls
+ == >[1]: -la
+total 952
+drwxr-xr-x  13 ayel-bou  2024_khouribga     442 Aug 11 14:21 .
+drwxr-xr-x  11 ayel-bou  2024_khouribga     374 Aug 11 12:02 ..
+-rw-r--r--   1 ayel-bou  2024_khouribga    3466 Aug 11 12:56 Makefile
+drwxr-xr-x   6 ayel-bou  2024_khouribga     204 Aug 11 14:21 debbugers
+drwxr-xr-x   5 ayel-bou  2024_khouribga     170 Aug 11 14:21 identificators
+drwxr-xr-x   5 ayel-bou  2024_khouribga     170 Aug 11 14:21 mastermind
+-rwxr-xr-x   1 ayel-bou  2024_khouribga  458688 Aug 11 14:21 minishell
+-rw-r--r--   1 ayel-bou  2024_khouribga    3674 Aug 11 14:21 minishell.c
+-rw-r--r--   1 ayel-bou  2024_khouribga   17620 Aug 11 13:47 minishell.h
+drwxr-xr-x   4 ayel-bou  2024_khouribga     136 Aug 11 14:21 re_identificators
+drwxr-xr-x   3 ayel-bou  2024_khouribga     102 Aug 11 14:21 signal_handlers
+drwxr-xr-x   7 ayel-bou  2024_khouribga     238 Aug 11 14:21 syntax
+drwxr-xr-x  13 ayel-bou  2024_khouribga     442 Aug 11 14:21 tools
+Master@Mindv3.0> export cmd=""
+└─ COMMAND [export]
+      └─  [Arg]  > export --> Quoted > 0
+      └─ Space Next True
+      └─  [Arg]  > cmd= --> Quoted > 0
+      └─  [Arg]  >  --> Quoted > 0
+Master@Mindv3.0> $cmd
+└─ COMMAND [$cmd]
+      └─  [Arg]  > $cmd --> Quoted > 0
+Migrane: : command not found
+
+---------------------------------------------------------------------------------------------------

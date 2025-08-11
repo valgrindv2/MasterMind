@@ -6,7 +6,7 @@
 /*   By: ayel-bou <ayel-bou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/04 03:32:22 by ayel-bou          #+#    #+#             */
-/*   Updated: 2025/08/09 05:45:46 by ayel-bou         ###   ########.fr       */
+/*   Updated: 2025/08/11 17:12:46 by ayel-bou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,8 @@
 # define POINT_ONLY 0
 # define POINT_N_GET 0
 # define ANOMALY -1111
+# define EXIT_OVER_LIMIT 2147483650
+# define MAX_FLOW 0
 # define UNIT_HEREDOC 0
 # define UNIT_SPACE_NEXT 1
 # define NEW_LINE "newline"

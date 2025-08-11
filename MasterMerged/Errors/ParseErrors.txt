@@ -1,33 +1,48 @@
 mine
 
 --------------------------------------------------------
-Master@Mindv3.0> cd adsasdas
+Master@Mindv3.0> unset PWD OLDPWD HOME
+└─ COMMAND [unset]
+      └─  [Arg]  > unset --> Quoted > 0
+      └─ Space Next True
+      └─  [Arg]  > PWD --> Quoted > 0
+      └─ Space Next True
+      └─  [Arg]  > OLDPWD --> Quoted > 0
+      └─ Space Next True
+      └─  [Arg]  > HOME --> Quoted > 0
+Master@Mindv3.0> cd
+└─ COMMAND [cd]
+      └─  [Arg]  > cd --> Quoted > 0
+Master@Mind: cd: HOME is not set
+Master@Mindv3.0> cd ads
 └─ COMMAND [cd]
       └─  [Arg]  > cd --> Quoted > 0
       └─ Space Next True
-      └─  [Arg]  > adsasdas --> Quoted > 0
+      └─  [Arg]  > ads --> Quoted > 0
+(CHECKED)
+----------------------------------------------------------
 
-      bash-3.2$ exit 23 3 3 3
+bash-3.2$ exit 23 3 3 3
 exit
 bash: exit: too many arguments
 bash-3.2$ exit asdas 23 3 3 3
 exit
 bash: exit: asdas: numeric argument required
-➜  parsing git:(master) ✗ 
+➜  parsing git:(master) ✗ (CHECKED)
 
 bash-3.2$ exit 232312312312312312312312
 exit
-bash: exit: 232312312312312312312312: numeric argument required
+bash: exit: 232312312312312312312312: numeric argument required 
 
 ---------------------------------------------------
 
 Master@Mindv3.0> (sd && ((pwd && ls )) || "") &&()
 MasterMind: Syntax Error Near Unexpected Token `)'
-Master@Mindv3.0> (sd && ((
+Master@Mindv3.0> (sd && (( (MAYBE GOOD)
 
 ----------------------------------------------------
 
-cd to an invalid address does not print an error
+cd to an invalid address does not print an error (CHECKED)
 
 -----------------------------------------------------
 
