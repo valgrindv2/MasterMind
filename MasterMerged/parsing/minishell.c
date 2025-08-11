@@ -6,12 +6,14 @@
 /*   By: ayel-bou <ayel-bou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/03 19:15:02 by ayel-bou          #+#    #+#             */
-/*   Updated: 2025/08/11 14:21:32 by ayel-bou         ###   ########.fr       */
+/*   Updated: 2025/08/11 18:49:29 by ayel-bou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
 extern int  g_flag;
+
 void	f(void)
 {
 	system("leaks minishell");
@@ -30,7 +32,7 @@ void	voiders(int argc, char **argv, char **env)
 {
 	(void)argc;
 	(void)argv;
-	(void)env;
+	// (void)env;
 }
 
 t_tree	*masterpasrse(char *input, t_data *data, t_token **prompts)
@@ -41,6 +43,8 @@ t_tree	*masterpasrse(char *input, t_data *data, t_token **prompts)
 		return (NULL);
 	token = get_identity(input, data);
 	*prompts = re_identity(token);
+	// debbuger_tk(*prompts);
+	// read_files(*prompts);
 	// clean_id_class(prompts, FAIL);
 	return (build_tree(*prompts));
 	// return (NULL);

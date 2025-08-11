@@ -32,7 +32,7 @@ bash: exit: asdas: numeric argument required
 
 bash-3.2$ exit 232312312312312312312312
 exit
-bash: exit: 232312312312312312312312: numeric argument required 
+bash: exit: 232312312312312312312312: numeric argument required (CHECKED)
 
 ---------------------------------------------------
 
@@ -47,3 +47,26 @@ cd to an invalid address does not print an error (CHECKED)
 -----------------------------------------------------
 
 ADD -Wall -Wextra -Werror Flags
+
+-----------------------------------------------------
+
+Master@Mindv3.0> ls >f1 >f2 -la -l "-e" >f3
+***************************************
+RE_identity> ls
+ID-> COMMAND_ID
+Space next True
+      └─ Red  > f1 --> ID-> OUTPUT_FILE_ID
+      └─ Red  > f2 --> ID-> OUTPUT_FILE_ID
+      └─ Red  > f3 --> ID-> OUTPUT_FILE_ID
+      └─ Ags  > ls --> Quoted > 0
+      └─ Space Next True
+      └─ Ags  > -la --> Quoted > 0
+      └─ Space Next True
+      └─ Ags  > -l --> Quoted > 0
+      └─ Space Next True
+      └─ Ags  > -e --> Quoted > 0
+      └─ Space Next True
+       └─ Not Quoted (CHECKED)
+----------------------------------------------------
+
+UNSET PARSE

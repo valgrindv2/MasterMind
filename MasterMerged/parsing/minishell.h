@@ -6,7 +6,7 @@
 /*   By: ayel-bou <ayel-bou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/04 03:32:22 by ayel-bou          #+#    #+#             */
-/*   Updated: 2025/08/11 17:12:46 by ayel-bou         ###   ########.fr       */
+/*   Updated: 2025/08/11 17:51:56 by ayel-bou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -445,6 +445,7 @@ void				clean_id_class(t_token **id_class, int mode);
 void				tree_cleaner(t_tree **node);
 
 // test to be removed after
+void				read_files(t_token *curr);
 void				print_tree(t_tree *root);
 int					printer(t_token *curr, char *name);
 int					printer_arg(t_arg *curr, char *name);

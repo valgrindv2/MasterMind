@@ -34,7 +34,7 @@ SRC = minishell.c identificators/identity_tools/identool0.c\
 		mastermind/system_mind0.c mastermind/system_mind1.c\
 		mastermind/mind_tools/mind_tools1.c\
 		mastermind/mind_tools/mind_tools2.c mastermind/mind_tools/mind_tools3.c \
-		debbugers/dbg_tree.c tools/tools10.c tools/tools11.c\
+		debbugers/dbg_tree.c debbugers/read_files.c tools/tools10.c tools/tools11.c\
 		\
 		\
 		../Execute/o_builtins/cd_tools/cd1.c \
