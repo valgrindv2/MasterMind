@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   re_identool4.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
+/*   By: ayel-bou <ayel-bou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/04 01:57:51 by ayel-bou          #+#    #+#             */
-/*   Updated: 2025/08/08 05:00:25 by codespace        ###   ########.fr       */
+/*   Updated: 2025/08/12 15:50:54 by ayel-bou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,7 @@ t_red	*redirection_cop(t_token *id_class, int *fail)
 		if (new->fd_here_doc == -1)
 			return (*fail = 1, free(new->value), free(new), NULL); // NO LEAKS
 		close(id_class->here_doc_fd);
+		id_class->here_doc_fd = -1;
 	}
 	else if (id_class->here_doc_fd == -1)
 		new->fd_here_doc = -1;

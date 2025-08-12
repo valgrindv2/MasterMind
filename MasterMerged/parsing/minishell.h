@@ -6,7 +6,7 @@
 /*   By: ayel-bou <ayel-bou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/04 03:32:22 by ayel-bou          #+#    #+#             */
-/*   Updated: 2025/08/11 17:51:56 by ayel-bou         ###   ########.fr       */
+/*   Updated: 2025/08/12 15:09:08 by ayel-bou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -294,6 +294,7 @@ int					get_len(char *str);
 void				puterror(char *str);
 int					whitespaces(char x);
 int					all_whitespaces(char x);
+void				init_tool(t_token *new);
 t_token				*ft_lstlast(t_token *lst);
 int					set_ops(t_token *id_class);
 void				ft_bzero(void *s, size_t n);
@@ -302,6 +303,7 @@ int					check_doubles(char x, char x2);
 void				cpy_identity(char *dst, char *src);
 int					len_of_string(char *input, int index);
 t_token				*get_identity(char *input, t_data *data);
+void				re_init_tool(t_token *new, t_token *old);
 int					ft_strnstr(char *haystack, char *needle, size_t len);
 void				add_back_identity(t_token **lst, t_token *new, int mode);
 void				unit_call_space_next(t_token *id_class,
@@ -445,7 +447,7 @@ void				clean_id_class(t_token **id_class, int mode);
 void				tree_cleaner(t_tree **node);
 
 // test to be removed after
-void				read_files(t_token *curr);
+void				read_files(t_token *curr, int fd, char *list);
 void				print_tree(t_tree *root);
 int					printer(t_token *curr, char *name);
 int					printer_arg(t_arg *curr, char *name);

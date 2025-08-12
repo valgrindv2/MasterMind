@@ -5,6 +5,8 @@ static int ifnumber(char *str)
     int i;
 
     i = 0;
+    if (str[i] == '-' || str[i] == '+')
+        i++;
     while (str[i])
     {
         if (!('0' <= str[i] && str[i] <= '9'))
@@ -39,6 +41,9 @@ static long	warn_exit(const char *str)
 	result = 0;
 	while (str[i] == ' ' || (str[i] >= 9 && str[i] <= 13))
 		i++;
+        // add minus
+    if (str[i] == '-' || str[i] == '+')
+		i++; // watchout
 	while (str[i] >= '0' && str[i] <= '9')
 	{
 		if (result > (LLONG_MAX - (str[i] - '0')) / 10)

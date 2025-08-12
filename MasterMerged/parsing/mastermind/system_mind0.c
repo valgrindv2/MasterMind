@@ -6,7 +6,7 @@
 /*   By: ayel-bou <ayel-bou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/04 02:28:08 by ayel-bou          #+#    #+#             */
-/*   Updated: 2025/08/11 18:35:46 by ayel-bou         ###   ########.fr       */
+/*   Updated: 2025/08/12 16:04:05 by ayel-bou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,6 @@ t_tree	*build_tree(t_token *id_class)
 	if (recursive_build(yard, &tree) == ANOMALY)
 		return (tree_cleaner(&tree), clean_yard(&yard, FAIL), NULL);
 	print_tree(tree);
-	// tree_cleaner(&tree);
 	clean_yard(&yard, CLEAN); // CLEAN BLAST FAIL
 	return (tree);
 }

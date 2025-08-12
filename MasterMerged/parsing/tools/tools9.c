@@ -6,11 +6,13 @@
 /*   By: ayel-bou <ayel-bou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/03 20:48:04 by ayel-bou          #+#    #+#             */
-/*   Updated: 2025/08/11 19:22:48 by ayel-bou         ###   ########.fr       */
+/*   Updated: 2025/08/12 16:07:39 by ayel-bou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
+
+extern int g_flag;
 
 int	list_size(t_token *list)
 {
@@ -25,15 +27,25 @@ int	list_size(t_token *list)
 	return (size);
 }
 
-static void here_doc_interruption(char *in, t_data *data, int sv)
+static void	here_doc_interruption(char *in, t_data *data, int sv)
 {
-	puterror("Master@Mind: Herdoc Interrupted\n");
+	puterror("Master@Mind: Heredoc Interrupted\n");
 	close(data->here_fd);
 	data->here_fd = -1;
 	data->exit_status = 1;
 	free(in);
 	dup2(sv, STDIN_FILENO); //check dup fail (NO NEED IT WILL RETURN 0 AND BE FREED ANYWAY)
 	close(sv);
+	signal(SIGINT, sig_handler);
+}
+
+static void	single_interruption(char *in, t_data *data, int sv)
+{
+	puterror("Master@Mind: Single Heredoc Blocked\n");
+	close(data->here_fd);
+	data->here_fd = -1;
+	close(sv);
+	free(in);
 	signal(SIGINT, sig_handler);
 }
 
@@ -47,11 +59,10 @@ int	here_doc_ops(t_token *id_class, t_data *data, char *del)
 	in = readline("Here_doc> ");
 	while (ft_strcmp(del, in))
 	{
-		if (!in)
-		{
-			here_doc_interruption(in, data, sv);
-			return (0);
-		}
+		if (!in && g_flag == SIGINT)
+			return (here_doc_interruption(in, data, sv), 0);
+		else if (!in && g_flag != SIGINT)
+			return (single_interruption(in, data, sv), 1);
 		cpy_to_file(in, data);
 		in = readline("Here_doc> ");
 	}
@@ -59,6 +70,5 @@ int	here_doc_ops(t_token *id_class, t_data *data, char *del)
 	signal(SIGINT, sig_handler); // NEWLINE AFTER CTRL + C IN HEREDOC
 	if (!store_fd(id_class, data))
 		return (free(in), 0);
-	// read_file(id_class);
 	return (free(in), 1);
 }

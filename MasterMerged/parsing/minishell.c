@@ -6,7 +6,7 @@
 /*   By: ayel-bou <ayel-bou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/03 19:15:02 by ayel-bou          #+#    #+#             */
-/*   Updated: 2025/08/11 18:49:29 by ayel-bou         ###   ########.fr       */
+/*   Updated: 2025/08/12 16:04:36 by ayel-bou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,11 +43,8 @@ t_tree	*masterpasrse(char *input, t_data *data, t_token **prompts)
 		return (NULL);
 	token = get_identity(input, data);
 	*prompts = re_identity(token);
-	// debbuger_tk(*prompts);
-	// read_files(*prompts);
 	// clean_id_class(prompts, FAIL);
 	return (build_tree(*prompts));
-	// return (NULL);
 }
 
 int	main(int argc, char **argv, char **env)
@@ -64,6 +61,7 @@ int	main(int argc, char **argv, char **env)
 	signal(SIGINT, sig_handler);
 	signal(SIGQUIT, SIG_IGN);
 	// isatty
+	// if (!isatty(1))
 	while (1)
 	{
 		g_flag = 0;

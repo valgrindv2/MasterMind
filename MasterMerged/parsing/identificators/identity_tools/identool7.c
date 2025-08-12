@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   identool7.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
+/*   By: ayel-bou <ayel-bou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/04 03:26:47 by ayel-bou          #+#    #+#             */
-/*   Updated: 2025/08/07 06:34:14 by codespace        ###   ########.fr       */
+/*   Updated: 2025/08/11 21:08:55 by ayel-bou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,6 +95,7 @@ int	store_fd(t_token *id_class, t_data *data)
 	{
 		if (curr->tok == DEL_ID && curr->del_fd == false)
 		{
+			printf("curr taking fd [%s]\n", curr->identity);
 			if (data->here_fd != -1)
 				curr->here_doc_fd = dup(data->here_fd);
 			if (curr->here_doc_fd == -1)
