@@ -6,7 +6,7 @@
 /*   By: ayel-bou <ayel-bou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/04 03:32:22 by ayel-bou          #+#    #+#             */
-/*   Updated: 2025/08/12 15:09:08 by ayel-bou         ###   ########.fr       */
+/*   Updated: 2025/08/12 17:42:14 by ayel-bou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -509,6 +509,7 @@ int                 o_exit(t_tree *node, t_data *data);
 int                 o_unset(t_tree *node, t_data *data);
 int                 o_export(t_tree *node, t_data *data);
 int                 exec_builtin(t_tree *node, t_data *data);
+bool				valid_identifier(char *str);
 size_t              arg_count(char **argv);
 
 // Export

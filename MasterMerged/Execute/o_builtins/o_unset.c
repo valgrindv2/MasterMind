@@ -76,10 +76,20 @@ int o_unset(t_tree *node, t_data *data)
     i = 1;
     while (node->argv[i])
     {
+        if (!valid_identifier(node->argv[i]))
+        {
+            puterror("Master@Mind: Unset: Invlid Identifier\n");
+            i++;
+            data->exit_status = 1;
+        }
+        if (!node->argv[i])
+            break ;
         unset_node(node->argv[i], &data->env);
         i++;
     }
-    return (EXIT_SUCCESS);
+    if (data->exit_status == 1)
+        return (data->exit_status = 1, EXIT_SUCCESS);
+    return (data->exit_status = 0, EXIT_SUCCESS);
 }
 
 

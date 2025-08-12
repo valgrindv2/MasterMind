@@ -233,7 +233,7 @@ static bool is_printable(char c)
 	return (false);
 }
 
-static bool valid_identifier(char *str)
+bool valid_identifier(char *str)
 {
     int     i;
     bool    standalone;
