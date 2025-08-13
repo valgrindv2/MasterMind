@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   syntax3.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
+/*   By: ayel-bou <ayel-bou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/03 19:39:40 by ayel-bou          #+#    #+#             */
-/*   Updated: 2025/08/07 06:34:52 by codespace        ###   ########.fr       */
+/*   Updated: 2025/08/13 17:40:14 by ayel-bou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,9 +39,8 @@ static t_token	*extract_list(t_token *id_class, t_data *data)
 	return (extract);
 }
 
-int	sef_doc(t_token *id_class, t_data *data, int mode)
+int	sef_doc(t_token *id_class, t_data *data)
 {
-	t_token	*class;
 	t_token	*new_class;
 
 	new_class = extract_list(id_class, data);
@@ -50,7 +49,7 @@ int	sef_doc(t_token *id_class, t_data *data, int mode)
 	else if (!new_class && data->fail == 0)
 		return (1);
 	set_ops(new_class);
-	if (!syntax_verify(new_class, data, mode))
+	if (!syntax_verify(new_class, data))
 	{
 		list_cleaner(&new_class);
 		return (0);

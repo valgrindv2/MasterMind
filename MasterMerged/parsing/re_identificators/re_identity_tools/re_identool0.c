@@ -6,7 +6,7 @@
 /*   By: ayel-bou <ayel-bou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/03 20:55:23 by ayel-bou          #+#    #+#             */
-/*   Updated: 2025/08/04 22:21:14 by ayel-bou         ###   ########.fr       */
+/*   Updated: 2025/08/13 17:42:28 by ayel-bou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ void	cmd_arg(t_token **curr, int *string)
 	}
 }
 
-void	re_identifications(t_token *curr, int *string)
+void	re_identifications(t_token *curr)
 {
 	if (curr->tok == RED_IN_ID)
 		curr->next->tok = INPUT_FILE_ID;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   re_identool2.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
+/*   By: ayel-bou <ayel-bou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/03 20:58:42 by ayel-bou          #+#    #+#             */
-/*   Updated: 2025/08/08 03:03:20 by codespace        ###   ########.fr       */
+/*   Updated: 2025/08/13 18:04:57 by ayel-bou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,6 @@ static t_token	*get_argument(t_token *id_class)
 
 static void	delete_args(t_token *id_class)
 {
-	t_token	*temp;
 	t_token	*curr;
 	t_token	*before;
 
@@ -76,8 +75,6 @@ static int	operations(t_token *id_class)
 
 int	arg_system(t_token *id_class)
 {
-	char	*temp;
-	t_token	*temp2;
 	t_token	*curr;
 
 	curr = id_class;

@@ -6,7 +6,7 @@
 /*   By: ayel-bou <ayel-bou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/03 20:02:56 by ayel-bou          #+#    #+#             */
-/*   Updated: 2025/08/09 02:03:22 by ayel-bou         ###   ########.fr       */
+/*   Updated: 2025/08/13 17:27:41 by ayel-bou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 void	init_data_struct(t_data *data, char **env)
 {
+	(void)env;
 	data->append = 0;
 	data->to_env = 0;
 	data->to_exp = 0;
@@ -36,8 +37,10 @@ void	init_data_struct(t_data *data, char **env)
 	data->br_fail = 0;
 	data->pwd_reserve = NULL;
 	// added.
+	data->export_status = false;
 	data->pid = 1111;
     data->last_executed = NULL;
+	data->unset_status = false;
 }
 
 void	tree_cleaner(t_tree **node)

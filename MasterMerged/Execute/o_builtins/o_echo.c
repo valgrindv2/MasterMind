@@ -69,7 +69,6 @@ int o_echo(t_tree *node)
     newline = false;
     i = 1; // start from 1 : [0) echo] [1)hello]<-- (here)  [2)world] [NULL]; 
     // echo has already been validated in teh strcmp.
-    ft_putstr(YLW);
     while (node->argv[i])
     {
         if (i == 1)
@@ -80,7 +79,6 @@ int o_echo(t_tree *node)
             ft_putchar(' ');
         i++;
     }
-    ft_putstr(RST);
     if (!newline)
         ft_putchar('\n');
 

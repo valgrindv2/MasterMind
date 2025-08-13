@@ -3,6 +3,7 @@
 char	*scrap_braces(char *input, int *index, char *brace)
 {
 	int	len;
+	(void)input;
 
 	len = get_len(brace);
 	while (len--)

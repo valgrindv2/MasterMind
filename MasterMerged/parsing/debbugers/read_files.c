@@ -2,26 +2,6 @@
 
 # define BUFFER 100000
 
-static void	read_data(t_red *red)
-{
-	char c;
-	int x = 0;
-	char *buffer = malloc(10000000);
-	lseek(red->fd_here_doc, 0, SEEK_SET);
-	ssize_t r = read(red->fd_here_doc, &c, 1);
-	if (r < 0)
-	{
-		perror("read:");
-		exit(F);
-	}
-	while (r > 0)
-	{
-		buffer[x++] = c;
-		r = read(red->fd_here_doc, &c, 1);
-	}
-	buffer[x] = '\0';
-	printf("Here_doc Data From [%s]\n", red->value);
-}
 
 void	read_fd(int fd, char *curr)
 {

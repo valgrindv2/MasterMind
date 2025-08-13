@@ -200,6 +200,7 @@ static bool only_equals(char *str)
 
 static bool valid_first_char(char c)
 {
+    printf("first char > %c\n", c);
     if (c >= 'a' && c <= 'z')
         return (true);
     if (c >= 'A' && c <= 'Z')
@@ -211,6 +212,7 @@ static bool valid_first_char(char c)
 
 static bool valid_char(char c)
 {
+    printf("char in between %c\n", c);
     if (c >= 'a' && c <= 'z')
         return (true);
     if (c >= 'A' && c <= 'Z')
@@ -226,7 +228,8 @@ static bool is_printable(char c)
 {
     if (c == '=')
         return (true);
-	if (c >= 32 && c <= 126 || c == '\0')
+	if (c >= 32 && c <= 126 || c == '\0'
+        || (((9 <= c && c <= 13) || c == 32)))
 	{
 		return (true);
 	}
@@ -240,6 +243,7 @@ bool valid_identifier(char *str)
 
     i = 0;
     standalone = true;
+    printf("arg in export > %s\n", str);
     if (!valid_first_char(str[i++]))
         return (false);
     while (str[i])
@@ -332,6 +336,7 @@ int o_export(t_tree *node, t_data *data)
     t_envlist   *export_lst;
     int         i;
 
+    data->exit_status = false;
     argc = arg_count(node->argv);
     export_lst = NULL;
     if (sort_list(&export_lst, data->env) != EXIT_SUCCESS) // copy and sort list; sorted version.
@@ -347,6 +352,8 @@ int o_export(t_tree *node, t_data *data)
             {
                 dprintf(2, "Master@Mind: export: `%s': not a valid identifier\n", node->argv[i]);
                 i++;
+                data->exit_status = 1;
+                data->export_status = true;
                 continue ;
             }
             if (already_exported(node->argv[i], data))
@@ -371,7 +378,9 @@ int o_export(t_tree *node, t_data *data)
             i++;
         }
     }
-    return (free_exp_list(export_lst), EXIT_SUCCESS);
+    if (data->exit_status == 1 && data->export_status == true)
+        return (free_exp_list(export_lst), data->exit_status = 1, EXIT_SUCCESS);
+    return (free_exp_list(export_lst), data->exit_status = 0, EXIT_SUCCESS);
 }
 
 // when export is called

@@ -1,6 +1,6 @@
 CC = cc 
 SANITIZE= -fsanitize=address -g3
-CFLAG = -I$(READLINE_DIR)/include # zdt readline library (MAC) -Wall -Wextra -Werror
+CFLAG = -I$(READLINE_DIR)/include #-Wall -Wextra -Werror # zdt readline library (MAC) -Wall -Wextra -Werror
 READLINE_DIR := ../lib/readline/install
 LDFLAGS += -L$(READLINE_DIR)/lib -lreadline -lhistory -lncurses
 H = minishell.h 
@@ -38,6 +38,7 @@ SRC = minishell.c identificators/identity_tools/identool0.c\
 		debbugers/dbg_tree.c debbugers/read_files.c tools/tools10.c tools/tools11.c\
 		\
 		\
+		../Execute/o_builtins/unset_tools/unsett.c\
 		../Execute/o_builtins/cd_tools/cd1.c \
 		../Execute/o_builtins/cd_tools/cd2.c \
 		../Execute/o_builtins/cd_tools/cd3.c \

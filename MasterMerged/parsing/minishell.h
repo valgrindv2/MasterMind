@@ -6,7 +6,7 @@
 /*   By: ayel-bou <ayel-bou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/04 03:32:22 by ayel-bou          #+#    #+#             */
-/*   Updated: 2025/08/12 17:42:14 by ayel-bou         ###   ########.fr       */
+/*   Updated: 2025/08/13 17:42:51 by ayel-bou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -222,6 +222,8 @@ typedef struct s_data
 	int				flag;
 	char			*home_p;
 	char			*pwd_reserve;
+	bool			unset_status;
+	bool			export_status;
 	// Exec Data
     int saved_in;
     int saved_out;
@@ -342,7 +344,7 @@ int					ft_strcmp(char *s1, char *s2);
 int					ft_strchr(const char *s, int c);
 char				*ft_strtrim(char *s1, char *set);
 int					ft_strncmp(char *s1, char *s2, int n);
-char				*ft_substr(char *s, unsigned int start, size_t len);
+char				*ft_substr(char *s, int start, int len);
 
 // Syntax Verification
 void				puterror(char *str);
@@ -356,7 +358,7 @@ int					push_br(t_token **stack_br, t_token *to_push);
 void				print_error(char *error, char *err, int mode);
 void				syntax_error_found(t_token *curr, t_data *data);
 void				clean_stacks(t_token **stackone, t_token **stacktwo);
-int					syntax_verify(t_token *token, t_data *data, int mode);
+int					syntax_verify(t_token *token, t_data *data);
 int					realt_quotes(char *input, int doubles_case,
 						int index, char *err);
 
@@ -372,10 +374,10 @@ void				cpy_to_file(char *in, t_data *data);
 void				get_quotes_state(t_token *delimiter);
 int					store_fd(t_token *id_class, t_data *data);
 int					change_id(t_token *next_heredoc, t_data *data);
-int					sef_doc(t_token *token, t_data *data, int mode);
+int					sef_doc(t_token *token, t_data *data);
 int					here_doc_check(t_token *id_class, t_data *data);
 int					delimiter_next(t_token *next_heredoc, t_data *data);
-int					hold_and_check(t_token *hold, t_token *curr, int mode);
+int					hold_and_check(t_token *hold, t_token *curr);
 int					here_doc_ops(t_token *id_class, t_data *data, char *del);
 int					requirements(t_token *curr, t_token *id_class,
 						t_data *data);
@@ -387,7 +389,7 @@ int					fake_system(t_token *id_class);
 t_token				*re_identity(t_token *id_class);
 void				cmd_arg(t_token **curr, int *string);
 void				identify_argument(t_token **id_class);
-void				re_identifications(t_token *curr, int *string);
+void				re_identifications(t_token *curr);
 
 // MasterMind System
 int					red_checks(t_token *curr);
@@ -510,6 +512,7 @@ int                 o_unset(t_tree *node, t_data *data);
 int                 o_export(t_tree *node, t_data *data);
 int                 exec_builtin(t_tree *node, t_data *data);
 bool				valid_identifier(char *str);
+bool 				valid_identifier_un(char *str);
 size_t              arg_count(char **argv);
 
 // Export

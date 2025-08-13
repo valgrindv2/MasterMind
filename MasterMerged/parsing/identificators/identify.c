@@ -6,7 +6,7 @@
 /*   By: ayel-bou <ayel-bou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/04 03:08:26 by ayel-bou          #+#    #+#             */
-/*   Updated: 2025/08/12 16:06:25 by ayel-bou         ###   ########.fr       */
+/*   Updated: 2025/08/13 17:35:09 by ayel-bou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,7 @@ t_token	*get_identity(char *input, t_data *dt)
 			break ;
 		unit_call_space_next(id_class, input, &dt->i);
 	}
-	if (!syntax_verify(id_class, dt, SEF_ALL))
+	if (!syntax_verify(id_class, dt))
 	{
 		clean_fd(id_class);
 		list_cleaner(&id_class);

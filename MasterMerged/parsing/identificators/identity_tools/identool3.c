@@ -6,7 +6,7 @@
 /*   By: ayel-bou <ayel-bou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/04 03:16:17 by ayel-bou          #+#    #+#             */
-/*   Updated: 2025/08/04 03:16:56 by ayel-bou         ###   ########.fr       */
+/*   Updated: 2025/08/13 17:41:04 by ayel-bou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ int	whitespaces(char x)
 
 int	unit_call_here_doc(t_token **id_class, char *input, t_data *data)
 {
+	(void)input;
 	if (!here_doc_check(*id_class, data))
 	{
 		clean_fd(*id_class);

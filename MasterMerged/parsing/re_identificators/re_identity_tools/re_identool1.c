@@ -6,7 +6,7 @@
 /*   By: ayel-bou <ayel-bou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/03 20:57:05 by ayel-bou          #+#    #+#             */
-/*   Updated: 2025/08/12 16:05:15 by ayel-bou         ###   ########.fr       */
+/*   Updated: 2025/08/13 17:44:22 by ayel-bou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ static void	all_cleaner(t_token **id_class, t_token **re_built)
 	list_cleaner(re_built);
 }
 
-static int	redirection_sys(t_token **re_built, t_token **id_class)
+static int	redirection_sys(t_token **re_built)
 {
 	if (no_command(*re_built))
 	{
@@ -72,7 +72,7 @@ t_token	*re_builder(t_token *id_class)
 		}
 		curr = curr->next;
 	}
-	if (!redirection_sys(&re_built, &id_class) || !arg_system(re_built))
+	if (!redirection_sys(&re_built) || !arg_system(re_built))
 		return (all_cleaner(&id_class, &re_built), NULL);
 	clean_id_class(&id_class, CLEAN);
 	return (re_built);

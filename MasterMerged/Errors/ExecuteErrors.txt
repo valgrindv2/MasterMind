@@ -26,7 +26,7 @@ Master@Mindv3.0> echo $?
 	└─  [Arg]  > echo --> Quoted > 0
 	└─ Space Next True
 	└─  [Arg]  > $? --> Quoted > 0
--1
+-1 (CHECKED)
 
 -----------------------------------------------------------------------------------------
 
@@ -36,7 +36,7 @@ Master@Mindv3.0> echo $?
 	└─  [Arg]  > echo --> Quoted > 0
 	└─ Space Next True
 	└─  [Arg]  > $? --> Quoted > 0
-0 (1)
+0 (1) (CHECKED)
 
 -----------------------------------------------------------------------------------------
 Master@Mindv3.0> ./a
@@ -139,7 +139,7 @@ export c+=$b (c does not exists, but must be created)
 	└─  [Arg]  > a= --> Quoted > 0
 	└─  [Arg]  >      a --> Quoted > 0
 Master@Mind: export: `a=        a': not a valid identifier (TABS)	
-
+(CHECKED)
 -----------------------------------------------------------------------------------------------
 
 bash-3.2$ echo $a
@@ -225,7 +225,7 @@ Master@Mindv3.0> cat b
 	└─  [Arg]  > cat --> Quoted > 0
 	└─ Space Next True
 	└─  [Arg]  > b --> Quoted > 0
-c
+c (CHECKED)
 -----------------------------------------------------------------------------------------------------------
 
 Master@Mindv3.0> echo "salam" > .
@@ -274,7 +274,7 @@ Master@Mindv3.0> export cmd=""
 Master@Mindv3.0> $cmd
 └─ COMMAND [$cmd]
 	└─  [Arg]  > $cmd --> Quoted > 0
-Migrane: : command not found
+Migrane: : command not found (CHECKED)
 
 ---------------------------------------------------------------------------------------------------
 
@@ -296,3 +296,27 @@ Master@Mindv3.0> ls
 
 Maybe the asterisk isnt expanded thats why
 -----------------------------------------------------------------------------
+
+Master@Mindv3.0> export #_Sdlfks x="choris"
+└─ COMMAND [export]
+      └─  [Arg]  > export --> Quoted > 0
+      └─ Space Next True
+      └─  [Arg]  > #_Sdlfks --> Quoted > 0
+      └─ Space Next True
+      └─  [Arg]  > x= --> Quoted > 0
+      └─  [Arg]  > choris --> Quoted > 0
+Master@Mind: export: `#_Sdlfks': not a valid identifier (CHECKED: DO NOT INTERPRET #)
+
+------------------------------------------------------------------------
+
+Master@Mindv3.0> export $_Sdlfks
+└─ COMMAND [export]
+      └─  [Arg]  > export --> Quoted > 0
+      └─ Space Next True
+      └─  [Arg]  > $_Sdlfks --> Quoted > 0
+Master@Mind: export: `': not a valid identifier
+
+after inserting the non_printable character into a non value expanded, export should
+act as if no argument is found (CHECKED)
+
+---------------------------------------------------------------------

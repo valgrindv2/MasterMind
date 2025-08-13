@@ -6,7 +6,7 @@
 /*   By: ayel-bou <ayel-bou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/03 19:15:02 by ayel-bou          #+#    #+#             */
-/*   Updated: 2025/08/12 16:04:36 by ayel-bou         ###   ########.fr       */
+/*   Updated: 2025/08/13 17:27:24 by ayel-bou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void	voiders(int argc, char **argv, char **env)
 {
 	(void)argc;
 	(void)argv;
-	// (void)env;
+	(void)env;
 }
 
 t_tree	*masterpasrse(char *input, t_data *data, t_token **prompts)

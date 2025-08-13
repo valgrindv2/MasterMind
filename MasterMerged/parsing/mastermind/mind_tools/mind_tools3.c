@@ -6,7 +6,7 @@
 /*   By: ayel-bou <ayel-bou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/04 02:26:52 by ayel-bou          #+#    #+#             */
-/*   Updated: 2025/08/09 06:16:07 by ayel-bou         ###   ########.fr       */
+/*   Updated: 2025/08/13 18:09:02 by ayel-bou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ int	algo(t_token *curr, t_token **op_field, t_token *in, t_token **yard)
 
 int	add_op(t_token *curr, t_token **op_field, t_token **yard, t_token *in)
 {
+	(void)yard;
 	in = add_identity(ft_strdup(curr->identity), curr->tok, INIT, curr);
 	// in = NULL; //NO_LEAKS
 	if (!in)

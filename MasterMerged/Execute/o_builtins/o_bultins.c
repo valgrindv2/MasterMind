@@ -29,7 +29,7 @@ int exec_builtin(t_tree *node, t_data *data)
         else if (ft_strcmp(node->argv[0], "pwd") == 0)
             return (o_pwd(node, data));
         else if (ft_strcmp(node->argv[0], "export") == 0)
-            return (o_export(node, data));
+            return (o_export(node, data), data->exit_status);
         else if (ft_strcmp(node->argv[0], "unset") == 0)
             return (o_unset(node, data), data->exit_status);
         else if (ft_strcmp(node->argv[0], "env") == 0)

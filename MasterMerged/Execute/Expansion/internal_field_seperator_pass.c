@@ -160,7 +160,6 @@ char    *red_IFS_pass(char *str)
     if (!ifs_split)
         return (NULL);
     joined = strjoiner(ifs_split, " ", arg_count(ifs_split));
-    puts(joined);
     if (!joined)
         return (free_argv(ifs_split), NULL);
     return (joined);

@@ -6,7 +6,7 @@
 /*   By: ayel-bou <ayel-bou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/03 20:16:15 by ayel-bou          #+#    #+#             */
-/*   Updated: 2025/08/03 20:21:35 by ayel-bou         ###   ########.fr       */
+/*   Updated: 2025/08/13 17:29:53 by ayel-bou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,9 +35,9 @@ char	*ft_strdup(const char *s1)
 	return (dup);
 }
 
-char	*ft_substr(char *s, unsigned int start, size_t len)
+char	*ft_substr(char *s, int start, int len)
 {
-	size_t	i;
+	int	i;
 	char	*new;
 
 	i = 0;
@@ -93,7 +93,7 @@ char	*ft_strtrim(char *s1, char *set)
 
 int	ft_strncmp(char *s1, char *s2, int n)
 {
-	size_t	i;
+	int	i;
 
 	if (!s1 || !s2)
 		return (-1);

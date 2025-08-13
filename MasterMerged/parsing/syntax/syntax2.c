@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   syntax2.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
+/*   By: ayel-bou <ayel-bou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/03 19:38:12 by ayel-bou          #+#    #+#             */
-/*   Updated: 2025/08/07 03:46:34 by codespace        ###   ########.fr       */
+/*   Updated: 2025/08/13 17:36:02 by ayel-bou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,7 @@ static int	closing_evaluation(t_token *token, t_data *data)
 	t_token	*point;
 	t_token	*braces;
 	t_token	*stack_br;
+	(void)data;
 
 	if (!token)
 		return (1);
@@ -94,7 +95,7 @@ int	doubles_verify(t_token *token, t_data *data)
 		if (curr->tok == BRACE_O_ID)
 		{
 			in_alert(curr->next, &flag_in);
-			if (!non_print(curr->next->identity) && !flag_in
+			if ((!non_print(curr->next->identity) && !flag_in)
 				|| (curr->tok == BRACE_O_ID && curr->next->tok == BRACE_C_ID))
 			{
 				syntax_error_found(curr->next, data);

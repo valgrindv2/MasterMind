@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   re_identity.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
+/*   By: ayel-bou <ayel-bou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/03 20:54:56 by ayel-bou          #+#    #+#             */
-/*   Updated: 2025/08/08 04:34:36 by codespace        ###   ########.fr       */
+/*   Updated: 2025/08/13 17:43:39 by ayel-bou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ t_token	*re_identity(t_token *id_class)
 		if (curr->tok == PIPE_ID || curr->tok == OR_ID
 			|| curr->tok == AND_ID)
 			string = 0;
-		re_identifications(curr, &string);
+		re_identifications(curr);
 		cmd_arg(&curr, &string);
 		curr = curr->next;
 	}
