@@ -36,7 +36,7 @@ static char	*merge_pockets(char **lst)
 	while (lst[i])
 	{
 		temp = joined;
-		joined = ft_strjoin(joined, lst[i]);
+		joined = o_ft_strjoin(joined, lst[i]);
 		if (!joined)
 		{
 			free(temp);
@@ -66,9 +66,8 @@ char *join_system(t_arg **p_arg)
     char  *res;
     char  *tmp;
 
-    res = ft_strdup("");
-    if (!res)
-        return (NULL);
+    res = NULL;
+
     curr = *p_arg;
     while (curr)
     {

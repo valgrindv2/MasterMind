@@ -35,16 +35,17 @@ char *get_key(char *str)
         return (perror("NULL Key in envp."), NULL); // cant ever happen unless i pass it.
     equals = 0;
     has_equal = false;
-    while (str[equals])
+        while (str[equals])
     {
-        if (str[equals++] == '=')
+        if (str[equals] == '+' || str[equals] == '=')
         {
-            has_equal = true;
-            break ;
+                has_equal = true;
+                break;
         }
+        equals++;
     }
     if (has_equal)
-        key = ft_substr(str, 0, equals - 1); // if this fails it will return a NULL.
+        key = ft_substr(str, 0, equals); // if this fails it will return a NULL.
     else
         key = ft_strdup(str);
     return (key);
@@ -89,15 +90,18 @@ char **convert_list_to_envp(t_envlist *envlist)
     env_size = envlist_size(envlist);
     envp = malloc ((env_size + 1)* sizeof(char *));
     if (!envp)
-    {
-        // cleanup exit;
-        return (NULL);
-    }
+        return (NULL); // cleanup
     cur = envlist;
     i = 0;
     while(cur)
     {
         envp[i] = convert_node_to_str(cur);
+        if (!envp[i])
+        {
+            while (--i >= 0)
+                free(envp[i]);
+            return (free(envp), NULL);
+        }
         cur = cur->next;
         i++;
     }

@@ -233,6 +233,7 @@ typedef struct s_data
     t_tree *head;
     char *last_executed;
     int anon_start;
+	char	**pockets;
 }	t_data;
 
 // Linked List To Store Each Entity
@@ -460,6 +461,14 @@ int					printer_red(t_red *curr, char *name);
 
 // ouss functions  ---------------------
 
+// garbage collector
+
+typedef struct s_mind_alloc
+{
+	void				*ptr;
+	struct s_mind_alloc	*next;
+}	t_mind_alloc;
+
 #include <dirent.h>
 
 typedef struct s_plist
@@ -481,6 +490,7 @@ typedef struct s_ifs_vars
     t_ifs   *ifs_list;
     int     i;
     int     j;
+	char	*string;
 }   t_ifs_vars;
 
 typedef struct s_convert
@@ -494,7 +504,7 @@ typedef struct s_convert
 
 
 // Main Exec Functionality.
-int                 exec_node(t_tree *node, t_data *data);
+int					exec_node(t_tree *node, t_data *data);
 int                 merger(t_tree *root, t_data *data, char **env);
 int                 recursive_execution(t_tree *node, t_data *data);
 int                 execute_pipeline(t_tree *node, t_data *data, int input_fd);
@@ -519,6 +529,18 @@ size_t              arg_count(char **argv);
 int                 add_last_executed(t_tree *node, t_data *data);
 char                *get_key(char *str);
 char                *get_value(char *str);
+int 				add_to_export_list(t_envlist **export_lst, t_envlist *env);
+void				free_exp_list(t_envlist *exp_list);
+int					process_export_arg(char *arg, t_data *data);
+bool				valid_identifier(char *str);
+bool				valid_identifier_core(char *str, int *i, bool *standalone);
+bool				has_equal(char *str);
+bool				has_plus(char *str);
+int					process_existing_var(char *arg, t_data *data);
+int					process_new_var(char *arg, t_data *data);
+int					assign_new_value(char *new_var, t_envlist *env);
+int					append_value(char *new_var, t_envlist *env);
+
 
 // Expanding enrty functions.
 int                 expand_wild_cards(t_tree *node);
@@ -535,11 +557,10 @@ char                *join_system(t_arg **p_arg);
 char	            *pocket_joiner(char **pockets);
 char	            *o_ft_itoa(int n);
 size_t	            o_ft_strlen(char *s);
-char                **realloc_pockets(char **old_pocket, size_t old_cap, size_t new_cap);
-int                 internal_field_seperator(char *raw, t_data *data, char ***pockets);
 bool                has_space(char *str);
+bool				has_equal(char *str);
 bool                has_delim(char *str);
-char                **IFS_pass(char **argv);
+char                **ifs_pass(char **argv);
 void                fail_procedure(char **pockets, t_data *data);
 bool                ft_isalnum(int c);
 char                *expand_special_cases(char *str, t_data *data, int *i);
@@ -554,8 +575,9 @@ char                **terminate_inside_anons(char **argv);
 bool				single_anon(char *str);
 
 // Wildcard
-bool                has_star(char *str);
-int                 link_patterns_to_argv(t_tree *node);
+int					try_expand_wildcard(t_arg *arg);
+void				sort_files(char **files);
+int					count_files(void);
 
 
 // Linked env
@@ -568,14 +590,12 @@ int                 add_to_envlist(t_envlist **envlist, char *str, bool exported
 // Redirections 
 int                 handle_red(t_tree *node, t_data *data);
 void    			restore_IO(int saved_in, int saved_out, bool no_red);
-char				*red_IFS_pass(char *str);
+char				*red_ifs_pass(char *str);
 bool 				only_spaces(char *raw);
 
-int red_here_doc(t_red *red);
+int 				red_here_doc(t_red *red);
 
 
-// Utilsin pipleine cuz i didnt recurs it back to rec exec.
-char                *get_absolute_path(char *cmd);
 
 // Free_tree (error handling)
 void                free_argv(char **argv);
@@ -583,7 +603,13 @@ void                clean_up(t_tree *tree, t_data *data);
 void                free_envlist(t_envlist *env);
 
 
-void print_argv(char **argv);
+int 				expand_unqoted_d(char ***pockets, t_data *data, char *raw); // zdt
+char 				*append_delimiter(char *str);
+
+
+char				*strjoiner(char **list, char *sep, size_t size);
+
+void 				print_argv(char **argv);
 
 
 

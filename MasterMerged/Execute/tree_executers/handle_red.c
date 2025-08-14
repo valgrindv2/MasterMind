@@ -21,7 +21,7 @@ static bool has_ifs(char *str)
     i = 0;
     while (str[i])
     {
-        if (str[i] == (char)27)
+        if (str[i] == (char)1)
             return (true);
         i++;
     }
@@ -91,8 +91,8 @@ static bool check_expanded_malloc(char **expanded, t_data *data, t_red *curr_red
 
 static void init_red(t_data *data, t_tree *node, t_red  **curr_red)
 {
-    data->saved_in = dup(STDIN_FILENO);
-    data->saved_out = dup(STDOUT_FILENO);
+    data->saved_in = dup(STDIN_FILENO); // check
+    data->saved_out = dup(STDOUT_FILENO); // check
     *curr_red = node->red;
 }
 
@@ -127,7 +127,7 @@ static bool ambig_wrapper(char *str, bool ambig_dollar, bool dquoted)
         return (false);
     if (!dquoted && has_space(str))
         return (true);
-    if (!dquoted && str[0] == '\0')
+    if (!dquoted && str[0] == (char)127)
         return (true);
     return (false);
 }
@@ -146,7 +146,7 @@ int handle_red(t_tree *node, t_data *data)
             return (EXIT_FAILURE);
         free(curr_red->value);
         curr_red->value = expanded;
-        curr_red->value = red_IFS_pass(curr_red->value); // free this
+        curr_red->value = red_ifs_pass(curr_red->value); // free this
         if (ambig_wrapper(curr_red->value, ambig, curr_red->was_d_quote))
             return (dprintf(2 , RED"Master@Mind: %s: ambiguous redirect\n"RST, curr_red->value), EXIT_FAILURE);
         if (redirect_current(curr_red, data) != EXIT_SUCCESS)

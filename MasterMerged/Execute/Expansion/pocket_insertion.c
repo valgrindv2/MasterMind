@@ -31,7 +31,7 @@ static int env_key(char *str, t_data *data, char ***pockets, bool was_d_quoted)
             return ((*pockets)[data->pc.j++] = raw, EXIT_FAILURE); // free backwards.
         if (has_space(raw) && !only_spaces(raw) && !was_d_quoted)
         {
-            if (internal_field_seperator(raw, data, pockets) != EXIT_SUCCESS)
+            if (expand_unqoted_d(pockets, data, raw) != EXIT_SUCCESS)
 				return (data->pc.j++, EXIT_FAILURE);
         }
         else
@@ -74,5 +74,5 @@ int	pocket_insertion(char **pockets, char *str, t_data *data, bool was_d_quoted)
 				return(fail_procedure(pockets, data), EXIT_FAILURE); // free backwards.
 		}
 	}
-	return (pockets[data->pc.j] = NULL, EXIT_SUCCESS);
+	return (data->pockets = pockets, EXIT_SUCCESS);
 }

@@ -1,0 +1,48 @@
+#include "../execute.h"
+
+void sort_files(char **files)
+{
+    int i;
+    int j;
+    char *tmp;
+    int n;
+
+    if (!files)
+        return ;
+    n = arg_count(files);
+    i = 0;
+    while (i < n - 1)
+    {
+        j = 0;
+        while (j < n - i - 1)
+        {
+            if (ft_strcmp(files[j], files[j + 1]) > 0)
+            {
+                tmp = files[j];
+                files[j] = files[j + 1];
+                files[j + 1] = tmp;
+            }
+            j++;
+        }
+        i++;
+    }
+}
+
+int count_files(void)
+{
+    DIR             *dir;
+    struct dirent   *entry;
+    int             count;
+
+    dir = opendir(".");
+    if (!dir)
+        return (0);
+    count = 0;
+    while ((entry = readdir(dir)))
+    {
+        if (entry->d_name[0] != '.')
+            count++;
+    }
+    closedir(dir);
+    return (count);
+}

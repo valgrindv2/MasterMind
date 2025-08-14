@@ -21,9 +21,9 @@ static int tree_traverser(t_tree *root,t_data *data, size_t *recurs_count)
     (*recurs_count)++;
     if (root->tok == COMMAND_ID)
     {
-        root->argv = convert_list_to_argv(root->arg, data); // matnsach tfreei fldakhl
-        if (!root->argv)
-            return (EXIT_FAILURE);
+        // root->argv = convert_list_to_argv(root->arg, data); // matnsach tfreei fldakhl
+        // if (!root->argv)
+        //     return (EXIT_FAILURE);
         return (EXIT_SUCCESS);
     }
     if (root->left)
@@ -43,9 +43,11 @@ static int  merge_env(t_data *data, char **env)
 {
     if (data->env_is_set)
         return (EXIT_SUCCESS);
-    if (create_envlist(&data->env, env) != EXIT_SUCCESS || !data->env) // BUG IS HERE
+    if (create_envlist(&data->env, env) != EXIT_SUCCESS || !data->env)
         return (EXIT_FAILURE);
     data->env_vec = convert_list_to_envp(data->env);
+    // print_argv(data->env_vec);
+    // print_argv(env);
     if (!data->env_vec)
         return (EXIT_FAILURE);
     data->env_is_set = true;

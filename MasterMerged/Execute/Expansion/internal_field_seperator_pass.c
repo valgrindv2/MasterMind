@@ -67,24 +67,58 @@ char **ifs_list_to_argv(t_ifs *head)
     return (argv);
 }
 
+static char *eliminate_ifs_equal(char *str)
+{
+    char    **split;
+    int     i;
+    char    *joined;
+    char    *full;
+    char    *key;
+
+    split = ft_split(str, (char)1);
+    if (!split)
+        return (NULL);
+    i = 1;
+    key = ft_strdup(split[0]);
+    if (!key)
+        return (free_argv(split), NULL);
+    joined = strjoiner(split + 1, " ", arg_count(split + 1));
+    if (!joined)
+        return (free(key), free_argv(split), NULL);
+    full = ft_strjoin(key, joined);
+    if (!full)
+         return (free(joined), free(key), free_argv(split), NULL);
+    return (free(joined), free(key), free_argv(split), full);
+}
+
 static int append_ifs(t_ifs_vars *ifs, char *str)
 {
-    ifs->ifs_split = ft_split(str, (char)27);
+    if (has_equal(str))
+    {
+        ifs->string = eliminate_ifs_equal(str);
+        if (!ifs->string)
+            return (EXIT_FAILURE);
+        if (add_ifs_back(&ifs->ifs_list, ifs->string) != EXIT_SUCCESS)
+            return (free(ifs->string), ifs->string = NULL, EXIT_FAILURE);
+        free(ifs->string);
+        ifs->string = NULL;
+        return(EXIT_SUCCESS);
+    }
+    ifs->ifs_split = ft_split(str, (char)1);
     if (!ifs->ifs_split)
         return (EXIT_FAILURE);
-    print_argv(ifs->ifs_split);
     ifs->j = 0;
     while (ifs->ifs_split[ifs->j])
     {
         if (add_ifs_back(&ifs->ifs_list, ifs->ifs_split[ifs->j++]) != EXIT_SUCCESS)
-            return (free_ifs_list(ifs->ifs_list), free_argv(ifs->ifs_split), EXIT_FAILURE);
+            return ( free_argv(ifs->ifs_split), EXIT_FAILURE);
     }
     free_argv(ifs->ifs_split);
     return (EXIT_SUCCESS);
 }
 
 // // takes the argv but is joined i want to resplit but only the parts that have the delims i put
-char    **IFS_pass(char **argv)
+char    **ifs_pass(char **argv)
 {
     t_ifs_vars  ifs;
 
@@ -110,53 +144,14 @@ char    **IFS_pass(char **argv)
     return (free_ifs_list(ifs.ifs_list), ifs.new_argv);
 }
 
-char *strjoiner(char **list, char *sep, size_t size)
-{
-    size_t  total_len;
-    size_t  strings_len;
-    size_t  i, j, k;
-    char    *joined;
-
-    if (!list || !sep || size == 0)
-        return (NULL);
-    if (size == 1)
-        return (ft_strdup(list[0]));
-    i = 0;
-    strings_len = 0;
-    while (list[i])
-        strings_len += o_ft_strlen(list[i++]);
-    total_len = strings_len + (o_ft_strlen(sep) * (size - 1));
-    joined = malloc(total_len + 1);
-    if (!joined)
-        return (NULL);
-    i = 0;
-    k = 0;
-    while (list[i])
-    {
-        j = 0;
-        while (list[i][j])
-            joined[k++] = list[i][j++];
-        if (i < size - 1)
-        {
-            j = 0;
-            while (sep[j])
-                joined[k++] = sep[j++];
-        }
-        i++;
-    }
-    joined[k] = '\0';
-    return (joined);
-}
-
-
-char    *red_IFS_pass(char *str)
+char    *red_ifs_pass(char *str)
 {
     char    **ifs_split;
     char    *joined;
 
     if (str[0] == '\0')
         return (ft_strdup(""));
-    ifs_split = ft_split(str, (char)27);
+    ifs_split = ft_split(str, (char)1);
     if (!ifs_split)
         return (NULL);
     joined = strjoiner(ifs_split, " ", arg_count(ifs_split));

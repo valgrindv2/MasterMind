@@ -28,7 +28,7 @@ t_tree	*build_tree(t_token *id_class)
 	if (recursive_build(yard, &tree) == ANOMALY)
 		return (tree_cleaner(&tree), clean_yard(&yard, FAIL), NULL);
 	// read_files(yard, 0, "YARD ----->");
-	print_tree(tree);
+	// print_tree(tree);
 	clean_yard(&yard, CLEAN); // CLEAN BLAST FAIL
 	return (tree);
 }

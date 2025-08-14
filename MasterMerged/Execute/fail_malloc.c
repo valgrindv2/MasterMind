@@ -13,8 +13,13 @@ void print_argv(char **argv) {
         printf("NULL\n");
         return;
     }
+    puts("valid argv ptr");
     for (int i = 0; argv[i]; i++) {
-        printf(" == >[%d]: %s\n", i, argv[i]);
+        puts("== -");
+        if (!argv[i])
+            printf(" == >[%d]: NULL\n", i);
+        else
+            printf(" == >[%d]: %s\n", i, argv[i]);
     }
 }
 

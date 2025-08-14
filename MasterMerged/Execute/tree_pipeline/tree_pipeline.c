@@ -48,55 +48,100 @@ static void free_pipe_list(t_plist *head)
     }
 }
 
-int execute_pipeline(t_tree *root, t_data *data, int input_fd)
+static int	setup_pipe(int fds[2])
 {
-    t_plist *plist;
-    t_plist *curr;
-    int prev;
-    int fds[2];
-    int status;
-    pid_t last_pid;
-    
-    prev = input_fd;
+	if (pipe(fds) < 0)
+	{
+		perror("pipe");
+		return (EXIT_FAILURE);
+	}
+	return (EXIT_SUCCESS);
+}
 
-    plist = NULL;
-    flatten_pipeline(root, &plist);
-    last_pid = -1;
-    curr = plist;
-    while (curr)
-    {
-        int is_pipe = curr->next != NULL;
-        if (is_pipe && pipe(fds) < 0)
-            return (perror("pipe"), EXIT_FAILURE);
-        pid_t pid = fork();
-        if (pid < 0)
-            return (perror("fork"), EXIT_FAILURE);
-        if (pid == 0)
-        {
-            if (prev != STDIN_FILENO)
-                dup2(prev, STDIN_FILENO), close(prev);
+static void	setup_child_io(int prev_fd, int fds[2], int is_pipe)
+{
+	if (prev_fd != STDIN_FILENO)
+	{
+		dup2(prev_fd, STDIN_FILENO);
+		close(prev_fd);
+	}
+	if (is_pipe)
+	{
+		dup2(fds[1], STDOUT_FILENO);
+		close(fds[0]);
+		close(fds[1]);
+	}
+}
 
-            if (is_pipe)
-                dup2(fds[1], STDOUT_FILENO), close(fds[0]), close(fds[1]);
+static pid_t	fork_pipeline_node(t_plist *node, t_data *data,
+									int prev_fd, int fds[2], int is_pipe)
+{
+	pid_t	pid;
 
-            exit(recursive_execution(curr->cmd_node, data));
-        }
-        last_pid = pid;
-        if (prev != STDIN_FILENO)
-            close(prev);
-        if (is_pipe)
-            close(fds[1]), prev = fds[0];
-        curr = curr->next;
-    }
-    if (prev != STDIN_FILENO)
-        close(prev);
-    free_pipe_list(plist);
-    int w_pid = -1;
-    int ex_st;
-    while ((w_pid = wait(&status)) > 0)
-    {
-        if (w_pid == last_pid)
-            ex_st = WEXITSTATUS(status);
-    };
-    return (ex_st);
+	pid = fork();
+	if (pid < 0)
+	{
+		perror("fork");
+		return (-1);
+	}
+	if (pid == 0)
+	{
+		setup_child_io(prev_fd, fds, is_pipe);
+		/* TODO: garbage collector cleanup here */
+		exit(recursive_execution(node->cmd_node, data));
+	}
+	return (pid);
+}
+
+static int	wait_for_last_pid(pid_t last_pid)
+{
+	int		w_pid;
+	int		status;
+	int		ex_st;
+
+	ex_st = 0;
+	w_pid = -1;
+	while ((w_pid = wait(&status)) > 0)
+	{
+		if (w_pid == last_pid)
+			ex_st = WEXITSTATUS(status);
+	}
+	return (ex_st);
+}
+// entry
+int	execute_pipeline(t_tree *root, t_data *data, int input_fd)
+{
+	t_plist	*plist;
+	t_plist	*curr;
+	int		prev_fd;
+	int		fds[2];
+	pid_t	last_pid;
+	int		is_pipe;
+
+	prev_fd = input_fd;
+	plist = NULL;
+	flatten_pipeline(root, &plist);
+	last_pid = -1;
+	curr = plist;
+	while (curr)
+	{
+		is_pipe = curr->next != NULL;
+		if (is_pipe && setup_pipe(fds) != EXIT_SUCCESS)
+			return (free_pipe_list(plist), EXIT_FAILURE);
+		last_pid = fork_pipeline_node(curr, data, prev_fd, fds, is_pipe);
+		if (last_pid == -1)
+			return (free_pipe_list(plist), EXIT_FAILURE);
+		if (prev_fd != STDIN_FILENO)
+			close(prev_fd);
+		if (is_pipe)
+		{
+			close(fds[1]);
+			prev_fd = fds[0];
+		}
+		curr = curr->next;
+	}
+	if (prev_fd != STDIN_FILENO)
+		close(prev_fd);
+	free_pipe_list(plist);
+	return (wait_for_last_pid(last_pid));
 }
