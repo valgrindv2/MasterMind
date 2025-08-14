@@ -6,7 +6,7 @@
 /*   By: ayel-bou <ayel-bou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/04 03:32:22 by ayel-bou          #+#    #+#             */
-/*   Updated: 2025/08/13 17:42:51 by ayel-bou         ###   ########.fr       */
+/*   Updated: 2025/08/14 21:03:53 by ayel-bou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -224,6 +224,7 @@ typedef struct s_data
 	char			*pwd_reserve;
 	bool			unset_status;
 	bool			export_status;
+	int				here_read_fd;
 	// Exec Data
     int saved_in;
     int saved_out;

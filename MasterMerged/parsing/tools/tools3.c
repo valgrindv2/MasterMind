@@ -6,11 +6,29 @@
 /*   By: ayel-bou <ayel-bou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/03 20:02:56 by ayel-bou          #+#    #+#             */
-/*   Updated: 2025/08/13 17:27:41 by ayel-bou         ###   ########.fr       */
+/*   Updated: 2025/08/14 21:10:51 by ayel-bou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
+
+static void init_data_tt(t_data *data)
+{
+	data->env_is_set = false;
+	data->check = false;
+	data->pwd_reserve = NULL;
+	data->chpwd = false;
+	data->unreach = false;
+	data->home_p = NULL;
+	data->br_fail = 0;
+	data->pwd_reserve = NULL;
+	// added.
+	data->export_status = false;
+	data->pid = 1111;
+    data->last_executed = NULL;
+	data->unset_status = false;
+	data->here_read_fd = -1;
+}
 
 void	init_data_struct(t_data *data, char **env)
 {
@@ -28,19 +46,7 @@ void	init_data_struct(t_data *data, char **env)
 	data->env_vec = NULL;
 	data->saved_in = -1;
 	data->saved_out = -1;
-	data->env_is_set = false;
-	data->check = false;
-	data->pwd_reserve = NULL;
-	data->chpwd = false;
-	data->unreach = false;
-	data->home_p = NULL;
-	data->br_fail = 0;
-	data->pwd_reserve = NULL;
-	// added.
-	data->export_status = false;
-	data->pid = 1111;
-    data->last_executed = NULL;
-	data->unset_status = false;
+	init_data_tt(data);
 }
 
 void	tree_cleaner(t_tree **node)
