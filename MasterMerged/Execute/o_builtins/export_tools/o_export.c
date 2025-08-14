@@ -7,7 +7,7 @@ static bool printable(char *str)
     i = 0;
     while (str[i])
     {
-        if (str[i] == (char)127)
+        if (str[i] == ANON)
             return (false);
         i++;
     }

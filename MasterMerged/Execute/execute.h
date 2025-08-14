@@ -7,6 +7,10 @@
 # define EXPORTED true
 # define NO_VALUE false
 
+// # define ANON (char)127
+
+# define ANON 'N'
+
 
 
 

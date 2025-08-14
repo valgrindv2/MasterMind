@@ -22,12 +22,12 @@ static void init_data_tt(t_data *data)
 	data->home_p = NULL;
 	data->br_fail = 0;
 	data->pwd_reserve = NULL;
-	// added.
 	data->export_status = false;
 	data->pid = 1111;
     data->last_executed = NULL;
 	data->unset_status = false;
 	data->here_read_fd = -1;
+	data->child_state = false;
 }
 
 void	init_data_struct(t_data *data, char **env)

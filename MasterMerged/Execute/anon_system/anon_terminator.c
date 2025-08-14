@@ -7,7 +7,7 @@ static int anon_index(char *str)
     i = 0;
     while (str[i])
     {
-        if (str[i] == (char)127)
+        if (str[i] == ANON)
             return (i);
         i++;
     }
@@ -16,7 +16,7 @@ static int anon_index(char *str)
 
 bool single_anon(char *str)
 {
-    if (str[0] == (char)127 && str[1] == '\0')
+    if (str[0] == ANON && str[1] == '\0')
         return (true);
     return (false);
 }

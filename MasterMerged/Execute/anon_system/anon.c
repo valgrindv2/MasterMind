@@ -8,7 +8,7 @@ bool still_has_anon(char *str)
     i = 0;
     while (str[i])
     {
-        if (str[i] == (char)127)
+        if (str[i] == ANON)
             return (true);
         i++;
     }
@@ -26,7 +26,7 @@ static bool has_anons_inside(int from, int till, char **argv)
 // function entry
 bool anon(t_tree *node, size_t argc)
 {
-    if (argc == 1 && node->argv[0][0] == (char)127 && node->argv[0][1] == '\0')
+    if (argc == 1 && node->argv[0][0] == ANON && node->argv[0][1] == '\0')
         return (true);
     if (!has_anons_inside(0 , argc - 1, node->argv))
         return (false);

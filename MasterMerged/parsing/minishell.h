@@ -235,6 +235,7 @@ typedef struct s_data
     char *last_executed;
     int anon_start;
 	char	**pockets;
+	bool	child_state;
 }	t_data;
 
 // Linked List To Store Each Entity

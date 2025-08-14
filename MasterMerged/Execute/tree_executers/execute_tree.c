@@ -42,7 +42,6 @@ static int	exec_command(t_tree *node, t_data *data)
 	return (data->exit_status);
 }
 
-
 int	recursive_execution(t_tree *node, t_data *data)
 {
 	if (node->tok == COMMAND_ID)

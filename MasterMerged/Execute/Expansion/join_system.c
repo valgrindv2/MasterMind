@@ -33,16 +33,21 @@ static char	*merge_pockets(char **lst)
 
 	i = 0;
 	joined = NULL;
+	puts("unjoined lst");
+	print_argv(lst);
 	while (lst[i])
 	{
-		temp = joined;
-		joined = o_ft_strjoin(joined, lst[i]);
-		if (!joined)
-		{
+		// if (lst[i][0] != ANON)
+		// {
+			temp = joined;
+			joined = o_ft_strjoin(joined, lst[i]);
+			if (!joined)
+			{
+				free(temp);
+				return (NULL);
+			}
 			free(temp);
-			return (NULL);
-		}
-		free(temp);
+		// }
 		i++;
 	}
 	return (joined);
@@ -71,12 +76,13 @@ char *join_system(t_arg **p_arg)
     curr = *p_arg;
     while (curr)
     {
+		printf("==> curr->value %s\n", curr->value);
         tmp = o_ft_strjoin(res, curr->value);
 		if(!tmp)
 			return (free(res), NULL);
         free(res);
         res = tmp;
-        if (curr->space_next || ft_strchr(curr->value, (char)127))  // if the parser marked a space after this piece, consume it and stop
+        if (curr->space_next || ft_strchr(curr->value, ANON))  // if the parser marked a space after this piece, consume it and stop
         {
             curr = curr->next;
             break;

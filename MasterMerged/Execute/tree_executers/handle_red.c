@@ -127,7 +127,7 @@ static bool ambig_wrapper(char *str, bool ambig_dollar, bool dquoted)
         return (false);
     if (!dquoted && has_space(str))
         return (true);
-    if (!dquoted && str[0] == (char)127)
+    if (!dquoted && str[0] == ANON)
         return (true);
     return (false);
 }

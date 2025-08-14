@@ -43,7 +43,7 @@ static char    *find_in_env(t_envlist *envlist, char *key)
         return (free(key), NULL);
     free(key); 
     key = trimmed_key;
-    anon[0] = (char)127;
+    anon[0] = ANON;
     anon[1] = '\0';
     while (cur) 
     {
