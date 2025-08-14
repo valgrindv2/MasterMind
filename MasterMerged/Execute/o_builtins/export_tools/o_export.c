@@ -21,10 +21,13 @@ static void print_export_list(t_envlist *env)
     curr = env;
     while (curr)
     {
-        printf("declare -x %s", curr->variable);
-        if (printable(curr->value))
-            printf("=\"%s\"",curr->value);
-        printf("\n");
+        if (ft_strcmp(curr->variable, "_") != 0)
+        {
+            printf("declare -x %s", curr->variable);
+            if (printable(curr->value))
+                printf("=\"%s\"",curr->value);
+            printf("\n");
+        }
         curr = curr->next;
     }
 }

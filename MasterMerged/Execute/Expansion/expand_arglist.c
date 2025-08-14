@@ -1,5 +1,26 @@
 #include "../execute.h"
 
+static void	*ft_calloc(size_t count, size_t size)
+{
+	size_t			i;
+	unsigned char	*ptr;
+	size_t			mult;
+
+	mult = count * size;
+	if (count && mult / count != size)
+		return (NULL);
+	ptr = malloc(sizeof(char) * mult);
+	if (ptr == NULL)
+		return (NULL);
+	i = 0;
+	while (i < mult)
+	{
+		ptr[i] = 0;
+		i++;
+	}
+	return ((void *)ptr);
+}
+
 static int	count_dollars(char *s)
 {
 	int	i;
@@ -26,7 +47,7 @@ char	*expand_var(char *str, t_data *data, bool was_d_quoted)
     if (str[0] == '\0')
         return (ft_strdup("")); // empty case.
 	dollar_count = count_dollars(str);
-	data->pockets = calloc((dollar_count * 2 + 2), sizeof(char *)); // $x  1 * 2 ==> 2 +2 4 [""][x value][""][NULL]
+	data->pockets = ft_calloc((dollar_count * 2 + 2), sizeof(char *)); // $x  1 * 2 ==> 2 +2 4 [""][x value][""][NULL]
 	if (!data->pockets)
 		return (NULL);
 	data->pc.cap = (size_t)(dollar_count * 2 + 2);

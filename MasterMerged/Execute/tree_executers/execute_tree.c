@@ -28,6 +28,7 @@ static int	exec_command(t_tree *node, t_data *data)
 			EXIT_FAILURE);
 	if (!anon(node, arg_count(node->argv)) && node->argv[0])
 	{
+		normalize_command(node->argv[0]);
 		if (validate_builtin(node->argv[0]))
 			data->exit_status = exec_builtin(node, data);
 		else

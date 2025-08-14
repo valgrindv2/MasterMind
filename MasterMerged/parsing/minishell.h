@@ -595,20 +595,20 @@ bool 				only_spaces(char *raw);
 
 int 				red_here_doc(t_red *red);
 
-
-
 // Free_tree (error handling)
 void                free_argv(char **argv);
 void                clean_up(t_tree *tree, t_data *data);
 void                free_envlist(t_envlist *env);
+void				*mind_allocater(size_t size, t_mind_alloc **head);
+void				Mind_free(t_mind_alloc *head);
 
 
 int 				expand_unqoted_d(char ***pockets, t_data *data, char *raw); // zdt
 char 				*append_delimiter(char *str);
 
-
 char				*strjoiner(char **list, char *sep, size_t size);
 
+void    			normalize_command(char *str);
 void 				print_argv(char **argv);
 
 

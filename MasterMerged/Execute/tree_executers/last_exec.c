@@ -1,5 +1,19 @@
 #include "../execute.h"
 
+void    normalize_command(char *str)
+{
+    int i;
+
+    i = 0;
+
+    while (str[i])
+    {
+        if (str[i] >= 'A' && str[i] <= 'Z')
+            str[i] = str[i] + 32;
+        i++;
+    }
+}
+
 static char *get_last_argv(char **argv)
 {
     int i;
