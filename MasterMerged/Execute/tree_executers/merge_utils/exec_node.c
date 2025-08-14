@@ -71,12 +71,10 @@ int	exec_node(t_tree *node, t_data *data)
 
 	if (node->fake == true)
 		return (EXIT_SUCCESS);
-	data->child_state = true;
 	id = fork(); // protect.
 	if (id == 0)
 		handle_child(node, data);
 	waitpid(id, &ex_status, 0);
-	data->child_state = false;
 	if (WIFEXITED(ex_status))
 		return (WEXITSTATUS(ex_status));
 	if (WIFSIGNALED(ex_status))

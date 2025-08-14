@@ -7,6 +7,8 @@ static int ifnumber(char *str)
     i = 0;
     if (str[i] == '-' || str[i] == '+')
         i++;
+    if (str[i] == '\0')
+        return (0);
     while (str[i])
     {
         if (!('0' <= str[i] && str[i] <= '9'))
@@ -54,11 +56,11 @@ static long	warn_exit(const char *str)
 	return (MAX_FLOW);
 }
 
-void    numeric_value(char *str, int in_parent)
+static void    numeric_value(char *str, t_data *data)
 {
     if (!ifnumber(str) || warn_exit(str) == EXIT_OVER_LIMIT)
     {
-        if (in_parent)
+        if (data->child_state == false)
             printf("exit\n");
         puterror("Master@Mind: Exit Requires A Numeric Value\n");
         exit(255);
@@ -75,18 +77,21 @@ int o_exit(t_tree *node, t_data *data)
     long exit_call;
 
     argv = node->argv;
-    in_parent = isatty(STDIN_FILENO); // TO CHANGE
     if (count_args(argv) == 11)
+    {
+        if (data->child_state == false)
+            printf("exit\n");
         exit(data->exit_status);
-    numeric_value(argv[1], in_parent);
+    }
+    numeric_value(argv[1], data);
     if (!count_args(argv))
     {
-        if (in_parent)
+        if (data->child_state == false)
             printf("exit\n");
         puterror("exit: too many arguments\n");
         return (1);
     }
-    if (in_parent)
+    if (data->child_state == false)
         printf("exit\n");
     exit_call = ft_atol(argv[1]);
     exit(exit_call);

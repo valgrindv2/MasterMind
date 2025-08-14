@@ -33,8 +33,6 @@ static char	*merge_pockets(char **lst)
 
 	i = 0;
 	joined = NULL;
-	puts("unjoined lst");
-	print_argv(lst);
 	while (lst[i])
 	{
 		// if (lst[i][0] != ANON)
@@ -76,7 +74,6 @@ char *join_system(t_arg **p_arg)
     curr = *p_arg;
     while (curr)
     {
-		printf("==> curr->value %s\n", curr->value);
         tmp = o_ft_strjoin(res, curr->value);
 		if(!tmp)
 			return (free(res), NULL);

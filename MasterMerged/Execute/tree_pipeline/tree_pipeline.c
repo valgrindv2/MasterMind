@@ -78,6 +78,7 @@ static pid_t	fork_pipeline_node(t_plist *node, t_data *data,
 {
 	pid_t	pid;
 
+	data->child_state = true;
 	pid = fork();
 	if (pid < 0)
 	{
@@ -117,6 +118,7 @@ int	execute_pipeline(t_tree *root, t_data *data, int input_fd)
 	int		fds[2];
 	pid_t	last_pid;
 	int		is_pipe;
+	int		ret;
 
 	prev_fd = input_fd;
 	plist = NULL;
@@ -143,5 +145,7 @@ int	execute_pipeline(t_tree *root, t_data *data, int input_fd)
 	if (prev_fd != STDIN_FILENO)
 		close(prev_fd);
 	free_pipe_list(plist);
-	return (wait_for_last_pid(last_pid));
+	ret = wait_for_last_pid(last_pid);
+	data->child_state = false;
+	return (ret);
 }
