@@ -81,6 +81,7 @@ int o_export(t_tree *node, t_data *data)
     t_envlist   *export_lst;
     int         i;
 
+    data->export_status = false;
     argc = arg_count(node->argv);
     export_lst = NULL;
     if (sort_list(&export_lst, data->env) != EXIT_SUCCESS)

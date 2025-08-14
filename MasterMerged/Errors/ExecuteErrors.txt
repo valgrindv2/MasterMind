@@ -81,7 +81,7 @@ Process 44247: 3 leaks for 48 total leaked bytes.
 ------------------------------------------------------------------------------------------
 
 case in exporing using expand (if the var isnt created, using append it must be created even if its not )
-export c+=$b (c does not exists, but must be created)
+export c+=$b (c does not exists, but must be created) (CHECKED)
 
 -----------------------------------------------------------------------------------------
 
@@ -294,7 +294,7 @@ Master@Mindv3.0> ls
       └─  [Arg]  > ls --> Quoted > 0
 1       2       3       4       5
 
-Maybe the asterisk isnt expanded thats why
+Maybe the asterisk isnt expanded thats why (CHECKED)
 -----------------------------------------------------------------------------
 
 Master@Mindv3.0> export #_Sdlfks x="choris"
@@ -320,3 +320,6 @@ after inserting the non_printable character into a non value expanded, export sh
 act as if no argument is found (CHECKED)
 
 ---------------------------------------------------------------------
+
+Ouss Should watch from all the forbidden function used, 
+(dprintf and if there is smthing else used also)
