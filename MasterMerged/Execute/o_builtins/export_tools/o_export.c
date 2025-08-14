@@ -90,13 +90,11 @@ int o_export(t_tree *node, t_data *data)
         while (node->argv[i])
         {
             if (process_export_arg(node->argv[i], data) != EXIT_SUCCESS)
-            {
-                free_exp_list(export_lst);
-                return (EXIT_FAILURE);
-            }
+                return (free_exp_list(export_lst), EXIT_FAILURE);
             i++;
         }
     }
-    free_exp_list(export_lst);
-    return (EXIT_SUCCESS);
+    if (data->exit_status == 1 && data->export_status == true)
+        return (free_exp_list(export_lst), data->exit_status = 1, EXIT_SUCCESS);
+    return (free_exp_list(export_lst), data->exit_status = 0, EXIT_SUCCESS);
 }

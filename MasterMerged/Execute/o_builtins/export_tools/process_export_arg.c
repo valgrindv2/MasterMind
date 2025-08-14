@@ -104,6 +104,8 @@ int process_export_arg(char *arg, t_data *data)
     if (!valid_identifier(arg))
     {
         dprintf(2, "Master@Mind: export: `%s': not a valid identifier\n", arg);
+        data->exit_status = 1;
+        data->export_status = true;
         return (EXIT_SUCCESS);
     }
     if (already_exported(arg, data))
