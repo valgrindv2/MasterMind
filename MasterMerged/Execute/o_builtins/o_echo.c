@@ -7,6 +7,8 @@ int valide_option(char *str)
 
 	i = 0;
 	op = 0;
+	if (str[i] == '\0')
+		return (0);
 	while (str[i])
 	{
 		if (str[i] == '-' && i == 0)

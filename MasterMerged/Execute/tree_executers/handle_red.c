@@ -69,6 +69,8 @@ static int  red_append(t_red *red, t_data *data)
 
 int red_here_doc(t_red *red)
 {
+    if (red->fd_here_doc == -1)
+        return (EXIT_FAILURE);
     if (dup2(red->fd_here_doc, STDIN_FILENO) == -1)
         return (perror("dup2"), EXIT_FAILURE);
     close(red->fd_here_doc);
