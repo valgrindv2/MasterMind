@@ -1,5 +1,23 @@
 #include "../execute.h"
 
+void	print_exec_error(char *cmd, int code)
+{
+	if (code == 127)
+	{
+		if (ft_strchr(cmd, '/'))
+			dprintf(STDERR_FILENO, "Migrane: %s: No such file or directory\n", cmd);
+		else
+			dprintf(STDERR_FILENO, "Migrane: %s: command not found\n", cmd);
+	}
+	else if (code == 126)
+	{
+		if (o_ft_strlen(cmd) > 0 && cmd[o_ft_strlen(cmd) - 1] == '/')
+			dprintf(STDERR_FILENO, "Migrane: %s: Is a directory\n", cmd);
+		else
+			dprintf(STDERR_FILENO, "Migrane: %s: Permission denied\n", cmd);
+	}
+}
+
 static int  update_env_variables(t_data *data)
 {
     char **temp_vec;
@@ -20,15 +38,16 @@ static int	exec_command(t_tree *node, t_data *data)
 	node->argv = convert_list_to_argv(node->arg, data);
 	if (!node->argv)
 		return (EXIT_FAILURE);
-	if (node->red && handle_red(node, data) != EXIT_SUCCESS)
-		return (restore_IO(data->saved_in, data->saved_out, node->red == NULL),
-			EXIT_FAILURE);
-	if (add_last_executed(node, data) != EXIT_SUCCESS)
-		return (restore_IO(data->saved_in, data->saved_out, node->red == NULL),
-			EXIT_FAILURE);
 	if (!anon(node, arg_count(node->argv)) && node->argv[0])
 	{
-		normalize_command(node->argv[0]);
+		if (node->red && handle_red(node, data) != EXIT_SUCCESS)
+		return (restore_IO(data->saved_in, data->saved_out, node->red == NULL),
+				EXIT_FAILURE);
+		if (add_last_executed(node, data) != EXIT_SUCCESS)
+			return (restore_IO(data->saved_in, data->saved_out, node->red == NULL),
+				EXIT_FAILURE);
+		// normalize_command(node->argv[0]);
+		node->argv = remove_nonprintables_argv(node->argv);
 		if (validate_builtin(node->argv[0]))
 			data->exit_status = exec_builtin(node, data);
 		else

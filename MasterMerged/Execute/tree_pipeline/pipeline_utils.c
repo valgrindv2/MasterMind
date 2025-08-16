@@ -1,0 +1,93 @@
+#include "../execute.h"
+
+static void cmd_add_last(t_tree *node, t_plist **head)
+{
+    t_plist *new_pipe_cmd;
+    t_plist *curr;
+
+    new_pipe_cmd = malloc(sizeof(t_plist));
+    if (!new_pipe_cmd)
+        return ;
+    new_pipe_cmd->cmd_node = node;
+    new_pipe_cmd->next = NULL;
+    if (!*head)
+        *head = new_pipe_cmd;
+    else
+    {
+        curr = *head;
+        while (curr->next)
+            curr = curr->next;
+        curr->next = new_pipe_cmd;
+    }
+}
+
+void flatten_pipeline(t_tree *node, t_plist **head)
+{
+    t_plist *plist;
+
+    if (!node)
+        return ;
+    // base case
+    if (node->tok == PIPE_ID)
+    {
+        flatten_pipeline(node->left, head);
+        flatten_pipeline(node->right, head);
+    }
+    else
+        cmd_add_last(node, head);
+}
+
+static void	setup_child_io(int prev_fd, int fds[2], int is_pipe)
+{
+	if (prev_fd != STDIN_FILENO)
+	{
+		dup2(prev_fd, STDIN_FILENO);
+		close(prev_fd);
+	}
+	if (is_pipe)
+	{
+		dup2(fds[1], STDOUT_FILENO);
+		close(fds[0]);
+		close(fds[1]);
+	}
+}
+
+pid_t	fork_pipeline_node(t_plist *node, t_data *data, t_pipe_info *info)
+{
+	pid_t	pid;
+
+	data->child_state = true;
+	signal(SIGINT, SIG_IGN);
+	signal(SIGQUIT, SIG_IGN);
+	pid = fork();
+	if (pid < 0)
+	{
+		perror("fork");
+		return (-1);
+	}
+	if (pid == 0)
+	{
+		signal(SIGINT, sig_kill);
+		signal(SIGQUIT, sig_kill);
+		setup_child_io(info->prev_fd, info->fds, info->is_pipe);
+		/* TODO: garbage collector cleanup here */
+		exit(recursive_execution(node->cmd_node, data));
+	}
+	return (pid);
+}
+
+int	wait_for_last_pid(pid_t last_pid)
+{
+	int		w_pid;
+	int		status;
+	int		ex_st;
+
+	ex_st = 0;
+	w_pid = -1;
+	while ((w_pid = wait(&status)) > 0)
+	{
+		if (w_pid == last_pid)
+			ex_st = WEXITSTATUS(status);
+	}
+	return (ex_st);
+}

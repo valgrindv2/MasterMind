@@ -1,6 +1,6 @@
 CC = cc 
-SANITIZE= -fsanitize=address -g3
-CFLAG = -I$(READLINE_DIR)/include -Wall -Wextra -Werror # zdt readline library (MAC) -Wall -Wextra -Werror
+SANITIZE= #-fsanitize=address -g3
+CFLAG = -I$(READLINE_DIR)/include #-Wall -Wextra -Werror # zdt readline library (MAC) -Wall -Wextra -Werror
 READLINE_DIR := ../lib/readline/install
 LDFLAGS += -L$(READLINE_DIR)/lib -lreadline -lhistory -lncurses
 H = minishell.h 
@@ -38,35 +38,40 @@ SRC = minishell.c identificators/identity_tools/identool0.c\
 		tools/tools10.c tools/tools11.c\
 		\
 		\
-		../Execute/o_builtins/unset_tools/unsett.c\
-		../Execute/o_builtins/cd_tools/cd1.c \
-		../Execute/o_builtins/cd_tools/cd2.c \
-		../Execute/o_builtins/cd_tools/cd3.c \
-		../Execute/tree_executers/execute_tree.c ../Execute/tree_executers/merge_utils/merge_utils.c \
-		../Execute/tree_pipeline/tree_pipeline.c ../Execute/tree_executers/free_tree.c \
-		../Execute/tree_executers/shortcircuit.c ../Execute/tree_executers/handle_red.c \
-		../Execute/o_builtins/o_bultins.c ../Execute/o_builtins/o_echo.c \
-		../Execute/o_builtins/o_cd.c ../Execute/o_builtins/o_env.c \
-		../Execute/o_builtins/o_exit.c ../Execute/o_builtins/export_tools/o_export.c \
-		../Execute/o_builtins/export_tools/export_list_utils.c \
-		../Execute/o_builtins/export_tools/process_export_arg.c \
-		../Execute/o_builtins/export_tools/valid_identifier_core.c \
-		../Execute/o_builtins/export_tools/valid_identifier.c \
-		../Execute/o_builtins/o_pwd.c ../Execute/o_builtins/o_unset.c \
-		../Execute/tree_executers/merge_utils/merge_env.c \
-		../Execute/tree_executers/merge_utils/merge_env_utils.c \
-		../Execute/fail_malloc.c ../Execute/o_builtins/builtin_utils.c 					\
-		../Execute/Expansion/expand_arglist.c ../Execute/Expansion/expand_key.c 		\
-		../Execute/Expansion/join_system.c ../Execute/Expansion/merge_arglist.c 		\
-		../Execute/Expansion/pocket_expantion.c ../Execute/Expansion/pocket_insertion.c \
-		../Execute/Expansion/expansion_utils.c ../Execute/tree_executers/last_exec.c 	\
-		../Execute/Expansion/split_ifs.c 												\
-		../Execute/Expansion/internal_field_seperator_pass.c 							\
-		../Execute/Expansion/pocket_insertion_utils.c ../Execute/anon_system/anon.c		\
-		../Execute/anon_system/anon_terminator.c ../Execute/Expansion/strjoiner.c \
-		../Execute/o_builtins/export_tools/process_export_arg_utils.c \
-		../Execute/tree_executers/merge_utils/exec_node.c ../Execute/Expansion/wildcard_expansion.c \
-		../Execute/Expansion/wildcard_utils.c
+		../execute/o_builtins/unset_tools/unsett.c\
+		../execute/o_builtins/cd_tools/cd1.c \
+		../execute/o_builtins/cd_tools/cd2.c \
+		../execute/o_builtins/cd_tools/cd3.c \
+		../execute/tree_executers/execute_tree.c ../execute/tree_executers/merge_utils/merge_utils.c \
+		../execute/tree_pipeline/tree_pipeline.c ../execute/tree_executers/free_tree.c \
+		../execute/tree_executers/shortcircuit.c ../execute/tree_executers/handle_red.c \
+		../execute/o_builtins/o_bultins.c ../execute/o_builtins/o_echo.c \
+		../execute/o_builtins/o_cd.c ../execute/o_builtins/o_env.c \
+		../execute/o_builtins/o_exit.c ../execute/o_builtins/export_tools/o_export.c \
+		../execute/o_builtins/export_tools/export_list_utils.c \
+		../execute/o_builtins/export_tools/process_export_arg.c \
+		../execute/o_builtins/export_tools/valid_identifier_core.c \
+		../execute/o_builtins/export_tools/valid_identifier.c \
+		../execute/o_builtins/o_pwd.c ../execute/o_builtins/o_unset.c \
+		../execute/tree_executers/merge_utils/merge_env.c \
+		../execute/tree_executers/merge_utils/merge_env_utils.c \
+		../execute/fail_malloc.c ../execute/o_builtins/builtin_utils.c 					\
+		../execute/Expansion/expand_arglist.c ../execute/Expansion/expand_key.c 		\
+		../execute/Expansion/join_system.c ../execute/Expansion/merge_arglist.c 		\
+		../execute/Expansion/pocket_expantion.c ../execute/Expansion/pocket_insertion.c \
+		../execute/Expansion/expansion_utils.c ../execute/tree_executers/last_exec.c 	\
+		../execute/Expansion/split_ifs.c 												\
+		../execute/Expansion/internal_field_seperator_pass.c 							\
+		../execute/Expansion/pocket_insertion_utils.c ../execute/anon_system/anon.c		\
+		../execute/anon_system/anon_terminator.c ../execute/Expansion/strjoiner.c \
+		../execute/o_builtins/export_tools/process_export_arg_utils.c \
+		../execute/tree_executers/exec_node.c ../execute/Expansion/wildcard_expansion.c \
+		../execute/Expansion/wildcard_utils.c ../execute/tree_executers/gnl.c \
+		../execute/tree_executers/gnl_utils.c ../execute/tree_executers/tab_split.c \
+		../execute/anon_system/remove_anon.c ../execute/tree_pipeline/pipeline_utils.c \
+		../execute/tree_pipeline/pipehandlers.c ../execute/expansion/internal_field_utils.c \
+		../execute/expansion/split_ifs_utils.c
+		
 
 OBJ = $(SRC:.c=.o)
 

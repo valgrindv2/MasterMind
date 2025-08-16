@@ -14,14 +14,6 @@ static t_envlist *get_last(t_envlist *env)
     return (env);
 }
 
-
-static  void delete(t_envlist *node)
-{
-    free(node->value);
-    free(node->variable);
-    free(node);
-}
-
 static void delete_node(t_envlist **env, t_envlist *to_delete)
 {
     t_envlist *curr = *env;
@@ -93,13 +85,3 @@ int o_unset(t_tree *node, t_data *data)
         return (data->exit_status = 1, EXIT_SUCCESS);
     return (data->exit_status = 0, EXIT_SUCCESS);
 }
-
-
-// itereate through the lest 
-    // use strncmp on the argv arguments to find the variable to unset and delete it from the list
-    // if the varibale doenst exit do nothing
-    // if the unset is called with 0 args do nothing
-
-
-
-   // some functions set env to null protect dont forget all functions that access env

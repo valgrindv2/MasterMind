@@ -1,72 +1,5 @@
 #include "../execute.h"
 
-static size_t ifs_list_size(t_ifs *curr)
-{
-    size_t size;
-
-    size = 0;
-    while (curr)
-    {
-        size++;
-        curr = curr->next;
-    }
-    return (size);
-}
-
-// gets used in terminate anons.
-int  add_ifs_back(t_ifs **head, char *str)
-{
-    t_ifs   *new;
-    t_ifs   *curr;
-
-    new = malloc (sizeof(t_ifs));
-    if (!new)
-        return (EXIT_FAILURE);
-    new->string = ft_strdup(str);
-    if (!new->string)
-        return (free(new), EXIT_FAILURE);
-    new->next = NULL;
-    if (!*head)
-        *head = new;
-    else
-    {
-        curr = *head;
-        while (curr->next)
-            curr = curr->next;
-        curr->next = new;
-    }
-    return (EXIT_SUCCESS);
-}
-
-char **ifs_list_to_argv(t_ifs *head)
-{
-    size_t  size;
-    t_ifs   *curr;
-    char    **argv;
-    size_t  i;
-
-    i = 0;
-    size = ifs_list_size(head);
-    argv = malloc(sizeof(char *) * (size + 1));
-    if (!argv)
-        return (NULL);
-    curr = head;
-    while (i < size)
-    {
-        argv[i] = ft_strdup(curr->string);
-        if (!argv[i])
-        {
-            while (--i >= 0)
-                free(argv[i]);
-            return (free(argv), NULL);
-        }
-        curr = curr->next;
-        i++;
-    }
-    argv[i] = NULL;
-    return (argv);
-}
-
 static char *eliminate_ifs_equal(char *str)
 {
     char    **split;
@@ -91,30 +24,50 @@ static char *eliminate_ifs_equal(char *str)
     return (free(joined), free(key), free_argv(split), full);
 }
 
+static int join_ifs_segments(t_ifs_vars *ifs, char **joined)
+{
+	char	*tmp;
+
+	while (ifs->ifs_split[ifs->j + 1]
+		&& should_join(*joined, ifs->ifs_split[ifs->j + 1]))
+	{
+		tmp = gnl_ft_strjoin(*joined, ifs->ifs_split[ifs->j + 1]);
+		free(*joined);
+		*joined = tmp;
+		if (!*joined)
+			return (EXIT_FAILURE);
+		ifs->j++;
+	}
+	return (EXIT_SUCCESS);
+}
+
 static int append_ifs(t_ifs_vars *ifs, char *str)
 {
-    if (has_equal(str))
-    {
-        ifs->string = eliminate_ifs_equal(str);
-        if (!ifs->string)
-            return (EXIT_FAILURE);
-        if (add_ifs_back(&ifs->ifs_list, ifs->string) != EXIT_SUCCESS)
-            return (free(ifs->string), ifs->string = NULL, EXIT_FAILURE);
-        free(ifs->string);
-        ifs->string = NULL;
-        return(EXIT_SUCCESS);
-    }
-    ifs->ifs_split = ft_split(str, (char)1);
-    if (!ifs->ifs_split)
-        return (EXIT_FAILURE);
-    ifs->j = 0;
-    while (ifs->ifs_split[ifs->j])
-    {
-        if (add_ifs_back(&ifs->ifs_list, ifs->ifs_split[ifs->j++]) != EXIT_SUCCESS)
-            return ( free_argv(ifs->ifs_split), EXIT_FAILURE);
-    }
-    free_argv(ifs->ifs_split);
-    return (EXIT_SUCCESS);
+	char	*joined;
+
+	ifs->ifs_split = ft_split(str, (char)1);
+	if (!ifs->ifs_split)
+		return (EXIT_FAILURE);
+
+	ifs->j = 0;
+	while (ifs->ifs_split[ifs->j])
+	{
+		joined = ft_strdup(ifs->ifs_split[ifs->j]);
+		if (!joined)
+			return (free_argv(ifs->ifs_split), EXIT_FAILURE);
+
+		if (join_ifs_segments(ifs, &joined) != EXIT_SUCCESS)
+			return (free(joined), free_argv(ifs->ifs_split), EXIT_FAILURE);
+
+		if (add_ifs_back(&ifs->ifs_list, joined) != EXIT_SUCCESS)
+			return (free(joined), free_argv(ifs->ifs_split), EXIT_FAILURE);
+
+		free(joined);
+		ifs->j++;
+	}
+
+	free_argv(ifs->ifs_split);
+	return (EXIT_SUCCESS);
 }
 
 // // takes the argv but is joined i want to resplit but only the parts that have the delims i put
@@ -144,18 +97,29 @@ char    **ifs_pass(char **argv)
     return (free_ifs_list(ifs.ifs_list), ifs.new_argv);
 }
 
-char    *red_ifs_pass(char *str)
+char *red_ifs_pass(char *str)
 {
-    char    **ifs_split;
-    char    *joined;
+	char	*cleaned;
+	int		i;
+	int		j;
 
-    if (str[0] == '\0')
-        return (ft_strdup(""));
-    ifs_split = ft_split(str, (char)1);
-    if (!ifs_split)
-        return (NULL);
-    joined = strjoiner(ifs_split, " ", arg_count(ifs_split));
-    if (!joined)
-        return (free_argv(ifs_split), NULL);
-    return (joined);
+	if (!str)
+		return (NULL);
+	cleaned = malloc(sizeof(char) * (o_ft_strlen(str) + 1));
+	if (!cleaned)
+		return (NULL);
+	i = 0;
+	j = 0;
+	while (str[i])
+	{
+		if (str[i] != (char)1 && str[i] != (char)127)
+		{
+			cleaned[j] = str[i];
+			j++;
+		}
+		i++;
+	}
+	cleaned[j] = '\0';
+	return (cleaned);
 }
+

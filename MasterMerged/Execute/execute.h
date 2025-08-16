@@ -7,9 +7,23 @@
 # define EXPORTED true
 # define NO_VALUE false
 
-// # define ANON (char)127
+# define ANON (char)127
 
-# define ANON 'N'
+# ifndef BUFFER_SIZE
+#  define BUFFER_SIZE 42
+# endif
+
+# include <unistd.h>
+# include <stdlib.h>
+
+char	*get_next_line(int fd);
+char	*gnl_ft_strjoin(char *s1, char *s2);
+size_t	gnl_ft_strlen(const char *s);
+char	*gnl_ft_strdup(char *s1);
+char	*gnl_ft_substr(char *s, unsigned int start, size_t len);
+char	*gnl_ft_strchr(const char *s, int c);
+
+// # define ANON '-'
 
 
 

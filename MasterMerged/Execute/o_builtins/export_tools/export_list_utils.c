@@ -21,7 +21,7 @@ bool has_plus(char *str)
     i = 0;
     while (str[i])
     {
-        if (str[i] == '+')
+        if (str[i] == '+' && str [i + 1] == '=')
             return (true);
         i++;
     }
@@ -52,8 +52,8 @@ int add_to_export_list(t_envlist **export_lst, t_envlist *env)
         return (EXIT_FAILURE);
     exp_node->variable = env->variable; // same pointers to env data.
     exp_node->value = env->value;
-    exp_node->exported = env->value;
-    exp_node->pointed = env->value;
+    exp_node->exported = env->exported;
+    exp_node->pointed = false;
     exp_node->next = NULL;
     if (!*export_lst)
     {

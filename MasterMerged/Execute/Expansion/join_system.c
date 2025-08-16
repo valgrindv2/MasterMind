@@ -8,9 +8,9 @@ char	*o_ft_strjoin(char *s1, char *s2)
 
 	if (!s1 && !s2)
 		return (NULL);
-	if (!s1)
+	if (!s1 || (s1[0] == ANON && s1[1] == '\0'))
 		return (ft_strdup(s2));
-	if (!s2)
+	if (!s2 || (s2[0] == ANON && s2[1] == '\0'))
 		return (ft_strdup(s1));
 	ptr = (char *) malloc ((o_ft_strlen(s1) + o_ft_strlen(s2)) + 1);
 	if (ptr == NULL)
@@ -35,17 +35,14 @@ static char	*merge_pockets(char **lst)
 	joined = NULL;
 	while (lst[i])
 	{
-		// if (lst[i][0] != ANON)
-		// {
-			temp = joined;
-			joined = o_ft_strjoin(joined, lst[i]);
-			if (!joined)
-			{
-				free(temp);
-				return (NULL);
-			}
+		temp = joined;
+		joined = o_ft_strjoin(joined, lst[i]);
+		if (!joined)
+		{
 			free(temp);
-		// }
+			return (NULL);
+		}
+		free(temp);
 		i++;
 	}
 	return (joined);

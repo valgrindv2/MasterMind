@@ -1,38 +1,5 @@
 #include "../execute.h"
 
-bool    has_delim(char *str)
-{
-    int i;
-
-    i = 0;
-    while (str[i])
-    {
-        if (str[i] == (char)1)
-            return (true);
-        i++;
-    }
-    return (false);
-}
-
-bool    has_space(char *str)
-{
-    int i;
-
-    i = 0;
-    if (!str)
-    {
-        printf("null str\n");
-        exit(1);
-    }
-    while (str[i])
-    {
-        if (str[i] == ' ')
-            return (true);
-        i++;
-    }
-    return (false);
-}
-
 char *append_delimiter(char *str)
 {
     char    *first_border;
@@ -89,7 +56,7 @@ int expand_unqoted_d(char ***pockets, t_data *data, char *raw)
     int     mc_argc;
     char    **split;
 
-    split = ft_split(raw, ' ');
+    split = tab_split(raw, " \t\n\v\f\r");
     mc_argc = arg_count(split);
     new_pocket = malloc((data->pc.j + mc_argc + 1) * sizeof(char *));
     i = 0;

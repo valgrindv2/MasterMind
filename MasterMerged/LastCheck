@@ -1,6 +1,6 @@
-Make sure no leaks in valgrind
-Make sure cmd works in bin even if path not found
-Make sure all folders and files in the minishell are lowercases
-Make sure no forbidden function is used
-Make sure exit status is correct in cases of (is a directory,
-	and ./a, while a is chmoded permission denied)
+Make sure no leaks in valgrind (LAST THING TO DO when we get back)
+Make sure cmd works in bin even if path not found (CHECKED)
+Make sure all folders and files in the minishell are lowercases (CHECKED)
+Make sure no forbidden function is used (gotta change dprintf with ft_printf)
+Make sure exit status is correct in cases of (is a directory, 
+	and ./a, while a is chmoded permission denied) (CHECKED)

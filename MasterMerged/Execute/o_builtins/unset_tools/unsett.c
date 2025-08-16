@@ -81,3 +81,10 @@ bool valid_identifier_un(char *str)
     }
     return (true);
 }
+
+void delete(t_envlist *node)
+{
+    free(node->value);
+    free(node->variable);
+    free(node);
+}

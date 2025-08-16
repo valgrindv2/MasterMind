@@ -24,7 +24,7 @@ static void print_export_list(t_envlist *env)
         if (ft_strcmp(curr->variable, "_") != 0)
         {
             printf("declare -x %s", curr->variable);
-            if (printable(curr->value))
+            if (curr->exported)
                 printf("=\"%s\"",curr->value);
             printf("\n");
         }

@@ -1,0 +1,84 @@
+#include "../execute.h"
+
+static int is_nonprintable_char(char c)
+{
+    return (c == (char)1 || c == (char)127);
+}
+
+static size_t count_printable_chars(const char *s)
+{
+    size_t  count;
+    int     i;
+
+    count = 0;
+    i = 0;
+    if (!s)
+        return (0);
+    while (s[i])
+    {
+        if (!is_nonprintable_char(*s))
+            count++;
+        i++;
+    }
+    return (count);
+}
+
+static void copy_without_nonprintables(char *dest, const char *src)
+{
+	size_t i;
+	size_t j;
+
+	i = 0;
+	j = 0;
+	while (src[i])
+	{
+		if (!is_nonprintable_char(src[i]))
+		{
+			dest[j] = src[i];
+			j++;
+		}
+		i++;
+	}
+	dest[j] = '\0';
+}
+
+static void free_partial_argv(char **arr, size_t limit)
+{
+    size_t i;
+
+    if (!arr)
+        return ;
+    i = 0;
+    while (i < limit)
+        free(arr[i++]);
+    free(arr);
+}
+
+char **remove_nonprintables_argv(char **argv)
+{
+    char    **newargv;
+    size_t  argc;
+    size_t  i;
+    size_t  printable_chars;
+    char    *clean;
+
+    if (!argv)
+        return (free_argv(argv), NULL);
+    argc = arg_count(argv);
+    newargv = malloc((argc + 1) * sizeof(char *));
+    if (!newargv)
+        return (NULL);
+    i = 0;
+    while (i < argc)
+    {
+        printable_chars = count_printable_chars(argv[i]);
+        clean = malloc(printable_chars + 1);
+        if (!clean)
+            return (free_partial_argv(newargv, i), free_argv(argv), NULL);
+        copy_without_nonprintables(clean, argv[i]);
+        newargv[i] = clean;
+        i++;
+    }
+    newargv[argc] = NULL;
+    return (free_argv(argv), newargv);
+}

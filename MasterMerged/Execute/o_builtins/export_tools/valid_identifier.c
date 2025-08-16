@@ -29,7 +29,7 @@ bool valid_identifier(char *str)
     i = 0;
     standalone = true;
     if (!str[i])
-        return (true);
+        return (false);
     if (!valid_identifier_core(str, &i, &standalone))
         return (false);
     if (standalone)

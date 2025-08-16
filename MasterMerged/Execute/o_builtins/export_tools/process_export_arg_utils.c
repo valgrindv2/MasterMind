@@ -12,8 +12,11 @@ int process_new_var(char *arg, t_data *data)
         else if (add_to_envlist(&data->env, arg, EXPORTED) != EXIT_SUCCESS)
             return (EXIT_FAILURE);
     }
-    else if (add_to_envlist(&data->env, arg, NO_VALUE) != EXIT_SUCCESS)
-        return (EXIT_FAILURE);
+    else
+    {
+        if (add_to_envlist(&data->env, arg, NO_VALUE) != EXIT_SUCCESS)
+            return (EXIT_FAILURE);
+    }
     return (EXIT_SUCCESS);
 }
 

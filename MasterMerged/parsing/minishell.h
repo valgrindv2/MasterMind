@@ -6,7 +6,7 @@
 /*   By: ayel-bou <ayel-bou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/04 03:32:22 by ayel-bou          #+#    #+#             */
-/*   Updated: 2025/08/16 08:55:08 by ayel-bou         ###   ########.fr       */
+/*   Updated: 2025/08/14 21:03:53 by ayel-bou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -459,6 +459,38 @@ void				freeiers(t_data *data, char *input);
 
 // ouss functions  ---------------------
 
+typedef struct s_path
+{
+	char	**paths;
+	char	*tmp;
+	char	*full_path;
+	int		i;
+}	t_path;
+
+typedef struct s_plist
+{
+	t_tree			*cmd_node;
+	struct s_plist	*next;
+}	t_plist;
+
+
+typedef struct s_pipe_info
+{
+	int		prev_fd;
+	int		fds[2];
+	int		is_pipe;
+}	t_pipe_info;
+
+typedef struct s_pp
+{
+	t_plist	*plist;
+	t_plist	*curr;
+	pid_t	last_pid;
+	int		ret;
+	int		fds[2];
+	t_pipe_info info;
+}	t_pp;
+
 // garbage collector
 
 typedef struct s_mind_alloc
@@ -466,12 +498,6 @@ typedef struct s_mind_alloc
 	void				*ptr;
 	struct s_mind_alloc	*next;
 }	t_mind_alloc;
-
-typedef struct s_plist
-{
-	t_tree			*cmd_node;
-	struct s_plist	*next;
-}	t_plist;
 
 typedef struct s_ifs
 {
@@ -511,6 +537,13 @@ int					execute_tree(t_tree *root, t_data *data,
 						char **env, void *re_built);
 int					short_circuit_operand(t_tree *node,
 						t_grammar operand_id, t_data *data);
+int					wait_for_last_pid(pid_t last_pid);
+pid_t				fork_pipeline_node(t_plist *node, t_data *data,
+						t_pipe_info *info);
+void				flatten_pipeline(t_tree *node, t_plist **head);
+void				pipe_sighandle(void);
+void				start_signals(void);
+void				print_exec_error(char *cmd, int code);
 
 // Builtins
 int					o_echo(t_tree *node);
@@ -525,6 +558,7 @@ int					exec_builtin(t_tree *node, t_data *data);
 bool				valid_identifier(char *str);
 bool				valid_identifier_un(char *str);
 size_t				arg_count(char **argv);
+void				delete(t_envlist *node);
 
 // Export
 int					add_last_executed(t_tree *node, t_data *data);
@@ -543,7 +577,6 @@ int					assign_new_value(char *new_var, t_envlist *env);
 int					append_value(char *new_var, t_envlist *env);
 
 // Expanding enrty functions.
-int					expand_wild_cards(t_tree *node);
 int					expand_list(t_arg *arg, t_data *data);
 char				*expand_var(char *str, t_data *data, bool was_d_quoted);
 char				**convert_list_to_argv(t_arg *arg, t_data *data);
@@ -569,6 +602,9 @@ char				*expand_special_cases(char *str, t_data *data, int *i);
 int					add_ifs_back(t_ifs **head, char *str);
 void				free_ifs_list(t_ifs *ifs);
 char				**ifs_list_to_argv(t_ifs *head);
+size_t				ifs_list_size(t_ifs *curr);
+int					should_join(char *curr, char *next);
+int					is_alphanum_underscore(char c);
 
 // Anon system.
 bool				anon(t_tree *node, size_t argc);
@@ -580,6 +616,7 @@ bool				single_anon(char *str);
 int					try_expand_wildcard(t_arg *arg);
 void				sort_files(char **files);
 int					count_files(void);
+
 
 // Linked env
 size_t				o_ft_strlen(char *str);
@@ -594,7 +631,7 @@ int					handle_red(t_tree *node, t_data *data);
 void				restore_IO(int saved_in, int saved_out, bool no_red);
 char				*red_ifs_pass(char *str);
 bool				only_spaces(char *raw);
-int					red_here_doc(t_red *red);
+int					red_here_doc(t_red *red, t_data *data);
 
 // Free_tree (error handling)
 void				free_argv(char **argv);
@@ -610,6 +647,10 @@ char				*strjoiner(char **list, char *sep, size_t size);
 
 void				normalize_command(char *str);
 void				print_argv(char **argv);
+
+int					merge_env(t_data *data, char **env); // why here
+char				**tab_split(char *s, char *sep);
+char				**remove_nonprintables_argv(char **argv);
 
 // Builtins Tools
 int					con_check(t_tree *node);

@@ -1,7 +1,6 @@
 #include "../execute.h"
 
 // these functions are called from pocket_insertion.
-
 size_t	o_ft_strlen(char *s)
 {
 	size_t	i;

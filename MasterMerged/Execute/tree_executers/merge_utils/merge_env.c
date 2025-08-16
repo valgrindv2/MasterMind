@@ -1,5 +1,19 @@
 #include "../../execute.h"
 
+size_t no_value_nodes_num(t_envlist *env)
+{
+    size_t  num;
+
+    num = 0;
+    while (env)
+    {
+        if (!env->exported)
+            num++;
+        env = env->next;
+    }
+    return (num);
+}
+
 char *get_value(char *str)
 {
     int     equals;
@@ -66,6 +80,7 @@ int add_to_envlist(t_envlist **envlist, char *str, bool exported)
     if (!new_env->value)
         return (free(new_env), free(new_env->variable), EXIT_FAILURE);
     new_env->pointed = false;
+    
     new_env->exported = exported; // comes from parent by default exported.
     new_env->next = NULL;
     if (!*envlist)
@@ -80,31 +95,31 @@ int add_to_envlist(t_envlist **envlist, char *str, bool exported)
     return (EXIT_SUCCESS);
 }
 
-char **convert_list_to_envp(t_envlist *envlist)
+char **convert_list_to_envp(t_envlist *curr_env)
 {
-    t_envlist   *cur;
     char        **envp;
     size_t      env_size;
     int         i;
 
-    env_size = envlist_size(envlist);
+    env_size = envlist_size(curr_env) - no_value_nodes_num(curr_env);
     envp = malloc ((env_size + 1)* sizeof(char *));
     if (!envp)
         return (NULL); // cleanup
-    cur = envlist;
     i = 0;
-    while(cur)
+    while(curr_env)
     {
-        envp[i] = convert_node_to_str(cur);
-        if (!envp[i])
+        if (curr_env->exported)
         {
-            while (--i >= 0)
-                free(envp[i]);
-            return (free(envp), NULL);
+            envp[i] = convert_node_to_str(curr_env);
+            if (!envp[i])
+            {
+                while (--i >= 0)
+                    free(envp[i]);
+                return (free(envp), NULL);
+            }
+            i++;
         }
-        cur = cur->next;
-        i++;
+        curr_env = curr_env->next;
     }
-    envp[i] = NULL;
-    return (envp);
+    return (envp[i] = NULL, envp);
 }
