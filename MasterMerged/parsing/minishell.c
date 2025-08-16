@@ -6,7 +6,7 @@
 /*   By: ayel-bou <ayel-bou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/03 19:15:02 by ayel-bou          #+#    #+#             */
-/*   Updated: 2025/08/16 06:54:55 by ayel-bou         ###   ########.fr       */
+/*   Updated: 2025/08/17 00:15:27 by ayel-bou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,20 +16,29 @@ extern int	g_flag;
 
 void	master_tools(int argc, char **argv, char **env, t_data *data)
 {
-	if (!isatty(1))
+	if (!isatty(0) || !isatty(1))
+	{
+		puterror("Master@Mind: Shell not executed as a device input\n");
 		exit(F);
+	}
+	if (argc > 1)
+	{
+		puterror("Master@Mind: Shell does not accept arguments\n");
+		exit(F);
+	}
 	voiders(argc, argv, env);
 	init_data_struct(data, env);
 	signal(SIGINT, sig_handler);
 	signal(SIGQUIT, SIG_IGN);
 }
 
-int	scan_input(char *input)
+int	scan_input(char *input, t_data *data)
 {
 	if (input == NULL)
 	{
-		printf("exit\n");
-		return (0);
+		printf("exit\n"); //  Garbage coll
+		freeiers(data, input);
+		exit (data->exit_status);
 	}
 	if (input[0] != '\0')
 		add_history(input);
@@ -47,13 +56,18 @@ t_tree	*masterpasrse(char *input, t_data *data, t_token **prompts)
 	return (build_tree(*prompts));
 }
 
+void f()
+{
+	system("leaks minishell");
+}
+
 int	main(int argc, char **argv, char **env)
 {
 	char	*input;
 	t_data	data;
 	t_tree	*tree;
 	t_token	*re_built;
-
+	atexit(f);
 	tree = NULL;
 	input = NULL;
 	master_tools(argc, argv, env, &data);
@@ -63,7 +77,7 @@ int	main(int argc, char **argv, char **env)
 			return (freeiers(&data, input), EXIT_SUCCESS);
 		input = readline("Master@Mindv3.0> ");
 		g_flag = 0;
-		if (!scan_input(input))
+		if (!scan_input(input, &data))
 			break ;
 		tree = masterpasrse(input, &data, &re_built);
 		execute_tree(tree, &data, env, re_built);
