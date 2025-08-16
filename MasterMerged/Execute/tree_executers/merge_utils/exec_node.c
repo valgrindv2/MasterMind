@@ -71,13 +71,27 @@ int	exec_node(t_tree *node, t_data *data)
 
 	if (node->fake == true)
 		return (EXIT_SUCCESS);
+	signal(SIGINT, SIG_IGN);
+	signal(SIGQUIT, SIG_IGN);
+	// save
 	id = fork(); // protect.
 	if (id == 0)
+	{
+		signal(SIGINT, sig_kill);
+		signal(SIGQUIT, sig_kill);
 		handle_child(node, data);
+	}
 	waitpid(id, &ex_status, 0);
+	signal(SIGINT, sig_handler);
+	signal(SIGQUIT, SIG_IGN);
+	if (!restore_previous_state(STDIN_FILENO, data))
+	{
+		// Garbage collector;
+		exit(F);
+	}
 	if (WIFEXITED(ex_status))
 		return (WEXITSTATUS(ex_status));
 	if (WIFSIGNALED(ex_status))
-		return (128 + WTERMSIG(ex_status));
+		return (printf("\n"), 128 + WTERMSIG(ex_status));
 	return (ex_status);
 }

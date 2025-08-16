@@ -14,3 +14,6 @@ Master@Mindv3.0> login
 login: ^C
 Master@Mindv3.0> 
 login: 
+
+signals
+cat | grep 

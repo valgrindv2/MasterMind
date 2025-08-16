@@ -6,7 +6,7 @@
 /*   By: ayel-bou <ayel-bou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/03 19:15:02 by ayel-bou          #+#    #+#             */
-/*   Updated: 2025/08/13 17:27:24 by ayel-bou         ###   ########.fr       */
+/*   Updated: 2025/08/16 02:17:27 by ayel-bou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,12 +60,17 @@ int	main(int argc, char **argv, char **env)
 	init_data_struct(&data, env);
 	signal(SIGINT, sig_handler);
 	signal(SIGQUIT, SIG_IGN);
-	// isatty
-	// if (!isatty(1))
+	if (!isatty(1))
+		exit(F);
 	while (1)
 	{
-		g_flag = 0;
+		if (!get_current_state(STDIN_FILENO, &data))
+		{
+			return (free(data.pwd_reserve), free_argv(data.env_vec), 
+				free_envlist(data.env), free(input), EXIT_SUCCESS);
+		}
 		input = readline("Master@Mindv3.0> ");
+		g_flag = 0;
 		if (input == NULL)
 		{
 			printf("exit\n");
@@ -76,6 +81,8 @@ int	main(int argc, char **argv, char **env)
 		tree = masterpasrse(input, &data, &re_built);
 		// print_tree(tree);
 		execute_tree(tree, &data, env, re_built);
+		if (data.read_f == false)
+			g_flag = 0;
 	}
 	return (free(data.pwd_reserve), free_argv(data.env_vec), free_envlist(data.env),
 		free(input), EXIT_SUCCESS);

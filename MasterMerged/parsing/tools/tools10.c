@@ -6,7 +6,7 @@
 /*   By: ayel-bou <ayel-bou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/03 20:50:06 by ayel-bou          #+#    #+#             */
-/*   Updated: 2025/08/12 14:12:08 by ayel-bou         ###   ########.fr       */
+/*   Updated: 2025/08/15 08:21:57 by ayel-bou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,6 @@ void	clean_fd(t_token *id_class)
 		if (id_class->tok == DEL_ID
 			&& id_class->here_doc_fd != -1)
 		{
-			printf("fd from class being closed > %d\n", id_class->here_doc_fd);
 			close(id_class->here_doc_fd);
 		}
 		id_class = id_class->next;

@@ -6,7 +6,7 @@
 /*   By: ayel-bou <ayel-bou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/03 20:48:04 by ayel-bou          #+#    #+#             */
-/*   Updated: 2025/08/14 21:30:59 by ayel-bou         ###   ########.fr       */
+/*   Updated: 2025/08/15 22:09:25 by ayel-bou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ static void	here_doc_interruption(char *in, t_data *data, int sv)
 	data->here_fd = -1;
 	data->exit_status = 1;
 	free(in);
+	data->read_f = true;
 	dup2(sv, STDIN_FILENO); //check dup fail (NO NEED IT WILL RETURN 0 AND BE FREED ANYWAY)
 	close(sv);
 	signal(SIGINT, sig_handler);
@@ -46,6 +47,7 @@ static void	single_interruption(char *in, t_data *data, int sv)
 	puterror("Master@Mind: Single Heredoc Blocked\n");
 	close(data->here_read_fd);
 	data->here_read_fd = -1;
+	data->exit_status = 0;
 	close(data->here_fd);
 	data->here_fd = -1;
 	close(sv);

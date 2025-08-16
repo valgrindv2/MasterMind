@@ -79,6 +79,8 @@ static pid_t	fork_pipeline_node(t_plist *node, t_data *data,
 	pid_t	pid;
 
 	data->child_state = true;
+	signal(SIGINT, SIG_IGN);
+	signal(SIGQUIT, SIG_IGN);
 	pid = fork();
 	if (pid < 0)
 	{
@@ -87,6 +89,8 @@ static pid_t	fork_pipeline_node(t_plist *node, t_data *data,
 	}
 	if (pid == 0)
 	{
+		signal(SIGINT, sig_kill);
+		signal(SIGQUIT, sig_kill);
 		setup_child_io(prev_fd, fds, is_pipe);
 		/* TODO: garbage collector cleanup here */
 		exit(recursive_execution(node->cmd_node, data));
@@ -146,6 +150,15 @@ int	execute_pipeline(t_tree *root, t_data *data, int input_fd)
 		close(prev_fd);
 	free_pipe_list(plist);
 	ret = wait_for_last_pid(last_pid);
+	signal(SIGINT, sig_handler);
+	signal(SIGQUIT, SIG_IGN);
+	if (!restore_previous_state(STDIN_FILENO, data))
+	{
+		// Garbage collector;
+		exit(F);
+	}
+	if (WIFSIGNALED(ret))
+		printf("\n");
 	data->child_state = false;
 	return (ret);
 }

@@ -458,3 +458,11 @@ TEST IT AT THE END
 Migrane: out : No such file or directory
 CTRL C NOT WORKING (HANGED)
 */
+
+
+Execute commands but this time without any path (ls, wc, awk and so forth).
+Unset the $PATH and ensure commands are not working anymore.
+Set the $PATH to a multiple directory value (directory1:directory2) and ensure that directories are checked in order from left to right.
+
+Execute commands but this time use a relative path.
+Repeat multiple times in different directories with a complex relative path (lots of ..).

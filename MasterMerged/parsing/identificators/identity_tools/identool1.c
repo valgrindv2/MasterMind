@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   identool1.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
+/*   By: ayel-bou <ayel-bou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/04 03:13:45 by ayel-bou          #+#    #+#             */
-/*   Updated: 2025/08/07 02:31:19 by codespace        ###   ########.fr       */
+/*   Updated: 2025/08/15 07:53:01 by ayel-bou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,17 +14,15 @@
 
 int	len_of_string(char *input, int index)
 {
-	int	i;
 	int	len;
 
-	i = 0;
 	len = 0;
-	while (input[i])
+	while (input[index])
 	{
-		if (check_alpha(input[index], input[i + 1]))
+		if (check_alpha(input[index], input[index + 1]))
 			break ;
 		len++;
-		i++;
+		index++;
 	}
 	return (len);
 }

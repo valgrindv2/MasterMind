@@ -11,6 +11,7 @@ SRC = minishell.c identificators/identity_tools/identool0.c\
 		tools/tool2.c identificators/units.c \
 		debbugers/Tokens_db.c debbugers/Linkedenv.c \
 		signal_handlers/sig_handlers.c\
+		signal_handlers/restore_state.c\
 		tools/tools3.c tools/tools4.c tools/tools5.c\
 		tools/tools6.c \
 		tools/tools7.c \

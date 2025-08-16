@@ -1,46 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   sig_handlers.c                                     :+:      :+:    :+:   */
+/*   restore_state.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ayel-bou <ayel-bou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/08/03 20:52:11 by ayel-bou          #+#    #+#             */
-/*   Updated: 2025/08/16 02:22:25 by ayel-bou         ###   ########.fr       */
+/*   Created: 2025/08/16 01:01:22 by ayel-bou          #+#    #+#             */
+/*   Updated: 2025/08/16 02:18:21 by ayel-bou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-int	g_flag = 0;
-
-void	sig_handler(int signum)
+int	get_current_state(int fd, t_data *data)
 {
-	if (signum == SIGINT)
-	{
-		rl_replace_line("", 0);
-		if (g_flag != SIGINT)
-			printf("\n");
-		rl_on_new_line();
-		rl_redisplay();
-	}
-	else if (signum == SIGQUIT)
-		return ;
+	struct termios current_state;
+	if (tcgetattr(fd, &current_state) == -1)
+		return (0);
+	data->saved_state = current_state;
+	return (1);
 }
 
-void	sig_heredoc(int signum)
+int	restore_previous_state(int fd, t_data *data)
 {
-	if (signum == SIGINT)
-	{
-		g_flag = SIGINT;
-		close(STDIN_FILENO);
-	}
-}
-
-void	sig_kill(int signum)
-{
-	if (signum == SIGINT)
-		exit(F);
-	else if (signum == SIGQUIT)
-		exit(F);
+	if (tcsetattr(fd, TCSANOW, &data->saved_state) == -1)
+		return (0);
+	return (1);
 }

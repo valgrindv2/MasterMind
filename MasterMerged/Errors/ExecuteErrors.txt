@@ -323,3 +323,40 @@ act as if no argument is found (CHECKED)
 
 Ouss Should watch from all the forbidden function used, 
 (dprintf and if there is smthing else used also)
+
+Master@Mindv3.0> exit  123 asdas | exit qeqweq  | exit
+exit: too many arguments
+Master@Mind: Exit Requires A Numeric Value
+Master@Mindv3.0> echo $?
+255 (fixed)
+
+should be zero (exit status)
+
+if u dont found the binary of a command (!PATH || PATH="")
+	search first in the current dir. 
+
+
+Master@Mindv3.0> export e=asdasd
+Master@Mindv3.0> export e=''=+
+Master@Mindv3.0> export
+
+aster@Mind: Unset: Invlid Identifier
+Master@Mindv3.0> unset ""$HOME
+Master@Mindv3.0> unset ""
+Master@Mind: Unset: Invlid Identifier
+Master@Mindv3.0> unset ""$HOME (i guess already known) (CHECKED)
+
+Master@Mindv3.0> ./
+Migrane: ./: No such file or directory
+Master@Mindv3.0> $?
+Migrane: 127: command not found
+Master@Mindv3.0> ./
+Migrane: ./: No such file or directory
+Master@Mindv3.0> echo $?
+127
+Master@Mindv3.0> 
+.DS_Store          Makefile           debbugers/         identificators/    mastermind/        minishell          minishell.c        minishell.h        re_identificators/ signal_handlers/   syntax/            tools/             
+Master@Mindv3.0> 
+.DS_Store          Makefile           debbugers/         identificators/    mastermind/        minishell          minishell.c        minishell.h        re_identificators/ signal_handlers/   syntax/            tools/             
+Master@Mindv3.0> debbugers/ 
+Migrane: debbugers/: No such file or directory

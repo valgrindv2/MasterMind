@@ -34,7 +34,7 @@ void    echo_args(t_tree *node, bool *newline)
 	print_all = false;
 	while (node->argv[i])
 	{
-		if (valide_option(node->argv[i]) && print_all == false)
+		while (valide_option(node->argv[i]) && print_all == false)
 			i++;
 		if (!node->argv[i])
 			break ;

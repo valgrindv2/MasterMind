@@ -6,7 +6,7 @@
 /*   By: ayel-bou <ayel-bou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/04 03:32:22 by ayel-bou          #+#    #+#             */
-/*   Updated: 2025/08/14 21:03:53 by ayel-bou         ###   ########.fr       */
+/*   Updated: 2025/08/16 02:13:57 by ayel-bou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@
 # include <limits.h>
 # include <dirent.h>
 # include <sys/wait.h>
+# include <termios.h>
 
 // Macros
 # define F 1
@@ -220,11 +221,13 @@ typedef struct s_data
 	int				ch_fail;
 	int				br_fail;
 	int				flag;
+	bool			read_f;
 	char			*home_p;
 	char			*pwd_reserve;
 	bool			unset_status;
 	bool			export_status;
 	int				here_read_fd;
+	struct		termios 	saved_state;
 	// Exec Data
     int saved_in;
     int saved_out;
@@ -277,6 +280,7 @@ typedef struct s_token
 // Signal Tools
 void				sig_handler(int signum);
 void				sig_heredoc(int signum);
+void				sig_kill(int signum);
 
 // Debbugers
 void				linkednev_db(t_envlist **env);
@@ -504,6 +508,9 @@ typedef struct s_convert
     t_arg       *free_head;
 }   t_convert;
 
+// Restore Terminal Attributes
+int	get_current_state(int fd, t_data *data);
+int	restore_previous_state(int fd, t_data *data);
 
 // Main Exec Functionality.
 int					exec_node(t_tree *node, t_data *data);
