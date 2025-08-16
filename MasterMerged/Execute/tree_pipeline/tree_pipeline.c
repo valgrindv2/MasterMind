@@ -152,13 +152,6 @@ int	execute_pipeline(t_tree *root, t_data *data, int input_fd)
 	ret = wait_for_last_pid(last_pid);
 	signal(SIGINT, sig_handler);
 	signal(SIGQUIT, SIG_IGN);
-	if (!restore_previous_state(STDIN_FILENO, data))
-	{
-		// Garbage collector;
-		exit(F);
-	}
-	if (WIFSIGNALED(ret))
-		printf("\n");
 	data->child_state = false;
 	return (ret);
 }

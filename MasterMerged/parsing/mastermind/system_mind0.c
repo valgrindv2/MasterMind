@@ -6,7 +6,7 @@
 /*   By: ayel-bou <ayel-bou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/04 02:28:08 by ayel-bou          #+#    #+#             */
-/*   Updated: 2025/08/12 18:54:16 by ayel-bou         ###   ########.fr       */
+/*   Updated: 2025/08/16 08:23:01 by ayel-bou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,24 +21,21 @@ t_tree	*build_tree(t_token *id_class)
 	yard = NULL;
 	if (id_class == NULL)
 		return (NULL);
-	yard = shunting_yard_algorithm(id_class); // NO_LEAKS
+	yard = shunting_yard_algorithm(id_class);
 	if (!yard)
-		return (printf("YARD FAILED\n"), clean_id_class(&id_class, FAIL), NULL);
+		return (clean_id_class(&id_class, FAIL), NULL);
 	clean_id_class(&id_class, CLEAN);
 	if (recursive_build(yard, &tree) == ANOMALY)
 		return (tree_cleaner(&tree), clean_yard(&yard, FAIL), NULL);
-	// read_files(yard, 0, "YARD ----->");
-	// print_tree(tree);
-	clean_yard(&yard, CLEAN); // CLEAN BLAST FAIL
+	clean_yard(&yard, CLEAN);
 	return (tree);
 }
 
 static int	init_tree(t_tree **node)
 {
 	*node = malloc(sizeof(t_tree));
-	// *node = NULL;
-	if (!*node) // NO_LEAKS
-		return (puts("INIT_TREE FAILED"), ANOMALY); // CHECK THIS ONE EHOOOO !!!!!!!! :)
+	if (!*node)
+		return (ANOMALY);
 	(*node)->value = NULL;
 	(*node)->left = NULL;
 	(*node)->right = NULL;
@@ -69,9 +66,8 @@ static t_token	*last_unchecked(t_token *yard)
 static int	put_token(t_tree *tree, t_token *token)
 {
 	tree->value = ft_strdup(token->identity);
-	// tree->value = NULL;
-	if (!tree->value) // NO_LEAKS
-		return (puts("PUT_TOKEN FAILED"), ANOMALY);
+	if (!tree->value)
+		return (ANOMALY);
 	tree->tok = token->tok;
 	tree->op_case = token->op_case;
 	tree->red = token->red;

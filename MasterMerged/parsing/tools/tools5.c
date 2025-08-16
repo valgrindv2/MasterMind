@@ -6,7 +6,7 @@
 /*   By: ayel-bou <ayel-bou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/03 20:16:15 by ayel-bou          #+#    #+#             */
-/*   Updated: 2025/08/13 17:29:53 by ayel-bou         ###   ########.fr       */
+/*   Updated: 2025/08/16 07:13:56 by ayel-bou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ char	*ft_strdup(const char *s1)
 
 char	*ft_substr(char *s, int start, int len)
 {
-	int	i;
+	int		i;
 	char	*new;
 
 	i = 0;

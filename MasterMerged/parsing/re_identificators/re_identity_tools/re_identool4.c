@@ -6,7 +6,7 @@
 /*   By: ayel-bou <ayel-bou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/04 01:57:51 by ayel-bou          #+#    #+#             */
-/*   Updated: 2025/08/12 15:50:54 by ayel-bou         ###   ########.fr       */
+/*   Updated: 2025/08/16 07:29:08 by ayel-bou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,19 +56,19 @@ t_red	*redirection_cop(t_token *id_class, int *fail)
 		return (*fail = 0, NULL);
 	new = malloc(sizeof(t_red));
 	if (!new)
-		return (*fail = 1, puts("FAIL1"),NULL); // NO LEAKS
+		return (*fail = 1, NULL);
 	new->value = ft_strdup(id_class->identity);
 	if (!new->value)
-		return (*fail = 1, free(new), puts("FAIL2"), NULL); // NO LEAKS
+		return (*fail = 1, free(new), NULL);
 	new->tok = id_class->tok;
 	new->was_d_quote = id_class->was_double_quote;
 	new->was_s_quote = id_class->was_single_quote;
 	new->next = NULL;
 	if (new->tok == DEL_ID && id_class->here_doc_fd != -1)
 	{
-		new->fd_here_doc = dup(id_class->here_doc_fd); // NO_leaks
+		new->fd_here_doc = dup(id_class->here_doc_fd);
 		if (new->fd_here_doc == -1)
-			return (*fail = 1, free(new->value), free(new), NULL); // NO LEAKS
+			return (*fail = 1, free(new->value), free(new), NULL);
 		close(id_class->here_doc_fd);
 		id_class->here_doc_fd = -1;
 	}

@@ -6,7 +6,7 @@
 /*   By: ayel-bou <ayel-bou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/04 03:19:33 by ayel-bou          #+#    #+#             */
-/*   Updated: 2025/08/15 22:09:34 by ayel-bou         ###   ########.fr       */
+/*   Updated: 2025/08/16 07:54:08 by ayel-bou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,8 +102,8 @@ int	here_doc_check(t_token *id_class, t_data *data)
 		if (requirements(curr, id_class, data))
 		{
 			curr->here_times = 0;
-			if (!change_id(curr->next, data) ||
-				!open_heredoc(id_class, curr, data))
+			if (!change_id(curr->next, data)
+				|| !open_heredoc(id_class, curr, data))
 				return (0);
 		}
 		curr = curr->next;

@@ -6,7 +6,7 @@
 /*   By: ayel-bou <ayel-bou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/04 03:08:26 by ayel-bou          #+#    #+#             */
-/*   Updated: 2025/08/15 08:29:21 by ayel-bou         ###   ########.fr       */
+/*   Updated: 2025/08/16 06:55:14 by ayel-bou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,5 +95,6 @@ t_token	*get_identity(char *input, t_data *dt)
 		id_class = NULL;
 	}
 	free(input);
+	input = NULL;
 	return (id_class);
 }

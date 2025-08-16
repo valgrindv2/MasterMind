@@ -9,7 +9,6 @@ SRC = minishell.c identificators/identity_tools/identool0.c\
 		identificators/identify.c identificators/identity_tools/identool1.c \
 		tools/tool.c\
 		tools/tool2.c identificators/units.c \
-		debbugers/Tokens_db.c debbugers/Linkedenv.c \
 		signal_handlers/sig_handlers.c\
 		signal_handlers/restore_state.c\
 		tools/tools3.c tools/tools4.c tools/tools5.c\
@@ -36,7 +35,7 @@ SRC = minishell.c identificators/identity_tools/identool0.c\
 		mastermind/system_mind0.c mastermind/system_mind1.c\
 		mastermind/mind_tools/mind_tools1.c\
 		mastermind/mind_tools/mind_tools2.c mastermind/mind_tools/mind_tools3.c \
-		debbugers/dbg_tree.c debbugers/read_files.c tools/tools10.c tools/tools11.c\
+		tools/tools10.c tools/tools11.c\
 		\
 		\
 		../Execute/o_builtins/unset_tools/unsett.c\

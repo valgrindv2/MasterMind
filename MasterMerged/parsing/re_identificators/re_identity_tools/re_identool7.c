@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   re_identool7.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ayel-bou <ayel-bou@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/08/16 07:29:22 by ayel-bou          #+#    #+#             */
+/*   Updated: 2025/08/16 07:29:55 by ayel-bou         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../minishell.h"
 
 static int	insert_fake_cmd(t_token *id_class, t_token *before, int mode)
@@ -7,7 +19,7 @@ static int	insert_fake_cmd(t_token *id_class, t_token *before, int mode)
 
 	in = add_identity(ft_strdup(FAKE), COMMAND_ID, D_INIT, NULL);
 	if (!in)
-			return (0);
+		return (0);
 	init_properties(in);
 	in->fake = true;
 	if (mode == INSIDE)
@@ -41,8 +53,8 @@ int	fake_system(t_token *id_class)
 		}
 		if (!id_class->next && cmd_found == false)
 		{
-				if (!insert_fake_cmd(id_class, before, LAST))
-					return (0);
+			if (!insert_fake_cmd(id_class, before, LAST))
+				return (0);
 		}
 		else if (id_class->op_case && cmd_found == true)
 			cmd_found = false;

@@ -6,7 +6,7 @@
 /*   By: ayel-bou <ayel-bou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/04 02:25:55 by ayel-bou          #+#    #+#             */
-/*   Updated: 2025/08/09 05:10:42 by ayel-bou         ###   ########.fr       */
+/*   Updated: 2025/08/16 08:25:18 by ayel-bou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,8 +82,8 @@ int	mark_ending(t_token *op_field, t_token **yard)
 	{
 		if (op_field->op_case && x == 0)
 		{
-			if (!add_token(op_field, yard)) // NOLEAKS
-				return (puts("MARK ENDING FAILED"), S);
+			if (!add_token(op_field, yard))
+				return (S);
 		}
 		if (op_field->tok == BRACE_O_ID)
 		{

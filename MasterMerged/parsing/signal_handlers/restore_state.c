@@ -6,7 +6,7 @@
 /*   By: ayel-bou <ayel-bou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/16 01:01:22 by ayel-bou          #+#    #+#             */
-/*   Updated: 2025/08/16 02:18:21 by ayel-bou         ###   ########.fr       */
+/*   Updated: 2025/08/16 07:26:48 by ayel-bou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,8 @@
 
 int	get_current_state(int fd, t_data *data)
 {
-	struct termios current_state;
+	struct termios	current_state;
+
 	if (tcgetattr(fd, &current_state) == -1)
 		return (0);
 	data->saved_state = current_state;

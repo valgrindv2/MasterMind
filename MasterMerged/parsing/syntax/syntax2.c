@@ -6,7 +6,7 @@
 /*   By: ayel-bou <ayel-bou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/03 19:38:12 by ayel-bou          #+#    #+#             */
-/*   Updated: 2025/08/13 17:36:02 by ayel-bou         ###   ########.fr       */
+/*   Updated: 2025/08/16 07:24:27 by ayel-bou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,8 +59,8 @@ static int	closing_evaluation(t_token *token, t_data *data)
 	t_token	*point;
 	t_token	*braces;
 	t_token	*stack_br;
-	(void)data;
 
+	(void)data;
 	if (!token)
 		return (1);
 	stack_br = NULL;

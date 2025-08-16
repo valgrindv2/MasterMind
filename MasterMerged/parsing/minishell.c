@@ -6,44 +6,44 @@
 /*   By: ayel-bou <ayel-bou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/03 19:15:02 by ayel-bou          #+#    #+#             */
-/*   Updated: 2025/08/16 02:17:27 by ayel-bou         ###   ########.fr       */
+/*   Updated: 2025/08/16 06:54:55 by ayel-bou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-extern int  g_flag;
+extern int	g_flag;
 
-void	f(void)
+void	master_tools(int argc, char **argv, char **env, t_data *data)
 {
-	system("leaks minishell");
+	if (!isatty(1))
+		exit(F);
+	voiders(argc, argv, env);
+	init_data_struct(data, env);
+	signal(SIGINT, sig_handler);
+	signal(SIGQUIT, SIG_IGN);
 }
 
-void	check_fd_leaks(void)
+int	scan_input(char *input)
 {
-	char	cmd[64];
-
-	snprintf(cmd, sizeof(cmd), "lsof -p %d", getpid());
-	printf("=== FD Leak Check ===\n");
-	system(cmd);
-}
-
-void	voiders(int argc, char **argv, char **env)
-{
-	(void)argc;
-	(void)argv;
-	(void)env;
+	if (input == NULL)
+	{
+		printf("exit\n");
+		return (0);
+	}
+	if (input[0] != '\0')
+		add_history(input);
+	return (1);
 }
 
 t_tree	*masterpasrse(char *input, t_data *data, t_token **prompts)
 {
 	t_token	*token;
-	
+
 	if (!edge_braces(input, data))
 		return (NULL);
 	token = get_identity(input, data);
 	*prompts = re_identity(token);
-	// clean_id_class(prompts, FAIL);
 	return (build_tree(*prompts));
 }
 
@@ -56,74 +56,21 @@ int	main(int argc, char **argv, char **env)
 
 	tree = NULL;
 	input = NULL;
-	voiders(argc, argv, env);
-	init_data_struct(&data, env);
-	signal(SIGINT, sig_handler);
-	signal(SIGQUIT, SIG_IGN);
-	if (!isatty(1))
-		exit(F);
+	master_tools(argc, argv, env, &data);
 	while (1)
 	{
 		if (!get_current_state(STDIN_FILENO, &data))
-		{
-			return (free(data.pwd_reserve), free_argv(data.env_vec), 
-				free_envlist(data.env), free(input), EXIT_SUCCESS);
-		}
+			return (freeiers(&data, input), EXIT_SUCCESS);
 		input = readline("Master@Mindv3.0> ");
 		g_flag = 0;
-		if (input == NULL)
-		{
-			printf("exit\n");
+		if (!scan_input(input))
 			break ;
-		}
-		if (input[0] != '\0')
-			add_history(input);
 		tree = masterpasrse(input, &data, &re_built);
-		// print_tree(tree);
 		execute_tree(tree, &data, env, re_built);
+		if (!restore_previous_state(STDIN_FILENO, &data))
+			panic(&data, input);
 		if (data.read_f == false)
 			g_flag = 0;
 	}
-	return (free(data.pwd_reserve), free_argv(data.env_vec), free_envlist(data.env),
-		free(input), EXIT_SUCCESS);
+	return (freeiers(&data, input), EXIT_SUCCESS);
 }
-
-/*
-
-	'ls' || (cat | ls ) && << eof | cat -e << ok | "cat" 
-		<< eof << ok << ok2 l <<f << f2 << f4 | cat << eof << ok2 | (cat | clear) FAIL HEREDOC DELIMITER SCRAPP
-		(ls -la > f2 << eof) && << ok3 SEF FALSE POSITIVE
-
-		Master@Mindv3.0> ls | cat << eof << ok2 << ok3 && (cat || pwd) | cd > f1 || (ls -la > f2 << eof) && << ok3 | >f10 >f11 echo $? || (ls *)
-		Here_doc> eof
-		Here_doc> ok2
-		Here_doc> ok3
-		new Del >> eof
-		Here_doc> eof
-		MasterMind: Syntax Error Near Unexpected Token `&&'
-		Master@Mindv3.0> (ls -la >(ls -la > f2 << eof) && << ok3
-		new Del >> eof
-		Here_doc> eof
-		MasterMind: Syntax Error Near Unexpected Token `&&'
-		Master@Mindv3.0> (ls -la >ls | cat << eof << ok2 << ok3 && (cat || pwd) | cd > f1 || (ls -la > f2 << eof) | << ok3 | >f10 >f11 echo $? || (ls *)
-		Here_doc> eof
-		Here_doc> ok2
-		Here_doc> ok3
-		new Del >> eof
-		Here_doc> eof
-		MasterMind: Syntax Error Near Unexpected Token `|'
-		Master@Mindv3.0> ls | cat << eof << ok2 << ok3 && (cat || pwd) | cd > f1 || ls -la > f2 << eof | << ok3 | >f10 >f11 echo $? || (ls *)
-		Here_doc> eof
-		Here_doc> ok2
-		Here_doc> ok3
-		Here_doc> eof
-		MasterMind: Syntax Error Near Unexpected Token `|'
-		Master@Mindv3.0> ls | cat << eof << ok2 << ok3 && (cat || pwd) | cd > f1 || << ok3 | >f10 >f11 echo $? || (ls *)
-		Here_doc> eof
-		Here_doc> ok2
-		Here_doc> ok2
-		Here_doc> ok3
-		MasterMind: Syntax Error Near Unexpected Token `||'
-		Master@Mindv3.0> ls | cat << eof << ok2 << ok3 && (cat || pwd) | cd > f1
-
-*/

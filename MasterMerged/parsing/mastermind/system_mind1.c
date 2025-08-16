@@ -6,7 +6,7 @@
 /*   By: ayel-bou <ayel-bou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/04 03:02:13 by ayel-bou          #+#    #+#             */
-/*   Updated: 2025/08/13 18:08:40 by ayel-bou         ###   ########.fr       */
+/*   Updated: 2025/08/16 07:34:59 by ayel-bou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,8 @@ int	add_token(t_token *curr, t_token **list)
 	t_token	*in;
 
 	in = add_identity(ft_strdup(curr->identity), curr->tok, INIT, curr);
-	// in = NULL; // NOLEAKS
 	if (!in)
-		return (puts("ADD_TOKEN FAILED"), S);
+		return (S);
 	add_back_identity(list, in, D_INIT);
 	return (F);
 }
@@ -77,7 +76,7 @@ t_token	*shunting_yard_algorithm(t_token *id_class)
 			return (list_cleaner(&op_field), clean_yard(&yard, CLEAN), NULL);
 		curr = curr->next;
 	}
-	if (!add_all_to_yard(&yard, &op_field)) // NO_LEAKS
+	if (!add_all_to_yard(&yard, &op_field))
 		return (list_cleaner(&op_field), clean_yard(&yard, CLEAN), NULL);
 	return (yard);
 }

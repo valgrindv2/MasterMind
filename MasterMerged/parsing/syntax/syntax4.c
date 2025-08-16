@@ -1,6 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   syntax4.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ayel-bou <ayel-bou@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/08/16 07:24:56 by ayel-bou          #+#    #+#             */
+/*   Updated: 2025/08/16 07:25:24 by ayel-bou         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../minishell.h"
 
-static int check_braces(char *input)
+static int	check_braces(char *input)
 {
 	int	i;
 
@@ -14,7 +26,7 @@ static int check_braces(char *input)
 	return (0);
 }
 
-static int count_braces(char *input)
+static int	count_braces(char *input)
 {
 	int	i;
 	int	count;
@@ -34,7 +46,7 @@ static char	*all_braces(char *input)
 {
 	int		i;
 	int		y;
-	char 	*br;
+	char	*br;
 
 	i = 0;
 	y = 0;

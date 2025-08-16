@@ -1,0 +1,6 @@
+Make sure no leaks in valgrind
+Make sure cmd works in bin even if path not found
+Make sure all folders and files in the minishell are lowercases
+Make sure no forbidden function is used
+Make sure exit status is correct in cases of (is a directory,
+	and ./a, while a is chmoded permission denied)

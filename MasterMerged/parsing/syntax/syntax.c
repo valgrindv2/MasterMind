@@ -6,7 +6,7 @@
 /*   By: ayel-bou <ayel-bou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/03 19:25:23 by ayel-bou          #+#    #+#             */
-/*   Updated: 2025/08/13 17:34:10 by ayel-bou         ###   ########.fr       */
+/*   Updated: 2025/08/16 07:24:02 by ayel-bou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,10 @@ int	hold_and_check(t_token *hold, t_token *curr)
 		return (F);
 	if ((hold->tok == STRING_ID && curr->tok == BRACE_O_ID)
 		|| (hold->tok == BRACE_C_ID && curr->tok == STRING_ID)
-		|| (hold->tok == BRACE_C_ID && !curr->op_case && curr->tok != BRACE_C_ID)
-		|| (!hold->op_case && hold->tok != BRACE_O_ID && curr->tok == BRACE_O_ID))
+		|| (hold->tok == BRACE_C_ID && !curr->op_case
+			&& curr->tok != BRACE_C_ID)
+		|| (!hold->op_case && hold->tok != BRACE_O_ID
+			&& curr->tok == BRACE_O_ID))
 		return (F);
 	if ((hold->tok == DEL_ID && curr->tok == BRACE_O_ID)
 		|| (hold->tok == BRACE_C_ID && curr->tok == DEL_ID))

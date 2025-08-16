@@ -6,7 +6,7 @@
 /*   By: ayel-bou <ayel-bou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/04 01:12:29 by ayel-bou          #+#    #+#             */
-/*   Updated: 2025/08/05 02:57:42 by ayel-bou         ###   ########.fr       */
+/*   Updated: 2025/08/16 07:28:13 by ayel-bou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ static t_token	*get_last_cmd(t_token *id_class)
 static int	red_ops(t_token **id_class, t_token **curr, t_token *cmd, t_red *in)
 {
 	int	fail;
-	
+
 	fail = 0;
 	check_set_cmd(curr, id_class);
 	if (red_checks((*curr)) || (*curr)->tok == COMMAND_ID)

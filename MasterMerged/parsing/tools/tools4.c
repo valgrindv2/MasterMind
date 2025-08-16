@@ -6,7 +6,7 @@
 /*   By: ayel-bou <ayel-bou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/03 20:12:16 by ayel-bou          #+#    #+#             */
-/*   Updated: 2025/08/03 20:13:37 by ayel-bou         ###   ########.fr       */
+/*   Updated: 2025/08/16 07:13:17 by ayel-bou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,4 +57,10 @@ char	*cpy_variable(char *var_place, char *variable)
 	}
 	var_place[i] = '\0';
 	return (var_place);
+}
+
+void	panic(t_data *data, char *input)
+{
+	freeiers(data, input);
+	exit(F);
 }

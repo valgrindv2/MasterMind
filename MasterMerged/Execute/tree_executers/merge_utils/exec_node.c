@@ -84,11 +84,6 @@ int	exec_node(t_tree *node, t_data *data)
 	waitpid(id, &ex_status, 0);
 	signal(SIGINT, sig_handler);
 	signal(SIGQUIT, SIG_IGN);
-	if (!restore_previous_state(STDIN_FILENO, data))
-	{
-		// Garbage collector;
-		exit(F);
-	}
 	if (WIFEXITED(ex_status))
 		return (WEXITSTATUS(ex_status));
 	if (WIFSIGNALED(ex_status))

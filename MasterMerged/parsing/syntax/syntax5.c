@@ -1,8 +1,20 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   syntax5.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ayel-bou <ayel-bou@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/08/16 07:25:32 by ayel-bou          #+#    #+#             */
+/*   Updated: 2025/08/16 07:26:04 by ayel-bou         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../minishell.h"
 
 int	push_token(t_token **br)
 {
-	t_token *in;
+	t_token	*in;
 
 	in = add_identity(ft_strdup("("), BRACE_O_ID, D_INIT, NULL);
 	if (!in)
@@ -33,11 +45,8 @@ int	operations_braces(char *braces, t_data *data)
 	}
 	if (br != NULL)
 	{
-		// printf("LEAKS\n");
 		list_cleaner(&br);
 		data->no_sef = true;
 	}
 	return (1);
 }
-
-/*((ls (|) (cat)) || (((cat || pwd))))*/

@@ -6,13 +6,13 @@
 /*   By: ayel-bou <ayel-bou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/03 20:48:04 by ayel-bou          #+#    #+#             */
-/*   Updated: 2025/08/15 22:09:25 by ayel-bou         ###   ########.fr       */
+/*   Updated: 2025/08/16 07:17:37 by ayel-bou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-extern int g_flag;
+extern int	g_flag;
 
 int	list_size(t_token *list)
 {
@@ -37,7 +37,7 @@ static void	here_doc_interruption(char *in, t_data *data, int sv)
 	data->exit_status = 1;
 	free(in);
 	data->read_f = true;
-	dup2(sv, STDIN_FILENO); //check dup fail (NO NEED IT WILL RETURN 0 AND BE FREED ANYWAY)
+	dup2(sv, STDIN_FILENO);
 	close(sv);
 	signal(SIGINT, sig_handler);
 }
@@ -75,7 +75,7 @@ int	here_doc_ops(t_token *id_class, t_data *data, char *del)
 	close(sv);
 	close(data->here_fd);
 	data->here_fd = -1;
-	signal(SIGINT, sig_handler); // NEWLINE AFTER CTRL + C IN HEREDOC
+	signal(SIGINT, sig_handler);
 	if (!store_fd(id_class, data))
 		return (free(in), 0);
 	return (free(in), 1);
