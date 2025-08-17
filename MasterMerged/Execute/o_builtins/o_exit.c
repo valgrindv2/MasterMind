@@ -61,7 +61,7 @@ static void    numeric_value(char *str, t_data *data)
     if (!ifnumber(str) || warn_exit(str) == EXIT_OVER_LIMIT)
     {
         if (data->child_state == false)
-            printf("exit\n");
+            puterror("exit\n");
         puterror("Master@Mind: Exit Requires A Numeric Value\n");
         exit(255);
     }
@@ -80,19 +80,19 @@ int o_exit(t_tree *node, t_data *data)
     if (count_args(argv) == 11)
     {
         if (data->child_state == false)
-            printf("exit\n");
+            puterror("exit\n");
         exit(data->exit_status);
     }
     numeric_value(argv[1], data);
     if (!count_args(argv))
     {
         if (data->child_state == false)
-            printf("exit\n");
+            puterror("exit\n");
         puterror("exit: too many arguments\n");
         return (1);
     }
     if (data->child_state == false)
-        printf("exit\n");
+        puterror("exit\n");
     exit_call = ft_atol(argv[1]);
     exit(exit_call);
     return (EXIT_SUCCESS);

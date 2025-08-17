@@ -3,4 +3,16 @@ Make sure cmd works in bin even if path not found (CHECKED)
 Make sure all folders and files in the minishell are lowercases (CHECKED)
 Make sure no forbidden function is used (gotta change dprintf with ft_printf)
 Make sure exit status is correct in cases of (is a directory, 
-	and ./a, while a is chmoded permission denied) (CHECKED)
+	and ./a, while a is chmoded permission denied) (CHECKED) (STILL)
+
+PATH= ls should work in /bin
+PATH= is invalid in unset
+
+exit > out (should print exit) (CHECKED)
+exit status permission denied (access(F_OK))
+
+bash-3.2$ echo $?
+258 (CHANGE FROM 2 to 258)
+
+Execute folder needs to be named lowercase
+change dprintf(2), to puterror(2) it writes in the stderr
