@@ -56,17 +56,17 @@ SRC = minishell.c identificators/identity_tools/identool0.c\
 		../execute/tree_executers/merge_utils/merge_env.c \
 		../execute/tree_executers/merge_utils/merge_env_utils.c \
 		../execute/fail_malloc.c ../execute/o_builtins/builtin_utils.c 					\
-		../execute/Expansion/expand_arglist.c ../execute/Expansion/expand_key.c 		\
-		../execute/Expansion/join_system.c ../execute/Expansion/merge_arglist.c 		\
-		../execute/Expansion/pocket_expantion.c ../execute/Expansion/pocket_insertion.c \
-		../execute/Expansion/expansion_utils.c ../execute/tree_executers/last_exec.c 	\
-		../execute/Expansion/split_ifs.c 												\
-		../execute/Expansion/internal_field_seperator_pass.c 							\
-		../execute/Expansion/pocket_insertion_utils.c ../execute/anon_system/anon.c		\
+		../execute/expansion/expand_arglist.c ../execute/expansion/expand_key.c 		\
+		../execute/expansion/join_system.c ../execute/expansion/merge_arglist.c 		\
+		../execute/expansion/pocket_expantion.c ../execute/expansion/pocket_insertion.c \
+		../execute/expansion/expansion_utils.c ../execute/tree_executers/last_exec.c 	\
+		../execute/expansion/split_ifs.c 												\
+		../execute/expansion/internal_field_seperator_pass.c 							\
+		../execute/expansion/pocket_insertion_utils.c ../execute/anon_system/anon.c		\
 		../execute/anon_system/anon_terminator.c ../execute/Expansion/strjoiner.c \
 		../execute/o_builtins/export_tools/process_export_arg_utils.c \
-		../execute/tree_executers/exec_node.c ../execute/Expansion/wildcard_expansion.c \
-		../execute/Expansion/wildcard_utils.c ../execute/tree_executers/gnl.c \
+		../execute/tree_executers/exec_node.c ../execute/expansion/wildcard_expansion.c \
+		../execute/expansion/wildcard_utils.c ../execute/tree_executers/gnl.c \
 		../execute/tree_executers/gnl_utils.c ../execute/tree_executers/tab_split.c \
 		../execute/anon_system/remove_anon.c ../execute/tree_pipeline/pipeline_utils.c \
 		../execute/tree_pipeline/pipehandlers.c ../execute/expansion/internal_field_utils.c \

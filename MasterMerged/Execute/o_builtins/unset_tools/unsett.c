@@ -6,7 +6,7 @@
 /*   By: ayel-bou <ayel-bou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/13 14:41:56 by ayel-bou          #+#    #+#             */
-/*   Updated: 2025/08/13 18:11:51 by ayel-bou         ###   ########.fr       */
+/*   Updated: 2025/08/17 06:33:50 by ayel-bou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ static bool valid_char(char c)
         return (true);
     if (c >= '0' && c <= '9')
         return (true);
-    if (c == '_' || c == '=' || c == '+')
+    if (c == '_')
         return (true);
     return (false);
 }

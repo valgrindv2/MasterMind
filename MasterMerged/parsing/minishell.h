@@ -6,7 +6,7 @@
 /*   By: ayel-bou <ayel-bou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/04 03:32:22 by ayel-bou          #+#    #+#             */
-/*   Updated: 2025/08/14 21:03:53 by ayel-bou         ###   ########.fr       */
+/*   Updated: 2025/08/17 07:32:59 by ayel-bou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,7 @@
 # define SEF_ALL 1
 # define ALL_SEF 0
 # define HEREDOC1 1
+# define REC_LIMIT 400
 # define HEREDOC2 2
 # define ONE_QUOTE 9
 # define EXPAND '$'
@@ -473,7 +474,6 @@ typedef struct s_plist
 	struct s_plist	*next;
 }	t_plist;
 
-
 typedef struct s_pipe_info
 {
 	int		prev_fd;
@@ -483,12 +483,12 @@ typedef struct s_pipe_info
 
 typedef struct s_pp
 {
-	t_plist	*plist;
-	t_plist	*curr;
-	pid_t	last_pid;
-	int		ret;
-	int		fds[2];
-	t_pipe_info info;
+	t_plist		*plist;
+	t_plist		*curr;
+	pid_t		last_pid;
+	int			ret;
+	int			fds[2];
+	t_pipe_info	info;
 }	t_pp;
 
 // garbage collector
@@ -616,7 +616,6 @@ bool				single_anon(char *str);
 int					try_expand_wildcard(t_arg *arg);
 void				sort_files(char **files);
 int					count_files(void);
-
 
 // Linked env
 size_t				o_ft_strlen(char *str);

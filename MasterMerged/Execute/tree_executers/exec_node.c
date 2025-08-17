@@ -50,14 +50,16 @@ char	*find_in_path(char *cmd, t_envlist *env)
 	return (free_argv(pt.paths), NULL);
 }
 
-static char	*get_absolute_path(char *cmd, t_envlist *env)
+static char	*get_absolute_path(char *cmd, t_envlist *env, int *flag)
 {
 	if (!cmd || !*cmd)
 		return (NULL);
-	if (ft_strchr(cmd, '/') )
+	if (ft_strchr(cmd, '/'))
 	{
 		if (access(cmd, X_OK) == 0)
 			return (ft_strdup(cmd));
+		else if (access(cmd, F_OK) == -1)
+			return (*flag = 1, ft_strdup(cmd));
 		return (NULL);
 	}
 	return (find_in_path(cmd, env));
@@ -66,11 +68,14 @@ static char	*get_absolute_path(char *cmd, t_envlist *env)
 static int	handle_child(t_tree *node, t_data *data)
 {
 	char	*path;
+	int		flag;
 
-	path = get_absolute_path(node->argv[0], data->env);
+	path = NULL;
+	flag = 0;
+	path = get_absolute_path(node->argv[0], data->env, &flag);
 	if (!path)
 		exit(127);
-	if (path[o_ft_strlen(path) - 1] == '/')
+	if (path[o_ft_strlen(path) - 1] == '/' || flag == 1)
 	{
 		free(path);
 		exit(126); // Is a directory (we simulate this case)

@@ -6,7 +6,7 @@
 /*   By: ayel-bou <ayel-bou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/04 03:08:26 by ayel-bou          #+#    #+#             */
-/*   Updated: 2025/08/16 06:55:14 by ayel-bou         ###   ########.fr       */
+/*   Updated: 2025/08/17 07:41:37 by ayel-bou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,13 +88,13 @@ t_token	*get_identity(char *input, t_data *dt)
 			break ;
 		unit_call_space_next(id_class, input, &dt->i);
 	}
-	if (!syntax_verify(id_class, dt))
+	if (!syntax_verify(id_class, dt) || list_size(id_class) >= REC_LIMIT)
 	{
+		if (list_size(id_class) >= REC_LIMIT)
+			puterror("Master@Mind: REC_LIMIT: Might exceed recursion limit\n");
 		clean_fd(id_class);
 		list_cleaner(&id_class);
 		id_class = NULL;
 	}
-	free(input);
-	input = NULL;
-	return (id_class);
+	return (free(input), input = NULL, id_class);
 }

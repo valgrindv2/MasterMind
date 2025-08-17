@@ -5,16 +5,20 @@ Make sure no forbidden function is used (gotta change dprintf with ft_printf)
 Make sure exit status is correct in cases of (is a directory, 
 	and ./a, while a is chmoded permission denied) (CHECKED) (STILL)
 
-PATH= ls should work in /bin
-PATH= is invalid in unset
+PATH= ls should work in /bin (CHECKED)
+PATH= is invalid in unset (CHECKED)
 
 exit > out (should print exit) (CHECKED)
-exit status permission denied (access(F_OK))
+exit status permission denied (access(F_OK)) (CHECKED)
 
 bash-3.2$ echo $?
-258 (CHANGE FROM 2 to 258)
+258 (CHANGE FROM 2 to 258) (CHECKED)
 
 Execute folder needs to be named lowercase
 change dprintf(2), to puterror(2) it writes in the stderr
 
 Ouss need to adapt the flags -Wall -Wextra -Werrors into the Execution Part
+
+search for dprintf and puts
+
+ADD recursion limit protection
