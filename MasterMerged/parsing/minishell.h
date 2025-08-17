@@ -579,7 +579,7 @@ int					append_value(char *new_var, t_envlist *env);
 // Expanding enrty functions.
 int					expand_list(t_arg *arg, t_data *data);
 char				*expand_var(char *str, t_data *data, bool was_d_quoted);
-char				**convert_list_to_argv(t_arg *arg, t_data *data);
+char				**convert_list_to_envp(t_envlist *curr_env, t_data *data);
 int					pocket_insertion(char **pockets, char *str,
 						t_data *data, bool was_d_quoted);
 
