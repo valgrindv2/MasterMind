@@ -1,28 +1,28 @@
 #include "../execute.h"
 
-static char *eliminate_ifs_equal(char *str)
-{
-    char    **split;
-    int     i;
-    char    *joined;
-    char    *full;
-    char    *key;
+// static char *eliminate_ifs_equal(char *str)
+// {
+//     char    **split;
+//     int     i;
+//     char    *joined;
+//     char    *full;
+//     char    *key;
 
-    split = ft_split(str, (char)1);
-    if (!split)
-        return (NULL);
-    i = 1;
-    key = ft_strdup(split[0]);
-    if (!key)
-        return (free_argv(split), NULL);
-    joined = strjoiner(split + 1, " ", arg_count(split + 1));
-    if (!joined)
-        return (free(key), free_argv(split), NULL);
-    full = ft_strjoin(key, joined);
-    if (!full)
-         return (free(joined), free(key), free_argv(split), NULL);
-    return (free(joined), free(key), free_argv(split), full);
-}
+//     split = ft_split(str, (char)1);
+//     if (!split)
+//         return (NULL);
+//     i = 1;
+//     key = ft_strdup(split[0]);
+//     if (!key)
+//         return (free_argv(split), NULL);
+//     joined = strjoiner(split + 1, " ", arg_count(split + 1));
+//     if (!joined)
+//         return (free(key), free_argv(split), NULL);
+//     full = ft_strjoin(key, joined);
+//     if (!full)
+//          return (free(joined), free(key), free_argv(split), NULL);
+//     return (free(joined), free(key), free_argv(split), full);
+// }
 
 // static int join_ifs_segments(t_ifs_vars *ifs, char **joined)
 // {

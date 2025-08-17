@@ -61,6 +61,7 @@ void    free_tree(t_tree *node)
 
 void    clean_up(t_tree *tree, t_data *data)
 {
+    (void)data;
     if (tree)
     {
         free_tree(tree);

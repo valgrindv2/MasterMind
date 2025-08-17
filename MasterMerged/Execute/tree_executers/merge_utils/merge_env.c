@@ -95,7 +95,7 @@ int add_to_envlist(t_envlist **envlist, char *str, bool exported)
     return (EXIT_SUCCESS);
 }
 
-char **convert_list_to_envp(t_envlist *curr_env)
+char **convert_list_to_envp(t_envlist *curr_env, t_data *data)
 {
     char        **envp;
     size_t      env_size;
@@ -104,22 +104,21 @@ char **convert_list_to_envp(t_envlist *curr_env)
     env_size = envlist_size(curr_env) - no_value_nodes_num(curr_env);
     envp = malloc ((env_size + 1)* sizeof(char *));
     if (!envp)
-        return (NULL); // cleanup
+        return (free_argv(data->env_vec), NULL);
     i = 0;
     while(curr_env)
     {
         if (curr_env->exported)
         {
             envp[i] = convert_node_to_str(curr_env);
-            if (!envp[i])
+            if (!envp[i++])
             {
                 while (--i >= 0)
                     free(envp[i]);
-                return (free(envp), NULL);
+                return (free(envp), free_argv(data->env_vec),  NULL);
             }
-            i++;
         }
         curr_env = curr_env->next;
     }
-    return (envp[i] = NULL, envp);
+    return (envp[i] = NULL, free_argv(data->env_vec), envp);
 }

@@ -20,16 +20,9 @@ void	print_exec_error(char *cmd, int code)
 
 static int  update_env_variables(t_data *data)
 {
-    char **temp_vec;
-
-    temp_vec = data->env_vec;
-    data->env_vec = convert_list_to_envp(data->env);
+    data->env_vec = convert_list_to_envp(data->env, data);
     if (!data->env_vec)
-    {
-        free(temp_vec);
         return (EXIT_FAILURE);
-    }
-    free(temp_vec);
     return (EXIT_SUCCESS);
 }
 
@@ -81,7 +74,7 @@ int execute_tree(t_tree *root, t_data *data, char **env, void *re_built)
 {
     int rec_exit_status;
     if (!root)
-        return (clean_up(root, data), EXIT_FAILURE);
+        return (EXIT_FAILURE);
     if (merger(root, data, env) != EXIT_SUCCESS)
         return (clean_up(root, data), perror("Merge Failed"), EXIT_FAILURE);
     rec_exit_status = recursive_execution(root, data);
