@@ -6,7 +6,7 @@
 /*   By: ayel-bou <ayel-bou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/03 19:15:02 by ayel-bou          #+#    #+#             */
-/*   Updated: 2025/08/17 00:15:27 by ayel-bou         ###   ########.fr       */
+/*   Updated: 2025/08/17 05:29:27 by ayel-bou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,18 +56,13 @@ t_tree	*masterpasrse(char *input, t_data *data, t_token **prompts)
 	return (build_tree(*prompts));
 }
 
-void f()
-{
-	system("leaks minishell");
-}
-
 int	main(int argc, char **argv, char **env)
 {
 	char	*input;
 	t_data	data;
 	t_tree	*tree;
 	t_token	*re_built;
-	atexit(f);
+
 	tree = NULL;
 	input = NULL;
 	master_tools(argc, argv, env, &data);
@@ -83,8 +78,6 @@ int	main(int argc, char **argv, char **env)
 		execute_tree(tree, &data, env, re_built);
 		if (!restore_previous_state(STDIN_FILENO, &data))
 			panic(&data, input);
-		if (data.read_f == false)
-			g_flag = 0;
 	}
 	return (freeiers(&data, input), EXIT_SUCCESS);
 }
