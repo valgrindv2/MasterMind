@@ -16,3 +16,5 @@ bash-3.2$ echo $?
 
 Execute folder needs to be named lowercase
 change dprintf(2), to puterror(2) it writes in the stderr
+
+Ouss need to adapt the flags -Wall -Wextra -Werrors into the Execution Part
