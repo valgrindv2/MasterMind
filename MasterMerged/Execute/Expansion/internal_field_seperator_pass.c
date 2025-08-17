@@ -24,50 +24,65 @@ static char *eliminate_ifs_equal(char *str)
     return (free(joined), free(key), free_argv(split), full);
 }
 
-static int join_ifs_segments(t_ifs_vars *ifs, char **joined)
-{
-	char	*tmp;
+// static int join_ifs_segments(t_ifs_vars *ifs, char **joined)
+// {
+// 	char	*tmp;
 
-	while (ifs->ifs_split[ifs->j + 1]
-		&& should_join(*joined, ifs->ifs_split[ifs->j + 1]))
-	{
-		tmp = gnl_ft_strjoin(*joined, ifs->ifs_split[ifs->j + 1]);
-		free(*joined);
-		*joined = tmp;
-		if (!*joined)
-			return (EXIT_FAILURE);
-		ifs->j++;
-	}
-	return (EXIT_SUCCESS);
-}
+// 	while (ifs->ifs_split[ifs->j + 1]
+// 		&& should_join(*joined, ifs->ifs_split[ifs->j + 1]))
+// 	{
+// 		tmp = gnl_ft_strjoin(*joined, ifs->ifs_split[ifs->j + 1]);
+// 		free(*joined);
+// 		*joined = tmp;
+// 		if (!*joined)
+// 			return (EXIT_FAILURE);
+// 		ifs->j++;
+// 	}
+// 	return (EXIT_SUCCESS);
+// }
+
+// static int append_ifs(t_ifs_vars *ifs, char *str)
+// {
+// 	char	*joined;
+
+// 	ifs->ifs_split = ft_split(str, (char)1);
+// 	if (!ifs->ifs_split)
+// 		return (EXIT_FAILURE);
+
+// 	ifs->j = 0;
+// 	while (ifs->ifs_split[ifs->j])
+// 	{
+// 		joined = ft_strdup(ifs->ifs_split[ifs->j]);
+// 		if (!joined)
+// 			return (free_argv(ifs->ifs_split), EXIT_FAILURE);
+
+// 		if (join_ifs_segments(ifs, &joined) != EXIT_SUCCESS)
+// 			return (free(joined), free_argv(ifs->ifs_split), EXIT_FAILURE);
+
+// 		if (add_ifs_back(&ifs->ifs_list, joined) != EXIT_SUCCESS)
+// 			return (free(joined), free_argv(ifs->ifs_split), EXIT_FAILURE);
+
+// 		free(joined);
+// 		ifs->j++;
+// 	}
+
+// 	free_argv(ifs->ifs_split);
+// 	return (EXIT_SUCCESS);
+// }
 
 static int append_ifs(t_ifs_vars *ifs, char *str)
 {
-	char	*joined;
-
-	ifs->ifs_split = ft_split(str, (char)1);
-	if (!ifs->ifs_split)
-		return (EXIT_FAILURE);
-
-	ifs->j = 0;
-	while (ifs->ifs_split[ifs->j])
-	{
-		joined = ft_strdup(ifs->ifs_split[ifs->j]);
-		if (!joined)
-			return (free_argv(ifs->ifs_split), EXIT_FAILURE);
-
-		if (join_ifs_segments(ifs, &joined) != EXIT_SUCCESS)
-			return (free(joined), free_argv(ifs->ifs_split), EXIT_FAILURE);
-
-		if (add_ifs_back(&ifs->ifs_list, joined) != EXIT_SUCCESS)
-			return (free(joined), free_argv(ifs->ifs_split), EXIT_FAILURE);
-
-		free(joined);
-		ifs->j++;
-	}
-
-	free_argv(ifs->ifs_split);
-	return (EXIT_SUCCESS);
+    ifs->ifs_split = ft_split(str, (char)1);
+    if (!ifs->ifs_split)
+        return (EXIT_FAILURE);
+    ifs->j = 0;
+    while (ifs->ifs_split[ifs->j])
+    {
+        if (add_ifs_back(&ifs->ifs_list, ifs->ifs_split[ifs->j++]) != EXIT_SUCCESS)
+            return ( free_argv(ifs->ifs_split), EXIT_FAILURE);
+    }
+    free_argv(ifs->ifs_split);
+    return (EXIT_SUCCESS);
 }
 
 // // takes the argv but is joined i want to resplit but only the parts that have the delims i put

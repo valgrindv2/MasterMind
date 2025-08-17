@@ -27,7 +27,7 @@ char	*find_in_path(char *cmd, t_envlist *env)
 
 	while (env && ft_strcmp(env->variable, "PATH") != 0)
 		env = env->next;
-	if (!env || !env->value)
+	if (!env || !env->value || !env->value[0])
 		return (search_in_cwd(cmd));
 	pt.paths = ft_split(env->value, ':');
 	if (!pt.paths)
@@ -54,7 +54,7 @@ static char	*get_absolute_path(char *cmd, t_envlist *env)
 {
 	if (!cmd || !*cmd)
 		return (NULL);
-	if (ft_strchr(cmd, '/'))
+	if (ft_strchr(cmd, '/') )
 	{
 		if (access(cmd, X_OK) == 0)
 			return (ft_strdup(cmd));
