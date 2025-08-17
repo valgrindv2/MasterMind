@@ -9,13 +9,41 @@ char *append_delimiter(char *str)
     delim[0] = (char)1;
     delim[1] = '\0';
 
-    first_border= ft_strjoin(delim, str);
+    first_border= gnl_ft_strjoin(delim, str);
     if (!first_border)
         return (NULL);
-    last_border = ft_strjoin(first_border, delim);
+    last_border = gnl_ft_strjoin(first_border, delim);
     if (!last_border)
         return (free(first_border), NULL);
     free(first_border); // free str
+    return (last_border);
+}
+
+char *front_append_delimiter(char *str)
+{
+    char    *first_border;
+    char    delim[2];
+
+    delim[0] = (char)1;
+    delim[1] = '\0';
+
+    first_border= gnl_ft_strjoin(delim, str);
+    if (!first_border)
+        return (NULL);
+    return (first_border);
+}
+
+char *back_append_delimiter(char *str)
+{
+    char    *last_border;
+    char    delim[2];
+
+    delim[0] = (char)1;
+    delim[1] = '\0';
+
+    last_border = gnl_ft_strjoin(str, delim);
+    if (!last_border)
+        return (NULL);
     return (last_border);
 }
 
@@ -68,10 +96,16 @@ int expand_unqoted_d(char ***pockets, t_data *data, char *raw)
     j = 0;
     while (split[j])
     {
-        new_pocket[i++] = append_delimiter(split[j++]);
+        if (j == 0)
+            new_pocket[i++] = back_append_delimiter(split[j++]);
+        else if (split[j] && split[j + 1] == NULL)
+            new_pocket[i++] = front_append_delimiter(split[j++]);
+        else
+            new_pocket[i++] = append_delimiter(split[j++]);
     }
     new_pocket[i] = NULL;
     (*pockets) = new_pocket;
     data->pc.j = i;
     return (EXIT_SUCCESS);
 }
+ 

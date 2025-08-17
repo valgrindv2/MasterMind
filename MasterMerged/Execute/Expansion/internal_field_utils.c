@@ -67,25 +67,25 @@ char **ifs_list_to_argv(t_ifs *head)
     return (argv);
 }
 
-int is_alphanum_underscore(char c)
-{
-	return (ft_isalnum(c) || c == '_');
-}
+// int is_alphanum_underscore(char c)
+// {
+// 	return (ft_isalnum(c) || c == '_');
+// }
 
-int should_join(char *curr, char *next)
-{
-    char last;
-    char first;
+// int should_join(char *curr, char *next)
+// {
+//     char last;
+//     char first;
 
-	if (!curr || !next)
-		return (0);
-	last = curr[o_ft_strlen(curr) - 1];
-	first = next[0];
-	if (is_alphanum_underscore(last) && !is_alphanum_underscore(first))
-		return (1);
-	if (!is_alphanum_underscore(last) && is_alphanum_underscore(first))
-		return (1);
-	if (!is_alphanum_underscore(last) && !is_alphanum_underscore(first))
-		return (1);
-	return (0);
-}
+// 	if (!curr || !next)
+// 		return (0);
+// 	last = curr[o_ft_strlen(curr) - 1];
+// 	first = next[0];
+// 	if (is_alphanum_underscore(last) && !is_alphanum_underscore(first))
+// 		return (1);
+// 	if (!is_alphanum_underscore(last) && is_alphanum_underscore(first))
+// 		return (1);
+// 	if (!is_alphanum_underscore(last) && !is_alphanum_underscore(first))
+// 		return (1);
+// 	return (0);
+// }

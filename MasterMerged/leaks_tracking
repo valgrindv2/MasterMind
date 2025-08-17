@@ -1,0 +1,14 @@
+
+
+
+first entry is execute tree_traverser
+
+data->env linked list (NOT in Garbage collector)
+gets freed when exiting minishell
+
+as well as data->env_vec
+only gets updated using convert_list_to_envp
+(freed inside and returns a new one) || NULL if failure.
+
+convert list [cleared]
+
