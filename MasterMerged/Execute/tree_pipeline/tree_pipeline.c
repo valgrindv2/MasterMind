@@ -1,14 +1,15 @@
 #include "../execute.h"
 
-static void free_pipe_list(t_plist *head)
+static void	free_pipe_list(t_plist *head)
 {
-    t_plist *tmp;
-    while (head)
-    {
-        tmp = head;
-        head = head->next;
-        free(tmp);
-    }
+	t_plist	*tmp;
+
+	while (head)
+	{
+		tmp = head;
+		head = head->next;
+		free(tmp);
+	}
 }
 
 static int	setup_pipe(int fds[2])
@@ -21,14 +22,14 @@ static int	setup_pipe(int fds[2])
 	return (EXIT_SUCCESS);
 }
 
-static bool check_is_pipe(t_plist *curr)
+static bool	check_is_pipe(t_plist *curr)
 {
 	if (curr->next != NULL)
 		return (true);
 	return (false);
 }
 
-static void init_pipe_data(t_pp *p, t_tree *root, int input_fd)
+static void	init_pipe_data(t_pp *p, t_tree *root, int input_fd)
 {
 	p->info.prev_fd = input_fd;
 	p->plist = NULL;
@@ -37,7 +38,7 @@ static void init_pipe_data(t_pp *p, t_tree *root, int input_fd)
 	p->curr = p->plist;
 }
 
-int execute_pipeline(t_tree *root, t_data *data, int input_fd)
+int	execute_pipeline(t_tree *root, t_data *data, int input_fd)
 {
 	t_pp	p;
 
@@ -46,7 +47,7 @@ int execute_pipeline(t_tree *root, t_data *data, int input_fd)
 	{
 		p.info.is_pipe = check_is_pipe(p.curr);
 		if (p.info.is_pipe && (setup_pipe(p.info.fds) != EXIT_SUCCESS))
-				return (EXIT_FAILURE);
+			return (EXIT_FAILURE);
 		p.last_pid = fork_pipeline_node(p.curr, data, &p.info);
 		if (p.last_pid == -1)
 			return (EXIT_FAILURE);

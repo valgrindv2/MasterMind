@@ -36,7 +36,8 @@ static char	*serve_train_departure(char *train_head)
 		return (NULL);
 	newln_seat = gnl_ft_strchr(train_head, '\n');
 	if (newln_seat)
-		departed_train = gnl_ft_substr(train_head, 0, newln_seat - train_head + 1);
+		departed_train = gnl_ft_substr(train_head, 0,
+				newln_seat - train_head + 1);
 	else
 		departed_train = gnl_ft_strdup(train_head);
 	return (departed_train);

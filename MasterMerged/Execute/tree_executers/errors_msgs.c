@@ -28,7 +28,7 @@ int	errors_msgs(int err)
 
 int	is_it_dir(char *cmd)
 {
-	struct stat dir;
+	struct stat	dir;
 
 	if (stat(cmd, &dir) < 0)
 		return (mind_free_all(PANIC), 0);

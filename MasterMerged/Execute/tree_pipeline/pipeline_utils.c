@@ -1,42 +1,43 @@
 #include "../execute.h"
 
-static void cmd_add_last(t_tree *node, t_plist **head)
+static void	cmd_add_last(t_tree *node, t_plist **head)
 {
-    t_plist *new_pipe_cmd;
-    t_plist *curr;
+	t_plist	*new_pipe_cmd;
+	t_plist	*curr;
 
-    new_pipe_cmd = allocate_gc(malloc(sizeof(t_plist)));
-    if (!new_pipe_cmd)
-        return ;
-    new_pipe_cmd->cmd_node = node;
-    new_pipe_cmd->next = NULL;
-    if (!*head)
-        *head = new_pipe_cmd;
-    else
-    {
-        curr = *head;
-        while (curr->next)
-            curr = curr->next;
-        curr->next = new_pipe_cmd;
-    }
+	new_pipe_cmd = allocate_gc(malloc(sizeof(t_plist)));
+	if (!new_pipe_cmd)
+		return ;
+	new_pipe_cmd->cmd_node = node;
+	new_pipe_cmd->next = NULL;
+	if (!*head)
+		*head = new_pipe_cmd;
+	else
+	{
+		curr = *head;
+		while (curr->next)
+			curr = curr->next;
+		curr->next = new_pipe_cmd;
+	}
 }
 
-void flatten_pipeline(t_tree *node, t_plist **head)
+void	flatten_pipeline(t_tree *node, t_plist **head)
 {
-    t_plist *plist;
+	t_plist	*plist;
 
-    if (!node)
-        return ;
-    if (node->tok == PIPE_ID)
-    {
-        flatten_pipeline(node->left, head);
-        flatten_pipeline(node->right, head);
-    }
-    else
-        cmd_add_last(node, head);
+	if (!node)
+		return ;
+	if (node->tok == PIPE_ID)
+	{
+		flatten_pipeline(node->left, head);
+		flatten_pipeline(node->right, head);
+	}
+	else
+		cmd_add_last(node, head);
 }
+
 // recheck this for fd leaks
-static void	setup_child_io(int prev_fd, int fds[2], int is_pipe)
+static	void	setup_child_io(int prev_fd, int fds[2], int is_pipe)
 {
 	if (prev_fd != STDIN_FILENO)
 	{
