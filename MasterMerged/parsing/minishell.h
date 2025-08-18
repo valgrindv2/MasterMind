@@ -6,7 +6,7 @@
 /*   By: ayel-bou <ayel-bou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/04 03:32:22 by ayel-bou          #+#    #+#             */
-/*   Updated: 2025/08/17 07:32:59 by ayel-bou         ###   ########.fr       */
+/*   Updated: 2025/08/14 21:03:53 by ayel-bou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -198,6 +198,13 @@ typedef struct s_pocket
 	char	*value;
 	size_t	cap;
 }	t_pocket;
+
+// garbage collector
+typedef struct s_mind_alloc
+{
+	void				*ptr;
+	struct s_mind_alloc	*next;
+}	t_mind_alloc;
 
 // Struct Holding MasterMind Data
 typedef struct s_data
@@ -491,14 +498,6 @@ typedef struct s_pp
 	t_pipe_info	info;
 }	t_pp;
 
-// garbage collector
-
-typedef struct s_mind_alloc
-{
-	void				*ptr;
-	struct s_mind_alloc	*next;
-}	t_mind_alloc;
-
 typedef struct s_ifs
 {
 	char			*string;
@@ -616,6 +615,14 @@ bool				single_anon(char *str);
 int					try_expand_wildcard(t_arg *arg);
 void				sort_files(char **files);
 int					count_files(void);
+
+// garbage collector.
+
+void    *allocate_gc(void *ptr);
+void mind_free_all(bool panic);
+int add_to_gc(void *new_address);
+t_mind_alloc    **get_head(void);
+
 
 // Linked env
 size_t				o_ft_strlen(char *str);

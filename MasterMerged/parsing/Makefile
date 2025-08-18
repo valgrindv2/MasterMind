@@ -63,14 +63,14 @@ SRC = minishell.c identificators/identity_tools/identool0.c\
 		../execute/expansion/split_ifs.c 												\
 		../execute/expansion/internal_field_seperator_pass.c 							\
 		../execute/expansion/pocket_insertion_utils.c ../execute/anon_system/anon.c		\
-		../execute/anon_system/anon_terminator.c ../execute/Expansion/strjoiner.c \
+		../execute/anon_system/anon_terminator.c ../execute/expansion/strjoiner.c \
 		../execute/o_builtins/export_tools/process_export_arg_utils.c \
 		../execute/tree_executers/exec_node.c ../execute/expansion/wildcard_expansion.c \
 		../execute/expansion/wildcard_utils.c ../execute/tree_executers/gnl.c \
 		../execute/tree_executers/gnl_utils.c ../execute/tree_executers/tab_split.c \
 		../execute/anon_system/remove_anon.c ../execute/tree_pipeline/pipeline_utils.c \
 		../execute/tree_pipeline/pipehandlers.c ../execute/expansion/internal_field_utils.c \
-		../execute/expansion/split_ifs_utils.c
+		../execute/expansion/split_ifs_utils.c ../execute/mind_allocater/mind_allocater.c
 		
 
 OBJ = $(SRC:.c=.o)
