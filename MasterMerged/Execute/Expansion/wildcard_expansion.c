@@ -98,3 +98,16 @@ int	expand_star_in_arg(t_arg *arg)
 	}
 	return (curr->next = next, free_argv(files), EXIT_SUCCESS);
 }
+
+int	try_expand_wildcard(t_arg *arg)
+{
+	if (arg->was_s_quote)
+		return (EXIT_SUCCESS);
+	if (arg->was_d_quote)
+		return (EXIT_SUCCESS);
+	if (!ft_strchr(arg->value, '*') || ft_strcmp(arg->value, "*"))
+		return (EXIT_SUCCESS);
+	if (expand_star_in_arg(arg) != EXIT_SUCCESS)
+		return (EXIT_FAILURE);
+	return (EXIT_SUCCESS);
+}
