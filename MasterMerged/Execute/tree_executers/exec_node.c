@@ -59,6 +59,8 @@ static char	*get_absolute_path(char *cmd, t_envlist *env, int *flag, int *err)
 		return (*err = 127, NULL);
 	if (ft_strchr(cmd, '/'))
 	{
+		if (is_it_dir(cmd))
+			return (*err = 21, NULL);
 		if (access(cmd, X_OK) == 0)
 			return (*err = errno, ft_strdup(cmd));
 		else if (access(cmd, X_OK) == -1 || access(cmd, F_OK) == -1)

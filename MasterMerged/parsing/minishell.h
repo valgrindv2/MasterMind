@@ -6,7 +6,7 @@
 /*   By: ayel-bou <ayel-bou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/04 03:32:22 by ayel-bou          #+#    #+#             */
-/*   Updated: 2025/08/18 08:24:57 by ayel-bou         ###   ########.fr       */
+/*   Updated: 2025/08/18 09:46:49 by ayel-bou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@
 # include <termios.h>
 # include <string.h>
 # include <errno.h>
+# include <sys/stat.h>
 
 
 // Macros
@@ -549,6 +550,7 @@ void				pipe_sighandle(void);
 void				start_signals(void);
 int					print_exec_error(char *cmd, int code);
 int					errors_msgs(int err);
+int					is_it_dir(char *cmd);
 
 // Builtins
 int					o_echo(t_tree *node);
