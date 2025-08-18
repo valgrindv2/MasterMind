@@ -33,9 +33,9 @@ char *get_value(char *str)
         }
     }
     if (has_equal)
-        value = ft_substr(str, equals, o_ft_strlen(str));
+        value = allocate_gc(ft_substr(str, equals, o_ft_strlen(str)));
     else
-        value = ft_strdup("");
+        value = allocate_gc(ft_strdup(""));
     return (value);
 }
 
@@ -46,7 +46,7 @@ char *get_key(char *str)
     char    *key;
 
     if (!str)
-        return (perror("NULL Key in envp."), NULL); // cant ever happen unless i pass it.
+        return (perror("NULL Key in envp."), NULL);
     equals = 0;
     has_equal = false;
         while (str[equals])
@@ -59,9 +59,9 @@ char *get_key(char *str)
         equals++;
     }
     if (has_equal)
-        key = ft_substr(str, 0, equals); // if this fails it will return a NULL.
+        key = allocate_gc(ft_substr(str, 0, equals));
     else
-        key = ft_strdup(str);
+        key = allocate_gc(ft_strdup(str));
     return (key);
 }
 
@@ -70,18 +70,11 @@ int add_to_envlist(t_envlist **envlist, char *str, bool exported)
     t_envlist   *new_env;
     t_envlist   *curr;
 
-    new_env = malloc (sizeof(t_envlist));
-    if (!new_env)
-        return (EXIT_FAILURE);
+    new_env = allocate_gc(malloc (sizeof(t_envlist)));
     new_env->variable = get_key(str);
-    if (!new_env->variable)
-        return (free(new_env), EXIT_FAILURE);
     new_env->value = get_value(str);
-    if (!new_env->value)
-        return (free(new_env), free(new_env->variable), EXIT_FAILURE);
     new_env->pointed = false;
-    
-    new_env->exported = exported; // comes from parent by default exported.
+    new_env->exported = exported;
     new_env->next = NULL;
     if (!*envlist)
         *envlist = new_env;
@@ -102,23 +95,13 @@ char **convert_list_to_envp(t_envlist *curr_env, t_data *data)
     int         i;
 
     env_size = envlist_size(curr_env) - no_value_nodes_num(curr_env);
-    envp = malloc ((env_size + 1)* sizeof(char *));
-    if (!envp)
-        return (free_argv(data->env_vec), NULL);
+    envp = allocate_gc(malloc ((env_size + 1)* sizeof(char *)));
     i = 0;
     while(curr_env)
     {
         if (curr_env->exported)
-        {
             envp[i] = convert_node_to_str(curr_env);
-            if (!envp[i++])
-            {
-                while (--i >= 0)
-                    free(envp[i]);
-                return (free(envp), free_argv(data->env_vec),  NULL);
-            }
-        }
         curr_env = curr_env->next;
     }
-    return (envp[i] = NULL, free_argv(data->env_vec), envp);
+    return (envp[i] = NULL, envp);
 }

@@ -6,7 +6,7 @@
 /*   By: ayel-bou <ayel-bou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/04 03:32:22 by ayel-bou          #+#    #+#             */
-/*   Updated: 2025/08/18 09:46:49 by ayel-bou         ###   ########.fr       */
+/*   Updated: 2025/08/14 21:03:53 by ayel-bou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,6 @@
 # define OLD_PWD "OLDPWD"
 # define HOME "HOME"
 # define SYNTAX "MasterMind: Syntax Error Near Unexpected Token "
-# define DELAY 100000000
 
 // Operators
 # define OR '|'
@@ -626,10 +625,13 @@ int					count_files(void);
 
 // garbage collector.
 
-void    *allocate_gc(void *ptr);
-void mind_free_all(bool panic);
-int add_to_gc(void *new_address);
-t_mind_alloc    **get_head(void);
+void				*allocate_gc(void *ptr);
+void 				mind_free_all(bool panic);
+int 				add_to_gc(void *new_address);
+t_mind_alloc    	**get_head(void);
+void 				tree_gc_collector(t_tree *node);
+void				*allocate_gc_no_exit(void *ptr);
+int					add_to_gc_no_ex(void *new_address);
 
 
 // Linked env

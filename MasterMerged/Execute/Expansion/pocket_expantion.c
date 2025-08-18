@@ -18,13 +18,13 @@ char    *normal_text(char *str, int *i)
     start = *i;
 	while (str[*i] && str[*i] != '$')
 			(*i)++;
-	return (ft_substr(str, start, *i - start));
+	return (allocate_gc(ft_substr(str, start, *i - start)));
 }
 
 char *standalone(int *i)
 {
     (*i)++;
-    return (ft_strdup("$"));
+    return (allocate_gc(ft_strdup("$")));
 }
 
 char *expand_key_wrapper(char *str, t_data *data)
@@ -34,5 +34,5 @@ char *expand_key_wrapper(char *str, t_data *data)
         return (data->pc.value);
     else if (data->pc.value == NULL)
         return(NULL);
-    return (perror("WHY!"), NULL); // fallback should never happen
+    return (perror("WHY!"), NULL);
 }

@@ -9,7 +9,7 @@ static void	*ft_calloc(size_t count, size_t size)
 	mult = count * size;
 	if (count && mult / count != size)
 		return (NULL);
-	ptr = malloc(sizeof(char) * mult);
+	ptr = allocate_gc(malloc(sizeof(char) * mult));
 	if (ptr == NULL)
 		return (NULL);
 	i = 0;
@@ -45,19 +45,13 @@ char	*expand_var(char *str, t_data *data, bool was_d_quoted)
 
 
     if (str[0] == '\0')
-        return (ft_strdup("")); // empty case.
+        return (allocate_gc(ft_strdup("")));
 	dollar_count = count_dollars(str);
-	data->pockets = ft_calloc((dollar_count * 2 + 2), sizeof(char *)); // $x  1 * 2 ==> 2 +2 4 [""][x value][""][NULL]
-	if (!data->pockets)
-		return (NULL);
+	data->pockets = ft_calloc((dollar_count * 2 + 2), sizeof(char *));
 	data->pc.cap = (size_t)(dollar_count * 2 + 2);
 	if (pocket_insertion(data->pockets, str, data, was_d_quoted) != EXIT_SUCCESS)
 		return (NULL);
-
 	expanded = pocket_joiner(data->pockets);
-	if (!expanded)
-		return (free_argv(data->pockets), NULL);
-	free_argv(data->pockets);
 	return (expanded);
 }
 
@@ -66,24 +60,17 @@ int expand_list(t_arg *arg, t_data *data)
 {
     t_arg   *curr;
     char    *expanded;
-	char	*first_arg;
 
     curr = arg;
-	first_arg = ft_strdup(curr->value);
     while (curr)
     {
-        if (!curr->was_s_quote) // if not single quoted, expand
-        {
-            expanded = expand_var(curr->value, data, curr->was_d_quote); // wouldnt need pocket expansion algo we will do it differently
-            if (!expanded)
-                return (EXIT_FAILURE);
-            free(curr->value);
-            curr->value = expanded;
-        }
+        if (!curr->was_s_quote)
+            curr->value = expand_var(curr->value, data, curr->was_d_quote);
 		if (try_expand_wildcard(curr) != EXIT_SUCCESS)
 			return (EXIT_FAILURE);
         curr = curr->next;
     }
-	free(first_arg);
     return (EXIT_SUCCESS);
 }
+
+

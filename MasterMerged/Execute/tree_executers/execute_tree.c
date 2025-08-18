@@ -10,7 +10,6 @@ static int  update_env_variables(t_data *data)
 
 static int	exec_command(t_tree *node, t_data *data)
 {
-	data->piped = false;
 	node->argv = convert_list_to_argv(node->arg, data);
 	if (!node->argv)
 		return (EXIT_FAILURE);
@@ -22,12 +21,11 @@ static int	exec_command(t_tree *node, t_data *data)
 		if (add_last_executed(node, data) != EXIT_SUCCESS)
 			return (restore_IO(data->saved_in, data->saved_out, node->red == NULL),
 				EXIT_FAILURE);
-		// normalize_command(node->argv[0]);
 		node->argv = remove_nonprintables_argv(node->argv);
 		if (validate_builtin(node->argv[0]))
-			data->exit_status = exec_builtin(node, data);
+			data->exit_status = exec_builtin(node, data); // after merge
 		else
-			data->exit_status = exec_node(node, data);
+			data->exit_status = exec_node(node, data); // after merge
 	}
 	else
 		data->exit_status = EXIT_SUCCESS;
@@ -42,7 +40,7 @@ int	recursive_execution(t_tree *node, t_data *data)
 	if (node->tok == COMMAND_ID)
 		return (exec_command(node, data));
 	if (node->tok == PIPE_ID)
-		return (data->exit_status = execute_pipeline(node, data, STDIN_FILENO));
+		return (data->exit_status = execute_pipeline(node, data, STDIN_FILENO)); // after merge
 	if (node->tok == AND_ID || node->tok == OR_ID)
 		return (data->exit_status = short_circuit_operand(node, node->tok, data));
 	if (node->left)
@@ -58,9 +56,10 @@ int execute_tree(t_tree *root, t_data *data, char **env, void *re_built)
     int rec_exit_status;
 
     if (!root)
-        return (mind_free_all(CHILL), EXIT_FAILURE);
+        return (EXIT_FAILURE);
+	tree_gc_collector(root); // recheck this. last thing.
     if (merger(root, data, env) != EXIT_SUCCESS)
-        return (mind_free_all(PANIC), perror("Merge Failed"), EXIT_FAILURE);
+        return (perror("Merge Failed"), EXIT_FAILURE);
     rec_exit_status = recursive_execution(root, data);
     return (mind_free_all(CHILL), rec_exit_status);
 }

@@ -8,14 +8,8 @@ char *append_delimiter(char *str)
 
     delim[0] = (char)1;
     delim[1] = '\0';
-
-    first_border= gnl_ft_strjoin(delim, str);
-    if (!first_border)
-        return (NULL);
-    last_border = gnl_ft_strjoin(first_border, delim);
-    if (!last_border)
-        return (free(first_border), NULL);
-    free(first_border); // free str
+    first_border= allocate_gc(gnl_ft_strjoin(delim, str));
+    last_border = allocate_gc(gnl_ft_strjoin(first_border, delim));
     return (last_border);
 }
 
@@ -26,10 +20,7 @@ char *front_append_delimiter(char *str)
 
     delim[0] = (char)1;
     delim[1] = '\0';
-
-    first_border= gnl_ft_strjoin(delim, str);
-    if (!first_border)
-        return (NULL);
+    first_border= allocate_gc(gnl_ft_strjoin(delim, str));
     return (first_border);
 }
 
@@ -40,26 +31,8 @@ char *back_append_delimiter(char *str)
 
     delim[0] = (char)1;
     delim[1] = '\0';
-
-    last_border = gnl_ft_strjoin(str, delim);
-    if (!last_border)
-        return (NULL);
+    last_border = allocate_gc(gnl_ft_strjoin(str, delim));
     return (last_border);
-}
-
-void free_ifs_list(t_ifs *ifs)
-{
-    t_ifs   *tmp;
-
-    if (!ifs)
-        return ;
-    while (ifs)
-    {
-        tmp = ifs->next;
-        free(ifs->string);
-        free(ifs);
-        ifs = tmp;
-    }
 }
 
 bool only_spaces(char *raw)
@@ -86,11 +59,11 @@ int expand_unqoted_d(char ***pockets, t_data *data, char *raw)
 
     split = tab_split(raw, " \t\n\v\f\r");
     mc_argc = arg_count(split);
-    new_pocket = malloc((data->pc.j + mc_argc + 1) * sizeof(char *));
+    new_pocket = allocate_gc(malloc((data->pc.j + mc_argc + 1) * sizeof(char *)));
     i = 0;
     while (i < data->pc.j)
     {
-        new_pocket[i] = ft_strdup((*pockets)[i]);
+        new_pocket[i] = allocate_gc(ft_strdup((*pockets)[i]));
         i++;
     }
     j = 0;
@@ -105,7 +78,6 @@ int expand_unqoted_d(char ***pockets, t_data *data, char *raw)
     }
     new_pocket[i] = NULL;
     (*pockets) = new_pocket;
-    data->pc.j = i;
-    return (EXIT_SUCCESS);
+    return (data->pc.j = i, EXIT_SUCCESS);
 }
  

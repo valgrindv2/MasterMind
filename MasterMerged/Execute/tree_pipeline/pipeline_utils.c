@@ -87,9 +87,7 @@ int	wait_for_last_pid(pid_t last_pid)
 	while ((w_pid = wait(&status)) > 0)
 	{
 		if (w_pid == last_pid)
-		{
 			ex_st = WEXITSTATUS(status);
-		}
 	}
 	return (ex_st);
 }

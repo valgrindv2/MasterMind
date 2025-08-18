@@ -42,18 +42,6 @@ static void copy_without_nonprintables(char *dest, const char *src)
 	dest[j] = '\0';
 }
 
-static void free_partial_argv(char **arr, size_t limit)
-{
-    size_t i;
-
-    if (!arr)
-        return ;
-    i = 0;
-    while (i < limit)
-        free(arr[i++]);
-    free(arr);
-}
-
 char **remove_nonprintables_argv(char **argv)
 {
     char    **newargv;
@@ -65,20 +53,16 @@ char **remove_nonprintables_argv(char **argv)
     if (!argv)
         return (free_argv(argv), NULL);
     argc = arg_count(argv);
-    newargv = malloc((argc + 1) * sizeof(char *));
-    if (!newargv)
-        return (NULL);
+    newargv = allocate_gc(malloc((argc + 1) * sizeof(char *)));
     i = 0;
     while (i < argc)
     {
         printable_chars = count_printable_chars(argv[i]);
-        clean = malloc(printable_chars + 1);
-        if (!clean)
-            return (free_partial_argv(newargv, i), free_argv(argv), NULL);
+        clean = allocate_gc(malloc(printable_chars + 1));
         copy_without_nonprintables(clean, argv[i]);
         newargv[i] = clean;
         i++;
     }
     newargv[argc] = NULL;
-    return (free_argv(argv), newargv);
+    return (newargv);
 }

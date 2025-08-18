@@ -22,8 +22,9 @@ int add_to_gc(void *new_address)
     new_alloc->ptr = new_address;
     new_alloc->next = *head;
     *head = new_alloc;
-    return EXIT_SUCCESS;
+    return (EXIT_SUCCESS);
 }
+
 
 void    *allocate_gc(void *ptr)
 {
@@ -52,4 +53,34 @@ void mind_free_all(bool panic)
         // free env
         exit(EXIT_FAILURE);
     }
+}
+
+
+
+
+
+
+// these fo when needing to free something on the outside.
+int add_to_gc_no_ex(void *new_address)
+{
+    t_mind_alloc **head;
+    t_mind_alloc *new_alloc;
+
+    new_alloc = malloc(sizeof(t_mind_alloc));
+    if (!new_alloc)
+       return (EXIT_FAILURE);
+    head = get_head();
+    new_alloc->ptr = new_address;
+    new_alloc->next = *head;
+    *head = new_alloc;
+    return (EXIT_SUCCESS);
+}
+
+void    *allocate_gc_no_exit(void *ptr)
+{
+    if (!ptr)
+        return (NULL);
+    if (add_to_gc_no_ex(ptr) != EXIT_SUCCESS)
+        return (NULL);
+    return (ptr);
 }

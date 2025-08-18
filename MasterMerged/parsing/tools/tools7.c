@@ -77,7 +77,7 @@ static char	**extractor(char const *s, char c, char **split, size_t toklen)
 			i++;
 			wl++;
 		}
-		split[w] = malloc(wl + 1);
+		split[w] = allocate_gc(malloc(wl + 1));
 		if (!split[w])
 			return (free_str(split, w));
 		pusher(s, split[w], wl, i);
@@ -95,7 +95,7 @@ char	**ft_split(char const *s, char c)
 	if (!s)
 		return (NULL);
 	tokens = words(s, c);
-	new = malloc((tokens + 1) * (sizeof(char *)));
+	new = allocate_gc(malloc((tokens + 1) * (sizeof(char *))));
 	if (!new)
 		return (NULL);
 	new = extractor(s, c, new, tokens);

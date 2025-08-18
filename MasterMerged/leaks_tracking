@@ -12,3 +12,21 @@ only gets updated using convert_list_to_envp
 
 convert list [cleared]
 
+
+
+
+
+curr line execute_pipeline
+
+
+
+
+Files :
+
+merge_utils.c (DONE)
+merge_env_utils.c (DONE)
+merge_env (DONE)
+
+join_system.c (DONE)
+internal_field_utils.c (DONE)
+internal_field_seperator_pass.c (DONE)

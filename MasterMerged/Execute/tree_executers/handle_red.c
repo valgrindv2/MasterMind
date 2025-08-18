@@ -90,20 +90,24 @@ int read_file(t_red *red, char **joined)
     char    *tmp;
 
     file = get_next_line(red->fd_here_doc);
+    if (!file)
+        return (EXIT_FAILURE);
     while (file)
     {
         tmp = *joined;
         *joined = gnl_ft_strjoin(*joined, file);
         if (!*joined)
         {
-            // garbage
             free(tmp);
             free(file);
+            get_next_line(-1);
             return (EXIT_FAILURE);
         }
-        free(tmp); // garabge
+        free(tmp);
         free(file);
         file = get_next_line(red->fd_here_doc);
+        if (!file)
+            return (free(joined), get_next_line(-1), EXIT_FAILURE);
     }
     return (EXIT_SUCCESS);
 }
@@ -113,10 +117,7 @@ char    *expand_heredoc(char *joined, t_red *red, t_data *data)
     char    *expanded;
 
     if (!red->was_d_quote && !red->was_s_quote)
-    {
         expanded = expand_var(joined, data, true);
-        free(joined);
-    }
     else
         expanded = joined;
     return (expanded);
@@ -137,16 +138,16 @@ int red_here_doc(t_red *red, t_data *data)
     read_file(red, &joined);
     if (!joined)
         joined = ft_strdup("");
+    allocate_gc(joined);
     expanded = expand_heredoc(joined, red, data);
     if (pipe(pipefd) == -1)
-        return (perror("pipe"), EXIT_FAILURE);
+        return (perror("pipe"), mind_free_all(PANIC), EXIT_FAILURE);
     write(pipefd[1], expanded, o_ft_strlen(expanded));
-    close(pipefd[1]); // Close write end
-    free(expanded); // garbage...
+    close(pipefd[1]);
     close(red->fd_here_doc);
     red->fd_here_doc = pipefd[0];
     if (dup2(red->fd_here_doc, STDIN_FILENO) == -1)
-        return (perror("dup2"), EXIT_FAILURE);
+        return (perror("dup2"), mind_free_all(PANIC), EXIT_FAILURE);
     close(red->fd_here_doc);
     red->fd_here_doc = -1;
     return (EXIT_SUCCESS);
@@ -156,9 +157,9 @@ int red_here_doc(t_red *red, t_data *data)
 static bool check_expanded_malloc(char **expanded, t_data *data, t_red *curr_red)
 {
     if (curr_red->was_s_quote)
-        *expanded = ft_strdup(curr_red->value);
+        *expanded = allocate_gc(ft_strdup(curr_red->value));
     else if (curr_red->was_d_quote)
-        *expanded = expand_var(curr_red->value, data, true); // removed normalize ifs
+        *expanded = expand_var(curr_red->value, data, true);
     else
         *expanded = expand_var(curr_red->value, data, false);
     if (!*expanded)
@@ -169,7 +170,16 @@ static bool check_expanded_malloc(char **expanded, t_data *data, t_red *curr_red
 static void init_red(t_data *data, t_tree *node, t_red  **curr_red)
 {
     data->saved_in = dup(STDIN_FILENO); // check
+    if (data->saved_in == -1)
+    {
+        mind_free_all(PANIC);
+    }
     data->saved_out = dup(STDOUT_FILENO); // check
+    if (data->saved_out == -1)
+    {
+        close(data->saved_in);
+        mind_free_all(PANIC);
+    }
     *curr_red = node->red;
 }
 
@@ -215,27 +225,19 @@ int handle_red(t_tree *node, t_data *data)
     char    *expanded;
     bool    ambig;
     char    *og;
-    char    *cleaned;
 
     init_red(data, node, &curr_red);
     while (curr_red)
     {
         ambig = expandable_check(curr_red->value);
-        og = ft_strdup(curr_red->value);
-        if (check_expanded_malloc(&expanded, data, curr_red) != EXIT_SUCCESS)
-            return (EXIT_FAILURE);
-        free(curr_red->value);
+        og = allocate_gc(ft_strdup(curr_red->value));
+        check_expanded_malloc(&expanded, data, curr_red);
         curr_red->value = expanded;
         if (curr_red->tok != DEL_ID && ambig_wrapper(curr_red->value, ambig, curr_red->was_d_quote))
             return (dprintf(2 , RED"Master@Mind: %s: ambiguous redirect\n"RST, og), EXIT_FAILURE);
-        cleaned = red_ifs_pass(curr_red->value);
-        if (!cleaned)
-            return (free(og), free(curr_red->value), EXIT_FAILURE);
-        free(curr_red->value);
-        curr_red->value = cleaned;
+        curr_red->value = red_ifs_pass(curr_red->value);
         if (redirect_current(curr_red, data) != EXIT_SUCCESS)
             return (data->exit_status = EXIT_FAILURE, EXIT_FAILURE);
-        free(og);
         curr_red = curr_red->next;
     }
     return (EXIT_SUCCESS);
@@ -245,9 +247,10 @@ void    restore_IO(int saved_in, int saved_out, bool no_red)
 {
     if (no_red)
         return ;
-    // Always restore STDIN/STDOUT
-    dup2(saved_in, STDIN_FILENO);
-    dup2(saved_out, STDOUT_FILENO);
+    if (dup2(saved_in, STDIN_FILENO) == -1)
+        mind_free_all(PANIC);
+    if (dup2(saved_out, STDOUT_FILENO) == -1)
+        mind_free_all(PANIC);
     close(saved_in);
     close(saved_out);
 }

@@ -1,6 +1,5 @@
 #include "../execute.h"
 
-// used in terminator as well.
 bool still_has_anon(char *str)
 {
     int i;
@@ -23,7 +22,6 @@ static bool has_anons_inside(int from, int till, char **argv)
     return (false);
 }
 
-// function entry
 bool anon(t_tree *node, size_t argc)
 {
     if (argc == 1 && node->argv[0][0] == ANON && node->argv[0][1] == '\0')

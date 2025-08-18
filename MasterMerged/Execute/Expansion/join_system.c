@@ -28,21 +28,13 @@ char	*o_ft_strjoin(char *s1, char *s2)
 static char	*merge_pockets(char **lst)
 {
 	char	*joined;
-	char	*temp;
 	size_t	i;
 
 	i = 0;
 	joined = NULL;
 	while (lst[i])
 	{
-		temp = joined;
-		joined = o_ft_strjoin(joined, lst[i]);
-		if (!joined)
-		{
-			free(temp);
-			return (NULL);
-		}
-		free(temp);
+		joined = allocate_gc(o_ft_strjoin(joined, lst[i]));
 		i++;
 	}
 	return (joined);
@@ -54,8 +46,6 @@ char	*pocket_joiner(char **pockets)
 	char	*res;
 
 	res = merge_pockets(pockets);
-	if (!res)
-		return (NULL);
 	return (res);
 }
 
@@ -71,11 +61,7 @@ char *join_system(t_arg **p_arg)
     curr = *p_arg;
     while (curr)
     {
-        tmp = o_ft_strjoin(res, curr->value);
-		if(!tmp)
-			return (free(res), NULL);
-        free(res);
-        res = tmp;
+        res = allocate_gc(o_ft_strjoin(res, curr->value));
         if (curr->space_next || ft_strchr(curr->value, ANON))  // if the parser marked a space after this piece, consume it and stop
         {
             curr = curr->next;

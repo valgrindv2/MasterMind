@@ -31,8 +31,7 @@ static char *trim_anon_free(char *str)
 {
     char    *cut;
 
-    cut = ft_substr(str, anon_index(str) + 1, o_ft_strlen(str));
-    free(str);
+    cut = allocate_gc(ft_substr(str, anon_index(str) + 1, o_ft_strlen(str)));
     return (cut);
 }
 
@@ -49,18 +48,12 @@ char **terminate_inside_anons(char **argv)
         if (!single_anon(argv[i]))
         {
             if (still_has_anon(argv[i]))
-            {
-                argv[i] = trim_anon_free(argv[i]); // gets freed inside
-                if (!argv[i])
-                    return (free_ifs_list(args), free_argv(argv), NULL);
-            }
+                argv[i] = trim_anon_free(argv[i]);
             if (add_ifs_back(&args, argv[i]) != EXIT_SUCCESS)
-                return (free_ifs_list(args), free_argv(argv), NULL);
+                return (NULL);
         }
         i++;
     }
     new_argv = ifs_list_to_argv(args);
-    if (!new_argv)
-        return (free_ifs_list(args),  free_argv(argv), NULL);
-    return(free_ifs_list(args), free_argv(argv), new_argv);
+    return(new_argv);
 }

@@ -36,16 +36,6 @@ static size_t	ft_wordcount(const char *s, char *sep)
 	return (wc);
 }
 
-static void	*lst_free(char **lst, size_t j)
-{
-	while (j > 0)
-	{
-		free(lst[--j]);
-	}
-	free(lst);
-	return (NULL);
-}
-
 static int	fill_word(const char *s, size_t i, char *sep, size_t *start)
 {
 	while (in_set(s[i], sep))
@@ -66,7 +56,7 @@ char	**tab_split(char *s, char *sep)
 
 	if (!s)
 		return (NULL);
-	lst = (char **) malloc ((ft_wordcount(s, sep) + 1) * sizeof(char *));
+	lst = allocate_gc(malloc ((ft_wordcount(s, sep) + 1) * sizeof(char *)));
 	if (!lst)
 		return (NULL);
 	i = 0;
@@ -76,9 +66,7 @@ char	**tab_split(char *s, char *sep)
 		i = fill_word(s, i, sep, &start);
 		if (s[i] || !in_set(s[i - 1], sep))
 		{
-			lst[j] = ft_substr(s, start, i - start);
-			if (lst[j] == NULL)
-				return (lst_free(lst, j));
+			lst[j] = allocate_gc(ft_substr(s, start, i - start));
 			j++;
 		}
 	}
