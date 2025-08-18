@@ -22,3 +22,11 @@ Ouss need to adapt the flags -Wall -Wextra -Werrors into the Execution Part
 search for dprintf and puts
 
 ADD recursion limit protection
+
+call gc in exit that frees all and returns with value to exit.
+
+
+> ./a/
+PANIC: Not a directory
+Master@Mindv3.0> echo $?
+1

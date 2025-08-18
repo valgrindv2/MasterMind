@@ -1,37 +1,49 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   o_exit.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: oimzilen <oimzilen@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/08/18 15:11:48 by oimzilen          #+#    #+#             */
+/*   Updated: 2025/08/18 15:11:48 by oimzilen         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../execute.h"
 
-static int ifnumber(char *str)
+static int	ifnumber(char *str)
 {
-    int i;
+	int	i;
 
-    i = 0;
-    if (str[i] == '-' || str[i] == '+')
-        i++;
-    if (str[i] == '\0')
-        return (0);
-    while (str[i])
-    {
-        if (!('0' <= str[i] && str[i] <= '9'))
-            return (0);
-        i++;
-    }
-    return (1);
+	i = 0;
+	if (str[i] == '-' || str[i] == '+')
+		i++;
+	if (str[i] == '\0')
+		return (0);
+	while (str[i])
+	{
+		if (!('0' <= str[i] && str[i] <= '9'))
+			return (0);
+		i++;
+	}
+	return (1);
 }
 
-static int count_args(char **argv)
+static int	count_args(char **argv)
 {
-    int i;
+	int	i;
 
-    i = 1;
-    while (argv[i])
-    {
-        i++;
-        if (i > 2)
-            return (0);
-    }
-    if (i == 1)
-        return (11);
-    return (1);       
+	i = 1;
+	while (argv[i])
+	{
+		i++;
+		if (i > 2)
+			return (0);
+	}
+	if (i == 1)
+		return (11);
+	return (1);
 }
 
 static long	warn_exit(const char *str)
@@ -43,9 +55,10 @@ static long	warn_exit(const char *str)
 	result = 0;
 	while (str[i] == ' ' || (str[i] >= 9 && str[i] <= 13))
 		i++;
-        // add minus
-    if (str[i] == '-' || str[i] == '+')
-		i++; // watchout
+	if (str[i] == '-' || str[i] == '+')
+		i++;
+	if (str[i] == '\0')
+		return (EXIT_OVER_LIMIT);
 	while (str[i] >= '0' && str[i] <= '9')
 	{
 		if (result > (LLONG_MAX - (str[i] - '0')) / 10)
@@ -56,51 +69,41 @@ static long	warn_exit(const char *str)
 	return (MAX_FLOW);
 }
 
-static void    numeric_value(char *str, t_data *data)
+static void	numeric_value(char *str, t_data *data)
 {
-    if (!ifnumber(str) || warn_exit(str) == EXIT_OVER_LIMIT)
-    {
-        if (data->child_state == false)
-            puterror("exit\n");
-        puterror("Master@Mind: Exit Requires A Numeric Value\n");
-        exit(255);
-    }
+	if (!ifnumber(str) || warn_exit(str) == EXIT_OVER_LIMIT)
+	{
+		if (data->child_state == false)
+			puterror("exit\n");
+		puterror("Master@Mind: Exit Requires A Numeric Value\n");
+		exit(255);
+	}
 }
 
-// function entry.
-
-// WE NEED A FLAG TO KNOW WHETHER WE ARE IN A CHILD OR NOT
-int o_exit(t_tree *node, t_data *data)
+int	o_exit(t_tree *node, t_data *data)
 {
-    char **argv;
-    int in_parent;
-    long exit_call;
+	char	**argv;
+	int		in_parent;
+	long	exit_call;
 
-    argv = node->argv;
-    if (count_args(argv) == 11)
-    {
-        if (data->child_state == false)
-            puterror("exit\n");
-        exit(data->exit_status);
-    }
-    numeric_value(argv[1], data);
-    if (!count_args(argv))
-    {
-        if (data->child_state == false)
-            puterror("exit\n");
-        puterror("exit: too many arguments\n");
-        return (1);
-    }
-    if (data->child_state == false)
-        puterror("exit\n");
-    exit_call = ft_atol(argv[1]);
-    exit(exit_call);
-    return (EXIT_SUCCESS);
+	argv = node->argv;
+	if (count_args(argv) == 11)
+	{
+		if (data->child_state == false)
+			puterror("exit\n");
+		exit(data->exit_status);
+	}
+	numeric_value(argv[1], data);
+	if (!count_args(argv))
+	{
+		if (data->child_state == false)
+			puterror("exit\n");
+		puterror("exit: too many arguments\n");
+		return (1);
+	}
+	if (data->child_state == false)
+		puterror("exit\n");
+	exit_call = ft_atol(argv[1]);
+	exit(exit_call);
+	return (EXIT_SUCCESS);
 }
-/*
-    exit exclusevely will be in a child only if its piped, otherwhise its executed in the parent, 
-    and as u saw there a t_data *data struct, we can save a boolean flag, and mark it as true, 
-    in the last step before the parent fork the exit child in the pipe, 
-    this way the exit child will inherit the data struct boolean variable, 
-    and we will check for it, and remove the isatty logic, 
-*/

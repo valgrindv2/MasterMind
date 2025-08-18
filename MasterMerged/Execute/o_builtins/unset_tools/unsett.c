@@ -12,79 +12,61 @@
 
 #include "../../execute.h"
 
-static bool valid_first_char(char c)
+static bool	valid_first_char(char c)
 {
-    if (c >= 'a' && c <= 'z')
-        return (true);
-    if (c >= 'A' && c <= 'Z')
-        return (true);
-    if (c == '_')
-        return (true);
-    return (false);
-}
-
-static bool valid_char(char c)
-{
-    if (c >= 'a' && c <= 'z')
-        return (true);
-    if (c >= 'A' && c <= 'Z')
-        return (true);
-    if (c >= '0' && c <= '9')
-        return (true);
-    if (c == '_')
-        return (true);
-    return (false);
-}
-
-static bool is_printable(char c)
-{
-    if (c == '=')
-        return (true);
-	if (c >= 32 && c <= 126 || c == '\0')
-	{
+	if (c >= 'a' && c <= 'z')
 		return (true);
-	}
+	if (c >= 'A' && c <= 'Z')
+		return (true);
+	if (c == '_')
+		return (true);
 	return (false);
 }
 
-bool valid_identifier_un(char *str)
+static bool	valid_char(char c)
 {
-    int     i;
-    bool    standalone;
-
-    i = 0;
-    standalone = true;
-    if (!valid_first_char(str[i++]))
-        return (false);
-    while (str[i])
-    {
-        if (!valid_char(str[i]))
-            return (false);
-        else
-        {
-            if (str[i] == '=' || str[i] == '+')
-            {
-                standalone = false;
-                break ;
-            }
-        }
-        i++;
-    }
-    if (standalone)
-        return (true);
-    else
-    {
-        if (str[i] == '+' && str[i + 1] != '=')
-            return (false);
-        if (str[i] == '=' && !is_printable(str[i + 1]))
-            return(false);
-    }
-    return (true);
+	if (c >= 'a' && c <= 'z')
+		return (true);
+	if (c >= 'A' && c <= 'Z')
+		return (true);
+	if (c >= '0' && c <= '9')
+		return (true);
+	if (c == '_')
+		return (true);
+	return (false);
 }
 
-void delete(t_envlist *node)
+bool	valid_identifier_un(char *str)
 {
-    free(node->value);
-    free(node->variable);
-    free(node);
+	int		i;
+	bool	standalone;
+
+	i = 0;
+	standalone = true;
+	if (!valid_first_char(str[i++]))
+		return (false);
+	while (str[i])
+	{
+		if (!valid_char(str[i]))
+			return (false);
+		else
+		{
+			if (str[i] == '=' || str[i] == '+')
+			{
+				standalone = false;
+				break ;
+			}
+		}
+		i++;
+	}
+	if (standalone)
+		return (true);
+	return (check_identifier(str, i));
+}
+
+void	delete(t_envlist *node)
+{
+	free(node->value);
+	free(node->variable);
+	free(node);
 }

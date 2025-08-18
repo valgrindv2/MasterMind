@@ -55,7 +55,7 @@ SRC = minishell.c identificators/identity_tools/identool0.c\
 		../execute/o_builtins/o_pwd.c ../execute/o_builtins/o_unset.c \
 		../execute/tree_executers/merge_utils/merge_env.c \
 		../execute/tree_executers/merge_utils/merge_env_utils.c \
-		../execute/fail_malloc.c ../execute/o_builtins/builtin_utils.c 					\
+		../execute/.fail_malloc.c ../execute/o_builtins/builtin_utils.c 					\
 		../execute/expansion/expand_arglist.c ../execute/expansion/expand_key.c 		\
 		../execute/expansion/join_system.c ../execute/expansion/merge_arglist.c 		\
 		../execute/expansion/pocket_expantion.c ../execute/expansion/pocket_insertion.c \
@@ -72,7 +72,9 @@ SRC = minishell.c identificators/identity_tools/identool0.c\
 		../execute/tree_pipeline/pipehandlers.c ../execute/expansion/internal_field_utils.c \
 		../execute/expansion/split_ifs_utils.c ../execute/mind_allocater/mind_allocater.c \
 		../execute/tree_executers/errors_msgs.c ../execute/mind_allocater/get_tree_adrs.c \
-
+		../execute/tree_executers/handle_red_fds.c ../execute/tree_executers/handle_red_utils.c \
+		../execute/mind_allocater/mind_allocater_utils.c ../execute/o_builtins/unset_tools/unsett2.c \
+		
 
 OBJ = $(SRC:.c=.o)
 

@@ -1,38 +1,50 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   valid_identifier.c                                 :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: oimzilen <oimzilen@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/08/18 14:27:38 by oimzilen          #+#    #+#             */
+/*   Updated: 2025/08/18 14:27:38 by oimzilen         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../execute.h"
 
-static bool is_printable(char c)
+static bool	is_printable(char c)
 {
-    if (c == '=')
-        return (true);
+	if (c == '=')
+		return (true);
 	if (c >= 32 && c <= 126 || c == '\0'
-        || (((9 <= c && c <= 13) || c == 32)))
+		|| (((9 <= c && c <= 13) || c == 32)))
 	{
 		return (true);
 	}
 	return (false);
 }
 
-static bool check_after_break(char *str, int i)
+static bool	check_after_break(char *str, int i)
 {
-    if (str[i] == '+' && str[i + 1] != '=')
-        return (false);
-    if (str[i] == '=' && !is_printable(str[i + 1]))
-        return (false);
-    return (true);
+	if (str[i] == '+' && str[i + 1] != '=')
+		return (false);
+	if (str[i] == '=' && !is_printable(str[i + 1]))
+		return (false);
+	return (true);
 }
 
-bool valid_identifier(char *str)
+bool	valid_identifier(char *str)
 {
-    int     i;
-    bool    standalone;
+	int		i;
+	bool	standalone;
 
-    i = 0;
-    standalone = true;
-    if (!str[i])
-        return (false);
-    if (!valid_identifier_core(str, &i, &standalone))
-        return (false);
-    if (standalone)
-        return (true);
-    return (check_after_break(str, i));
+	i = 0;
+	standalone = true;
+	if (!str[i])
+		return (false);
+	if (!valid_identifier_core(str, &i, &standalone))
+		return (false);
+	if (standalone)
+		return (true);
+	return (check_after_break(str, i));
 }

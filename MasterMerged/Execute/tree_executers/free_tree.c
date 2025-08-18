@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   free_tree.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: oimzilen <oimzilen@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/08/18 15:28:33 by oimzilen          #+#    #+#             */
+/*   Updated: 2025/08/18 15:28:33 by oimzilen         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../execute.h"
 
 void	free_envlist(t_envlist *env)
@@ -16,6 +28,7 @@ void	free_envlist(t_envlist *env)
 	}
 }
 
+// CLOSE FDS IN RED
 static void	free_redir(t_red *red)
 {
 	t_red	*tmp;
@@ -54,7 +67,6 @@ void	free_tree(t_tree *node)
 	free(node->value);
 	free_argv(node->argv);
 	free_redir(node->red);
-	// CLOSE FDS IN RED
 	free(node);
 }
 

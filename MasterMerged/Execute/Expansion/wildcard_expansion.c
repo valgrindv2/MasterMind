@@ -1,16 +1,16 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   wildcard_expansion.c                               :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: oimzilen <oimzilen@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/08/18 16:00:58 by oimzilen          #+#    #+#             */
+/*   Updated: 2025/08/18 16:00:58 by oimzilen         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../execute.h"
-
-static char	**alloc_files(int count)
-{
-	char	**files;
-
-	if (count == 0)
-		return (NULL);
-	files = malloc(sizeof(char *) * (count + 1));
-	if (!files)
-		return (NULL);
-	return (files);
-}
 
 static char	**fill_files_array(int count)
 {
@@ -24,7 +24,8 @@ static char	**fill_files_array(int count)
 	if (!dir)
 		return (free(ff.files), NULL);
 	ff.i = 0;
-	while ((ff.entry = readdir(dir)))
+	ff.entry = readdir(dir);
+	while (ff.entry)
 	{
 		if (ff.entry->d_name[0] != '.')
 		{
@@ -37,6 +38,7 @@ static char	**fill_files_array(int count)
 			}
 			ff.i++;
 		}
+		ff.entry = readdir(dir);
 	}
 	return (ff.files[ff.i] = NULL, closedir(dir), ff.files);
 }

@@ -1,19 +1,30 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   tab_split.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: oimzilen <oimzilen@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/08/18 15:53:18 by oimzilen          #+#    #+#             */
+/*   Updated: 2025/08/18 15:53:18 by oimzilen         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../execute.h"
 
-static bool in_set(char c, char *sep)
+static bool	in_set(char c, char *sep)
 {
-    int i;
+	int	i;
 
-    i = 0;
-    while (sep[i])
-    {
-        if (c == sep[i])
-            return (true);
-        i++;
-    }
-    return (false);
+	i = 0;
+	while (sep[i])
+	{
+		if (c == sep[i])
+			return (true);
+		i++;
+	}
+	return (false);
 }
-
 
 static size_t	ft_wordcount(const char *s, char *sep)
 {

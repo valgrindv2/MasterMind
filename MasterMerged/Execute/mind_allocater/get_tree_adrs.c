@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   expand_arglist.c                                   :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: oimzilen <oimzilen@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/08/18 16:02:06 by oimzilen          #+#    #+#             */
+/*   Updated: 2025/08/18 16:02:06 by oimzilen         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../execute.h"
 
 static void	add_arg_list_to_gc(t_arg *arg)
@@ -46,4 +58,22 @@ void	tree_gc_collector(t_tree *node)
 	allocate_gc(node);
 	tree_gc_collector(node->left);
 	tree_gc_collector(node->right);
+}
+// free env_vec
+// free env
+
+int	pipe_child_free(int ret)
+{
+	t_mind_alloc	**head;
+	t_mind_alloc	*tmp;
+
+	head = get_head();
+	while (*head)
+	{
+		tmp = (*head)->next;
+		free((*head)->ptr);
+		free(*head);
+		*head = tmp;
+	}
+	return (ret);
 }

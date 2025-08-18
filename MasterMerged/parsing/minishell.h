@@ -373,6 +373,7 @@ int					ft_strchr(const char *s, int c);
 char				*ft_strtrim(char *s1, char *set);
 int					ft_strncmp(char *s1, char *s2, int n);
 char				*ft_substr(char *s, int start, int len);
+bool				check_identifier(char *str, int i);
 
 // Syntax Verification
 void				puterror(char *str);
@@ -630,6 +631,7 @@ bool				single_anon(char *str);
 int					try_expand_wildcard(t_arg *arg);
 void				sort_files(char **files);
 int					count_files(void);
+char				**alloc_files(int count);
 
 // garbage collector.
 
@@ -655,10 +657,19 @@ int					add_to_envlist(t_envlist **envlist,
 
 // Redirections 
 int					handle_red(t_tree *node, t_data *data);
-void				restore_IO(int saved_in, int saved_out, bool no_red);
+void				restore_io(int saved_in, int saved_out, bool no_red);
 char				*red_ifs_pass(char *str);
 bool				only_spaces(char *raw);
 int					red_here_doc(t_red *red, t_data *data);
+int					red_in(t_red *red, t_data *data);
+int					red_out(t_red *red, t_data *data);
+int					red_append(t_red *red, t_data *data);
+bool				check_expanded_malloc(char **expanded, t_data *data,
+						t_red *curr_red);
+char				*expand_heredoc(char *joined, t_red *red, t_data *data);
+bool				has_ifs(char *str);
+bool				expandable_check(char *str);
+bool				has_ambig_space(char *str);
 
 // Free_tree (error handling)
 void				free_argv(char **argv);
@@ -695,6 +706,7 @@ void				check_dots(t_tree *node, int *one_dot,
 						int *two_dot);
 int					change_pwd(char *name, t_envlist *env,
 						char *update);
+bool				check_identifier(char *str, int i);
 
 // ----------------------------------------------------------------------------
 #endif

@@ -1,11 +1,23 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   cd3.c                                              :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: oimzilen <oimzilen@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/08/18 14:43:26 by oimzilen          #+#    #+#             */
+/*   Updated: 2025/08/18 14:43:26 by oimzilen         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../execute.h"
 
-int con_check(t_tree *node)
+int	con_check(t_tree *node)
 {
-    if (node->argv[1][0] == '.' && node->argv[1][1] == '\0')
-        return (0);
-    if (node->argv[1][0] == '.' && node->argv[1][1] == '.'
-        && node->argv[1][2] == '\0')
-        return (0);
-    return (1);
+	if (node->argv[1][0] == '.' && node->argv[1][1] == '\0')
+		return (0);
+	if (node->argv[1][0] == '.' && node->argv[1][1] == '.'
+		&& node->argv[1][2] == '\0')
+		return (0);
+	return (1);
 }

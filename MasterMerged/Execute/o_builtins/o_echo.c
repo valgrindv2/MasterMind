@@ -1,9 +1,21 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   o_echo.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: oimzilen <oimzilen@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/08/18 15:05:09 by oimzilen          #+#    #+#             */
+/*   Updated: 2025/08/18 15:05:09 by oimzilen         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../execute.h"
 
-int valide_option(char *str)
+int	valide_option(char *str)
 {
-	int i;
-	int op;
+	int	i;
+	int	op;
 
 	i = 0;
 	op = 0;
@@ -25,7 +37,7 @@ int valide_option(char *str)
 	return (1);
 }
 
-void    echo_args(t_tree *node, bool *newline)
+void	echo_args(t_tree *node, bool *newline)
 {
 	int		i;
 	bool	print_all;
@@ -48,10 +60,9 @@ void    echo_args(t_tree *node, bool *newline)
 		printf("\n");
 }
 
-// function entry
-int o_echo(t_tree *node)
+int	o_echo(t_tree *node)
 {
-	bool    newline;
+	bool	newline;
 
 	if (!node->argv[1])
 		return (printf("\n"), EXIT_SUCCESS);
@@ -60,4 +71,3 @@ int o_echo(t_tree *node)
 		newline = false;
 	return (echo_args(node, &newline), EXIT_SUCCESS);
 }
-// echo -n test -n dsdds -n -nnn$s

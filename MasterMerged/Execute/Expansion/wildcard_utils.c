@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   wildcard_utils.c                                   :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: oimzilen <oimzilen@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/08/18 16:01:35 by oimzilen          #+#    #+#             */
+/*   Updated: 2025/08/18 16:01:35 by oimzilen         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../execute.h"
 
 void	sort_files(char **files)
@@ -38,11 +50,25 @@ int	count_files(void)
 	if (!dir)
 		return (0);
 	count = 0;
-	while ((entry = readdir(dir)))
+	entry = readdir(dir);
+	while (entry)
 	{
 		if (entry->d_name[0] != '.')
 			count++;
+		entry = readdir (dir);
 	}
 	closedir(dir);
 	return (count);
+}
+
+char	**alloc_files(int count)
+{
+	char	**files;
+
+	if (count == 0)
+		return (NULL);
+	files = malloc(sizeof(char *) * (count + 1));
+	if (!files)
+		return (NULL);
+	return (files);
 }

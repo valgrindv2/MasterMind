@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   exec_node.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: oimzilen <oimzilen@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/08/18 15:28:17 by oimzilen          #+#    #+#             */
+/*   Updated: 2025/08/18 15:28:17 by oimzilen         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../execute.h"
 
 static char	*search_in_cwd(char *cmd)
@@ -76,7 +88,6 @@ static int	handle_child(t_tree *node, t_data *data)
 		if (err_number != 0)
 			exit(err_number);
 	}
-	printf("===> %s\n", path);
 	execve(path, node->argv, data->env_vec);
 	exit(pipe_child_free(1));
 }

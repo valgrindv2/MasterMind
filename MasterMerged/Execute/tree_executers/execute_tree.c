@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   execute_tree.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: oimzilen <oimzilen@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/08/18 15:28:26 by oimzilen          #+#    #+#             */
+/*   Updated: 2025/08/18 15:28:26 by oimzilen         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../execute.h"
 
 static int	update_env_variables(t_data *data)
@@ -16,10 +28,10 @@ static int	exec_command(t_tree *node, t_data *data)
 	if (!anon(node, arg_count(node->argv)) && node->argv[0])
 	{
 		if (node->red && handle_red(node, data) != EXIT_SUCCESS)
-			return (restore_IO(data->saved_in, data->saved_out,
+			return (restore_io(data->saved_in, data->saved_out,
 					node->red == NULL), EXIT_FAILURE);
 		if (add_last_executed(node, data) != EXIT_SUCCESS)
-			return (restore_IO(data->saved_in, data->saved_out,
+			return (restore_io(data->saved_in, data->saved_out,
 					node->red == NULL), EXIT_FAILURE);
 		node->argv = remove_nonprintables_argv(node->argv);
 		if (validate_builtin(node->argv[0]))
@@ -29,7 +41,7 @@ static int	exec_command(t_tree *node, t_data *data)
 	}
 	else
 		data->exit_status = EXIT_SUCCESS;
-	restore_IO(data->saved_in, data->saved_out, node->red == NULL);
+	restore_io(data->saved_in, data->saved_out, node->red == NULL);
 	if (update_env_variables(data) != EXIT_SUCCESS)
 		return (EXIT_FAILURE);
 	return (data->exit_status);

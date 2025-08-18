@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   pipeline_utils.c                                   :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: oimzilen <oimzilen@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/08/18 15:23:33 by oimzilen          #+#    #+#             */
+/*   Updated: 2025/08/18 15:23:33 by oimzilen         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../execute.h"
 
 static void	cmd_add_last(t_tree *node, t_plist **head)
@@ -36,7 +48,6 @@ void	flatten_pipeline(t_tree *node, t_plist **head)
 		cmd_add_last(node, head);
 }
 
-// recheck this for fd leaks
 static	void	setup_child_io(int prev_fd, int fds[2], int is_pipe)
 {
 	if (prev_fd != STDIN_FILENO)
@@ -95,10 +106,12 @@ int	wait_for_last_pid(pid_t last_pid)
 
 	ex_st = 0;
 	w_pid = -1;
-	while ((w_pid = wait(&status)) > 0)
+	w_pid = wait(&status);
+	while (w_pid > 0)
 	{
 		if (w_pid == last_pid)
 			ex_st = WEXITSTATUS(status);
+		w_pid = wait(&status);
 	}
 	return (ex_st);
 }
