@@ -4,7 +4,7 @@ static int  update_env_variables(t_data *data)
 {
     data->env_vec = convert_list_to_envp(data->env, data);
     if (!data->env_vec)
-        return (EXIT_FAILURE);
+        return (mind_free_all(PANIC), EXIT_FAILURE);
     return (EXIT_SUCCESS);
 }
 

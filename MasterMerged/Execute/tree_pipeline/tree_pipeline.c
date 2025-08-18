@@ -37,7 +37,6 @@ static void init_pipe_data(t_pp *p, t_tree *root, int input_fd)
 	p->curr = p->plist;
 }
 
-// entry
 int execute_pipeline(t_tree *root, t_data *data, int input_fd)
 {
 	t_pp	p;

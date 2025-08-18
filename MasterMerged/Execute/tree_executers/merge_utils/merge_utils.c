@@ -42,6 +42,8 @@ int  merge_env(t_data *data, char **env)
     if (create_envlist(&data->env, env) != EXIT_SUCCESS)
         return (EXIT_FAILURE);
     data->env_vec = convert_list_to_envp(data->env, data);
+    if (!data->env_vec)
+        return (mind_free_all(PANIC), EXIT_FAILURE);
     data->env_is_set = true;
     return (EXIT_SUCCESS);
 }

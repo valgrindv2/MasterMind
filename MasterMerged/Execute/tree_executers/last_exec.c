@@ -14,16 +14,20 @@ static char *get_last_argv(char **argv)
 
 int _env(t_envlist *env, char *last_cmd)
 {
-    t_envlist *curr;
+    t_envlist   *curr;
+    char        *temp;
 
     curr = env;
     while (curr)
     {
         if (ft_strcmp("_", curr->variable) == 0)
         {
-            curr->value = allocate_gc(ft_strdup(last_cmd));
-            if (!curr->value)
+            temp = ft_strdup(last_cmd);
+            if (!temp)
                 return(EXIT_FAILURE);
+            free(curr->value);
+            curr->value = temp;
+            return (EXIT_SUCCESS);
         }
         curr = curr->next;
     }
@@ -34,6 +38,8 @@ int add_last_executed(t_tree *node, t_data *data)
 {
     data->last_executed = allocate_gc(get_last_argv(node->argv));
     _env(data->env, data->last_executed);
+    if (_env(data->env, data->last_executed) != EXIT_SUCCESS)
+        return (mind_free_all(PANIC), EXIT_FAILURE);
     data->last_executed = NULL;
     return (EXIT_SUCCESS);
 }

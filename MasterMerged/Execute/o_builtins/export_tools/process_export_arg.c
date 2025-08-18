@@ -5,10 +5,10 @@ int  assign_new_value(char *new_var, t_envlist *env)
     char    *key;
     char    *value;
 
-    key = get_key(new_var);
+    key = env_get_key(new_var);
     if (!key)
         return (EXIT_FAILURE);
-    value = get_value(new_var);
+    value = env_get_value(new_var);
     if (!value)
         return (free(key), EXIT_FAILURE);
     while (env)
@@ -62,7 +62,7 @@ int append_value(char *new_var, t_envlist *env)
     key = get_append_key(new_var);
     if (!key)
         return (EXIT_FAILURE);
-    value = get_value(new_var);
+    value = env_get_value(new_var);
     if (!value)
         return (free(key), EXIT_FAILURE);
     while (env)
@@ -85,7 +85,7 @@ static  bool    already_exported(char *new_var, t_data *data)
     t_envlist   *curr;
     char        *key;
 
-    key = get_key(new_var);
+    key = env_get_key(new_var);
     if (!key)
         return (false);
     curr = data->env;

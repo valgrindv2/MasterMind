@@ -67,8 +67,8 @@ void	freeiers(t_data *data, char *input)
 {
 	free(input);
 	free(data->pwd_reserve);
-	// free_envlist(data->env);
-	// free_argv(data->env_vec);
+	free_envlist(data->env);
+	free_argv(data->env_vec);
 }
 
 void	voiders(int argc, char **argv, char **env)

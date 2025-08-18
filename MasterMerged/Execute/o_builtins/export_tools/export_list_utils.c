@@ -47,18 +47,16 @@ int add_to_export_list(t_envlist **export_lst, t_envlist *env)
     t_envlist   *exp_node;
     t_envlist   *curr;
 
-    exp_node = malloc(sizeof(t_envlist)); //free only this node later.
+    exp_node = malloc(sizeof(t_envlist));
     if (!exp_node)
         return (EXIT_FAILURE);
-    exp_node->variable = env->variable; // same pointers to env data.
+    exp_node->variable = env->variable;
     exp_node->value = env->value;
     exp_node->exported = env->exported;
     exp_node->pointed = false;
     exp_node->next = NULL;
     if (!*export_lst)
-    {
         *export_lst = exp_node;
-    }
     else
     {
         curr = *export_lst;
