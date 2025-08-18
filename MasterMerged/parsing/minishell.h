@@ -6,7 +6,7 @@
 /*   By: ayel-bou <ayel-bou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/04 03:32:22 by ayel-bou          #+#    #+#             */
-/*   Updated: 2025/08/14 21:03:53 by ayel-bou         ###   ########.fr       */
+/*   Updated: 2025/08/18 08:24:57 by ayel-bou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,9 @@
 # include <dirent.h>
 # include <sys/wait.h>
 # include <termios.h>
+# include <string.h>
+# include <errno.h>
+
 
 // Macros
 # define F 1
@@ -81,6 +84,7 @@
 # define OLD_PWD "OLDPWD"
 # define HOME "HOME"
 # define SYNTAX "MasterMind: Syntax Error Near Unexpected Token "
+# define DELAY 100000000
 
 // Operators
 # define OR '|'
@@ -246,6 +250,7 @@ typedef struct s_data
 	int				anon_start;
 	char			**pockets;
 	bool			child_state;
+	bool			piped;
 }	t_data;
 
 // Linked List To Store Each Entity
@@ -411,11 +416,11 @@ int					red_checks(t_token *curr);
 t_arg				*new_argument(t_token *new);
 void				set_end(t_token **op_field);
 t_token				*get_file(t_token *id_class);
-void				set_power(t_token *id_class);
+void				set_power(t_token *id_class, t_data *data);
 t_token				*return_op(t_token *op_field);
 int					arg_system(t_token *id_class);
 int					red_system(t_token **id_class);
-t_tree				*build_tree(t_token *id_class);
+t_tree				*build_tree(t_token *id_class, t_data *data);
 t_token				*delete_red(t_token **id_class);
 t_arg				*last_arg_node(t_arg *arg_list);
 void				set_last_cmd(t_token *id_class);
@@ -423,7 +428,7 @@ void				mark_unmarked(t_token *id_class);
 void				command_ahead(t_token *id_class);
 void				add_back_red(t_red **cmd, t_red *in);
 int					add_token(t_token *curr, t_token **yard);
-t_token				*shunting_yard_algorithm(t_token *id_class);
+t_token				*shunting_yard_algorithm(t_token *id_class, t_data *data);
 int					recursive_build(t_token *yard,
 						t_tree **tree);
 void				add_arg_to_list(t_arg **arg_list,
@@ -542,7 +547,8 @@ pid_t				fork_pipeline_node(t_plist *node, t_data *data,
 void				flatten_pipeline(t_tree *node, t_plist **head);
 void				pipe_sighandle(void);
 void				start_signals(void);
-void				print_exec_error(char *cmd, int code);
+int					print_exec_error(char *cmd, int code);
+int					errors_msgs(int err);
 
 // Builtins
 int					o_echo(t_tree *node);

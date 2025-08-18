@@ -6,13 +6,13 @@
 /*   By: ayel-bou <ayel-bou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/04 02:28:08 by ayel-bou          #+#    #+#             */
-/*   Updated: 2025/08/16 08:23:01 by ayel-bou         ###   ########.fr       */
+/*   Updated: 2025/08/18 07:42:32 by ayel-bou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-t_tree	*build_tree(t_token *id_class)
+t_tree	*build_tree(t_token *id_class, t_data *data)
 {
 	t_tree	*tree;
 	t_token	*yard;
@@ -21,7 +21,7 @@ t_tree	*build_tree(t_token *id_class)
 	yard = NULL;
 	if (id_class == NULL)
 		return (NULL);
-	yard = shunting_yard_algorithm(id_class);
+	yard = shunting_yard_algorithm(id_class, data);
 	if (!yard)
 		return (clean_id_class(&id_class, FAIL), NULL);
 	clean_id_class(&id_class, CLEAN);

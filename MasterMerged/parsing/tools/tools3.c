@@ -6,7 +6,7 @@
 /*   By: ayel-bou <ayel-bou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/03 20:02:56 by ayel-bou          #+#    #+#             */
-/*   Updated: 2025/08/16 07:13:01 by ayel-bou         ###   ########.fr       */
+/*   Updated: 2025/08/18 07:45:13 by ayel-bou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ void	init_data_struct(t_data *data, char **env)
 	data->saved_in = -1;
 	data->saved_out = -1;
 	data->read_f = false;
+	data->piped = false;
 	init_data_tt(data);
 }
 

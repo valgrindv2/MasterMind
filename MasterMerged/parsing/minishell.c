@@ -6,7 +6,7 @@
 /*   By: ayel-bou <ayel-bou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/03 19:15:02 by ayel-bou          #+#    #+#             */
-/*   Updated: 2025/08/17 05:29:27 by ayel-bou         ###   ########.fr       */
+/*   Updated: 2025/08/18 07:42:48 by ayel-bou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ t_tree	*masterpasrse(char *input, t_data *data, t_token **prompts)
 		return (NULL);
 	token = get_identity(input, data);
 	*prompts = re_identity(token);
-	return (build_tree(*prompts));
+	return (build_tree(*prompts, data));
 }
 
 int	main(int argc, char **argv, char **env)

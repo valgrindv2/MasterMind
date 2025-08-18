@@ -43,6 +43,7 @@ int execute_pipeline(t_tree *root, t_data *data, int input_fd)
 {
 	t_pp	p;
 
+	data->piped = true;
 	init_pipe_data(&p, root, input_fd);
 	while (p.curr)
 	{

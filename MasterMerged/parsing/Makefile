@@ -70,8 +70,8 @@ SRC = minishell.c identificators/identity_tools/identool0.c\
 		../execute/tree_executers/gnl_utils.c ../execute/tree_executers/tab_split.c \
 		../execute/anon_system/remove_anon.c ../execute/tree_pipeline/pipeline_utils.c \
 		../execute/tree_pipeline/pipehandlers.c ../execute/expansion/internal_field_utils.c \
-		../execute/expansion/split_ifs_utils.c ../execute/mind_allocater/mind_allocater.c
-		
+		../execute/expansion/split_ifs_utils.c ../execute/mind_allocater/mind_allocater.c\
+		../execute/tree_executers/errors_msgs.c\
 
 OBJ = $(SRC:.c=.o)
 

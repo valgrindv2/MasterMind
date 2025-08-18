@@ -1,23 +1,5 @@
 #include "../execute.h"
 
-void	print_exec_error(char *cmd, int code)
-{
-	if (code == 127)
-	{
-		if (ft_strchr(cmd, '/'))
-			dprintf(STDERR_FILENO, "Migrane: %s: No such file or directory\n", cmd);
-		else
-			dprintf(STDERR_FILENO, "Migrane: %s: command not found\n", cmd);
-	}
-	else if (code == 126)
-	{
-		if (o_ft_strlen(cmd) > 0 && cmd[o_ft_strlen(cmd) - 1] == '/')
-			dprintf(STDERR_FILENO, "Migrane: %s: Is a directory\n", cmd);
-		else
-			dprintf(STDERR_FILENO, "Migrane: %s: Permission denied\n", cmd);
-	}
-}
-
 static int  update_env_variables(t_data *data)
 {
     data->env_vec = convert_list_to_envp(data->env, data);
@@ -28,6 +10,7 @@ static int  update_env_variables(t_data *data)
 
 static int	exec_command(t_tree *node, t_data *data)
 {
+	data->piped = false;
 	node->argv = convert_list_to_argv(node->arg, data);
 	if (!node->argv)
 		return (EXIT_FAILURE);

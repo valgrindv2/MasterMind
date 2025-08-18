@@ -6,7 +6,7 @@
 /*   By: ayel-bou <ayel-bou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/04 03:02:13 by ayel-bou          #+#    #+#             */
-/*   Updated: 2025/08/16 07:34:59 by ayel-bou         ###   ########.fr       */
+/*   Updated: 2025/08/18 07:38:55 by ayel-bou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ static int	operations_field(t_token *curr, t_token **op_field, t_token **yard)
 	return (F);
 }
 
-t_token	*shunting_yard_algorithm(t_token *id_class)
+t_token	*shunting_yard_algorithm(t_token *id_class, t_data *data)
 {
 	int		brace;
 	t_token	*curr;
@@ -65,7 +65,7 @@ t_token	*shunting_yard_algorithm(t_token *id_class)
 	brace = 0;
 	yard = NULL;
 	op_field = NULL;
-	set_power(id_class);
+	set_power(id_class, data);
 	curr = id_class;
 	while (curr != NULL)
 	{

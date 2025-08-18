@@ -6,7 +6,7 @@
 /*   By: ayel-bou <ayel-bou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/03 20:29:27 by ayel-bou          #+#    #+#             */
-/*   Updated: 2025/08/03 20:29:28 by ayel-bou         ###   ########.fr       */
+/*   Updated: 2025/08/18 09:15:23 by ayel-bou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,16 +53,9 @@ char	*copy_var(char *value_case)
 
 void	puterror(char *str)
 {
-	int	i;
-
 	if (!str)
 		return ;
-	i = 0;
-	while (str[i])
-	{
-		write(2, &str[i], 1);
-		i++;
-	}
+	write(2, str, o_ft_strlen(str));
 }
 
 void	print_error(char *error, char *err, int mode)

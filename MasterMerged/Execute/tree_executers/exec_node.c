@@ -50,35 +50,44 @@ char	*find_in_path(char *cmd, t_envlist *env)
 	return (free_argv(pt.paths), NULL);
 }
 
-static char	*get_absolute_path(char *cmd, t_envlist *env, int *flag)
+static char	*get_absolute_path(char *cmd, t_envlist *env, int *flag, int *err)
 {
+	char	*path;
+
+	path = NULL;
 	if (!cmd || !*cmd)
-		return (NULL);
+		return (*err = 127, NULL);
 	if (ft_strchr(cmd, '/'))
 	{
 		if (access(cmd, X_OK) == 0)
-			return (ft_strdup(cmd));
-		else if (access(cmd, F_OK) == -1)
-			return (*flag = 1, ft_strdup(cmd));
+			return (*err = errno, ft_strdup(cmd));
+		else if (access(cmd, X_OK) == -1 || access(cmd, F_OK) == -1)
+			return (*flag = 1, *err = errno, ft_strdup(cmd));
 		return (NULL);
 	}
-	return (find_in_path(cmd, env));
+	path = find_in_path(cmd, env);
+	if (!path)
+		return (*err = 127, NULL);
+	return (path);
 }
 
 static int	handle_child(t_tree *node, t_data *data)
 {
 	char	*path;
 	int		flag;
+	int		err_number;
 
 	path = NULL;
 	flag = 0;
-	path = get_absolute_path(node->argv[0], data->env, &flag);
+	err_number = 0;
+	path = get_absolute_path(node->argv[0], data->env, &flag, &err_number);
 	if (!path)
-		exit(127);
+		exit(err_number);
 	if (path[o_ft_strlen(path) - 1] == '/' || flag == 1)
 	{
 		free(path);
-		exit(126); // Is a directory (we simulate this case)
+		if (err_number != 0)
+			exit(err_number); // Is a directory (we simulate this case)
 	}
 	execve(path, node->argv, data->env_vec);
 
@@ -93,7 +102,6 @@ int	exec_node(t_tree *node, t_data *data)
 {
 	pid_t	id;
 	int		ex_status;
-	int		error_code;
 
 	if (node->fake == true)
 		return (EXIT_SUCCESS);
@@ -108,12 +116,7 @@ int	exec_node(t_tree *node, t_data *data)
 	waitpid(id, &ex_status, 0);
 	pipe_sighandle();
 	if (WIFEXITED(ex_status))
-	{
-		error_code = WEXITSTATUS(ex_status);
-		if (error_code == 126 || error_code == 127)
-			print_exec_error(node->argv[0], error_code);
-		return (error_code);
-	}
+		return (errors_msgs(WEXITSTATUS(ex_status)));
 	if (WIFSIGNALED(ex_status))
 		return (printf("\n"), 128 + WTERMSIG(ex_status));
 	return (ex_status);

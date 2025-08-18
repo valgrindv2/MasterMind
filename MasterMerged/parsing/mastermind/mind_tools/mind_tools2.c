@@ -6,7 +6,7 @@
 /*   By: ayel-bou <ayel-bou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/04 02:25:55 by ayel-bou          #+#    #+#             */
-/*   Updated: 2025/08/16 08:25:18 by ayel-bou         ###   ########.fr       */
+/*   Updated: 2025/08/18 07:39:18 by ayel-bou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,12 +23,15 @@ t_token	*return_op(t_token *op_field)
 	return (NULL);
 }
 
-void	set_power(t_token *id_class)
+void	set_power(t_token *id_class, t_data *data)
 {
 	while (id_class != NULL)
 	{
 		if (id_class->tok == PIPE_ID)
+		{
+			data->piped = true;
 			id_class->power = H_POW;
+		}
 		else if (id_class->tok == AND_ID
 			|| id_class->tok == OR_ID)
 			id_class->power = L_POW;

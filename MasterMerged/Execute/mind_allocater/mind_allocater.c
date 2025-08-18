@@ -18,7 +18,7 @@ int add_to_gc(void *new_address)
         free(new_address);
         mind_free_all(PANIC);
     }
-    head = get_gc_head();
+    head = get_head();
     new_alloc->ptr = new_address;
     new_alloc->next = *head;
     *head = new_alloc;
@@ -38,7 +38,7 @@ void mind_free_all(bool panic)
     t_mind_alloc **head;
     t_mind_alloc *tmp;
 
-    head = get_gc_head();
+    head = get_head();
     while (*head)
     {
         tmp = (*head)->next;
