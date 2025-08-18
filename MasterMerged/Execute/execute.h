@@ -9,6 +9,9 @@
 
 # define ANON (char)127
 
+# define PANIC true
+# define CHILL false
+
 # ifndef BUFFER_SIZE
 #  define BUFFER_SIZE 42
 # endif

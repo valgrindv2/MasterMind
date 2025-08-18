@@ -1,32 +1,55 @@
 #include "../execute.h"
 
-void    *mind_allocater(size_t size, t_mind_alloc **head)
+t_mind_alloc    **get_head(void)
 {
-    void            *ptr;
-    t_mind_alloc    *new_alloc;
+    static t_mind_alloc *gc = NULL;
+    return (&gc);
+}
 
-    ptr = malloc (size);
-    if (!ptr)
-        return (NULL);
-    new_alloc = malloc (sizeof(t_mind_alloc));
+// add ptr to gc
+int add_to_gc(void *new_address)
+{
+    t_mind_alloc **head;
+    t_mind_alloc *new_alloc;
+
+    new_alloc = malloc(sizeof(t_mind_alloc));
     if (!new_alloc)
-        return (free(ptr), NULL);
-    new_alloc->ptr = ptr;
+    {
+        free(new_address);
+        mind_free_all(PANIC);
+    }
+    head = get_gc_head();
+    new_alloc->ptr = new_address;
     new_alloc->next = *head;
     *head = new_alloc;
+    return EXIT_SUCCESS;
+}
+
+void    *allocate_gc(void *ptr)
+{
+    if (!ptr)
+        mind_free_all(PANIC);
+    add_to_gc(ptr);
     return (ptr);
 }
-void Mind_free(t_mind_alloc *head)
+
+void mind_free_all(bool panic)
 {
+    t_mind_alloc **head;
     t_mind_alloc *tmp;
 
-    if (!head)
-        return ;
-    while (head)
+    head = get_gc_head();
+    while (*head)
     {
-        tmp = head->next;
-        free(head->ptr);
-        free(head);
-        head = tmp;
+        tmp = (*head)->next;
+        free((*head)->ptr);
+        free(*head);
+        *head = tmp;
+    }
+    if (panic)
+    {
+        // free env_vec
+        // free env
+        exit(EXIT_FAILURE);
     }
 }
