@@ -1,29 +1,29 @@
 #include "../execute.h"
 
-bool    has_delim(char *str)
+bool	has_delim(char *str)
 {
-    int i;
+	int	i;
 
-    i = 0;
-    while (str[i])
-    {
-        if (str[i] == (char)1)
-            return (true);
-        i++;
-    }
-    return (false);
+	i = 0;
+	while (str[i])
+	{
+		if (str[i] == (char)1)
+			return (true);
+		i++;
+	}
+	return (false);
 }
 
-bool    has_space(char *str)
+bool	has_space(char *str)
 {
-    int i;
+	int	i;
 
-    i = 0;
-    while (str[i])
-    {
-        if (str[i] == ' ' || str[i] == '\t')
-            return (true);
-        i++;
-    }
-    return (false);
+	i = 0;
+	while (str[i])
+	{
+		if (str[i] == ' ' || str[i] == '\t')
+			return (true);
+		i++;
+	}
+	return (false);
 }

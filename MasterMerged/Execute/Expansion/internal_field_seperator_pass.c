@@ -1,45 +1,45 @@
 #include "../execute.h"
 
-static int append_ifs(t_ifs_vars *ifs, char *str)
+static int	append_ifs(t_ifs_vars *ifs, char *str)
 {
-    ifs->ifs_split = ft_split(str, (char)1);
-    ifs->j = 0;
-    while (ifs->ifs_split[ifs->j])
-    {
-        if (add_ifs_back(&ifs->ifs_list, ifs->ifs_split[ifs->j++]) != EXIT_SUCCESS)
-            return (EXIT_FAILURE);
-    }
-    return (EXIT_SUCCESS);
+	ifs->ifs_split = ft_split(str, (char)1);
+	ifs->j = 0;
+	while (ifs->ifs_split[ifs->j])
+	{
+		if (add_ifs_back(&ifs->ifs_list,
+				ifs->ifs_split[ifs->j++]) != EXIT_SUCCESS)
+			return (EXIT_FAILURE);
+	}
+	return (EXIT_SUCCESS);
 }
 
-// // takes the argv but is joined i want to resplit but only the parts that have the delims i put
-char    **ifs_pass(char **argv)
+char	**ifs_pass(char **argv)
 {
-    t_ifs_vars  ifs;
+	t_ifs_vars	ifs;
 
-    ifs.i = 0;
-    ifs.ifs_list = NULL;
-    while (argv[ifs.i])
-    {
-        if (has_delim(argv[ifs.i]))
-        {
-            if (append_ifs(&ifs, argv[ifs.i]) != EXIT_SUCCESS)
-                return (NULL);
-        }
-        else
-        {
-            if (add_ifs_back(&ifs.ifs_list, argv[ifs.i]) != EXIT_SUCCESS)
-                return (NULL);
-        }
-       ifs.i++;
-    }
-    ifs.new_argv = ifs_list_to_argv(ifs.ifs_list);
-    if (!ifs.new_argv)
-        return (NULL);
-    return (ifs.new_argv);
+	ifs.i = 0;
+	ifs.ifs_list = NULL;
+	while (argv[ifs.i])
+	{
+		if (has_delim(argv[ifs.i]))
+		{
+			if (append_ifs(&ifs, argv[ifs.i]) != EXIT_SUCCESS)
+				return (NULL);
+		}
+		else
+		{
+			if (add_ifs_back(&ifs.ifs_list, argv[ifs.i]) != EXIT_SUCCESS)
+				return (NULL);
+		}
+		ifs.i++;
+	}
+	ifs.new_argv = ifs_list_to_argv(ifs.ifs_list);
+	if (!ifs.new_argv)
+		return (NULL);
+	return (ifs.new_argv);
 }
 
-char *red_ifs_pass(char *str)
+char	*red_ifs_pass(char *str)
 {
 	char	*cleaned;
 	int		i;

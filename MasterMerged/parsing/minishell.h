@@ -6,7 +6,7 @@
 /*   By: ayel-bou <ayel-bou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/04 03:32:22 by ayel-bou          #+#    #+#             */
-/*   Updated: 2025/08/14 21:03:53 by ayel-bou         ###   ########.fr       */
+/*   Updated: 2025/08/18 13:41:28 by ayel-bou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,6 @@
 # include <string.h>
 # include <errno.h>
 # include <sys/stat.h>
-
 
 // Macros
 # define F 1
@@ -289,6 +288,14 @@ typedef struct s_token
 	t_red			*red;
 	t_arg			*arg;
 }	t_token;
+
+typedef	struct	s_ff
+{
+	struct dirent	*entry;
+	char			**files;
+    int				i;
+}	t_ff;
+
 
 // Signal Tools
 void				sig_handler(int signum);
@@ -627,17 +634,16 @@ int					count_files(void);
 // garbage collector.
 
 void				*allocate_gc(void *ptr);
-void 				mind_free_all(bool panic);
-int 				add_to_gc(void *new_address);
-t_mind_alloc    	**get_head(void);
-void 				tree_gc_collector(t_tree *node);
+void				mind_free_all(bool panic);
+int					add_to_gc(void *new_address);
+t_mind_alloc		**get_head(void);
+void				tree_gc_collector(t_tree *node);
 void				*allocate_gc_no_exit(void *ptr);
 int					add_to_gc_no_ex(void *new_address);
 int					pipe_child_free(int ret);
 void				*env_allocate_gc(void *ptr);
 char				*env_get_key(char *str);
 char				*env_get_value(char *str);
-
 
 // Linked env
 size_t				o_ft_strlen(char *str);

@@ -1,9 +1,8 @@
 #include "../execute.h"
 
-// might need outside.
-void    free_arg_list(t_arg *arg)
+void	free_arg_list(t_arg *arg)
 {
-	t_arg   *tmp;
+	t_arg	*tmp;
 
 	if (!arg)
 		return ;
@@ -16,9 +15,9 @@ void    free_arg_list(t_arg *arg)
 	}
 }
 
-static size_t   arglist_size(t_arg *arg)
+static size_t	arglist_size(t_arg *arg)
 {
-	size_t  size;
+	size_t	size;
 
 	size = 0;
 	while (arg)
@@ -28,10 +27,10 @@ static size_t   arglist_size(t_arg *arg)
 	}
 	return (size);
 }
-// entry
-char **convert_list_to_argv(t_arg *arg, t_data *data)
+
+char	**convert_list_to_argv(t_arg *arg, t_data *data)
 {
-	t_convert   cv;
+	t_convert	cv;
 
 	if (expand_list(arg, data) != EXIT_SUCCESS)
 		return (NULL);
@@ -46,4 +45,3 @@ char **convert_list_to_argv(t_arg *arg, t_data *data)
 	cv.new_argv = ifs_pass(cv.argv);
 	return (cv.new_argv);
 }
-
