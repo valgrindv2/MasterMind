@@ -73,10 +73,11 @@ int	recursive_execution(t_tree *node, t_data *data)
 int execute_tree(t_tree *root, t_data *data, char **env, void *re_built)
 {
     int rec_exit_status;
+
     if (!root)
-        return (EXIT_FAILURE);
+        return (mind_free_all(CHILL), EXIT_FAILURE);
     if (merger(root, data, env) != EXIT_SUCCESS)
-        return (clean_up(root, data), perror("Merge Failed"), EXIT_FAILURE);
+        return (mind_free_all(PANIC), perror("Merge Failed"), EXIT_FAILURE);
     rec_exit_status = recursive_execution(root, data);
-    return (clean_up(root, data), rec_exit_status);
+    return (mind_free_all(CHILL), rec_exit_status);
 }
