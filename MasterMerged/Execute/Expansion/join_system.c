@@ -49,26 +49,24 @@ char	*pocket_joiner(char **pockets)
 	return (res);
 }
 
-// joins successive t_arg->value pieces until space_next==true
-char *join_system(t_arg **p_arg)
+char	*join_system(t_arg **p_arg)
 {
-    t_arg *curr;
-    char  *res;
-    char  *tmp;
+	t_arg	*curr;
+	char	*res;
+	char	*tmp;
 
-    res = NULL;
-
-    curr = *p_arg;
-    while (curr)
-    {
-        res = allocate_gc(o_ft_strjoin(res, curr->value));
-        if (curr->space_next || ft_strchr(curr->value, ANON))  // if the parser marked a space after this piece, consume it and stop
-        {
-            curr = curr->next;
-            break;
-        }
-        curr = curr->next; // otherwise, keep joining the next piece
-    }
-    *p_arg = curr;  // advance the caller’s pointer
-    return (res);
+	res = NULL;
+	curr = *p_arg;
+	while (curr)
+	{
+		res = allocate_gc(o_ft_strjoin(res, curr->value));
+		if (curr->space_next || ft_strchr(curr->value, ANON))
+		{
+			curr = curr->next;
+			break ;
+		}
+		curr = curr->next;
+	}
+	*p_arg = curr;
+	return (res);
 }

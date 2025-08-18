@@ -1,32 +1,32 @@
 #include "../execute.h"
 
-static int is_nonprintable_char(char c)
+static int	is_nonprintable_char(char c)
 {
-    return (c == (char)1 || c == (char)127);
+	return (c == (char)1 || c == (char)127);
 }
 
-static size_t count_printable_chars(const char *s)
+static size_t	count_printable_chars(const char *s)
 {
-    size_t  count;
-    int     i;
+	size_t	count;
+	int		i;
 
-    count = 0;
-    i = 0;
-    if (!s)
-        return (0);
-    while (s[i])
-    {
-        if (!is_nonprintable_char(*s))
-            count++;
-        i++;
-    }
-    return (count);
+	count = 0;
+	i = 0;
+	if (!s)
+		return (0);
+	while (s[i])
+	{
+		if (!is_nonprintable_char(*s))
+			count++;
+		i++;
+	}
+	return (count);
 }
 
-static void copy_without_nonprintables(char *dest, const char *src)
+static void	copy_without_nonprintables(char *dest, const char *src)
 {
-	size_t i;
-	size_t j;
+	size_t	i;
+	size_t	j;
 
 	i = 0;
 	j = 0;
@@ -42,27 +42,27 @@ static void copy_without_nonprintables(char *dest, const char *src)
 	dest[j] = '\0';
 }
 
-char **remove_nonprintables_argv(char **argv)
+char	**remove_nonprintables_argv(char **argv)
 {
-    char    **newargv;
-    size_t  argc;
-    size_t  i;
-    size_t  printable_chars;
-    char    *clean;
+	char	**newargv;
+	size_t	argc;
+	size_t	i;
+	size_t	printable_chars;
+	char	*clean;
 
-    if (!argv)
-        return (free_argv(argv), NULL);
-    argc = arg_count(argv);
-    newargv = allocate_gc(malloc((argc + 1) * sizeof(char *)));
-    i = 0;
-    while (i < argc)
-    {
-        printable_chars = count_printable_chars(argv[i]);
-        clean = allocate_gc(malloc(printable_chars + 1));
-        copy_without_nonprintables(clean, argv[i]);
-        newargv[i] = clean;
-        i++;
-    }
-    newargv[argc] = NULL;
-    return (newargv);
+	if (!argv)
+		return (free_argv(argv), NULL);
+	argc = arg_count(argv);
+	newargv = allocate_gc(malloc((argc + 1) * sizeof(char *)));
+	i = 0;
+	while (i < argc)
+	{
+		printable_chars = count_printable_chars(argv[i]);
+		clean = allocate_gc(malloc(printable_chars + 1));
+		copy_without_nonprintables(clean, argv[i]);
+		newargv[i] = clean;
+		i++;
+	}
+	newargv[argc] = NULL;
+	return (newargv);
 }

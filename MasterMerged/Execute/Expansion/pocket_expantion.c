@@ -11,28 +11,28 @@ size_t	o_ft_strlen(char *s)
 	return (i);
 }
 
-char    *normal_text(char *str, int *i)
+char	*normal_text(char *str, int *i)
 {
-    int start;
+	int	start;
 
-    start = *i;
+	start = *i;
 	while (str[*i] && str[*i] != '$')
-			(*i)++;
+		(*i)++;
 	return (allocate_gc(ft_substr(str, start, *i - start)));
 }
 
-char *standalone(int *i)
+char	*standalone(int *i)
 {
-    (*i)++;
-    return (allocate_gc(ft_strdup("$")));
+	(*i)++;
+	return (allocate_gc(ft_strdup("$")));
 }
 
-char *expand_key_wrapper(char *str, t_data *data)
+char	*expand_key_wrapper(char *str, t_data *data)
 {
-    data->pc.value = expand_key(str, data, data->pc.keylen, &data->pc.i);
-    if (data->pc.value != NULL)
-        return (data->pc.value);
-    else if (data->pc.value == NULL)
-        return(NULL);
-    return (perror("WHY!"), NULL);
+	data->pc.value = expand_key(str, data, data->pc.keylen, &data->pc.i);
+	if (data->pc.value != NULL)
+		return (data->pc.value);
+	else if (data->pc.value == NULL)
+		return (NULL);
+	return (perror("WHY!"), NULL);
 }
