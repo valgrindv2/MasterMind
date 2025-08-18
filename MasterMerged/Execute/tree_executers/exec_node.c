@@ -8,16 +8,10 @@ static char	*search_in_cwd(char *cmd)
 
 	if (!getcwd(cwd, sizeof(cwd)))
 		return (NULL);
-	tmp = ft_strjoin(cwd, "/");
-	if (!tmp)
-		return (NULL);
-	full_path = ft_strjoin(tmp, cmd);
-	free(tmp);
-	if (!full_path)
-		return (NULL);
+	tmp = allocate_gc(ft_strjoin(cwd, "/"));
+	full_path = allocate_gc(ft_strjoin(tmp, cmd));
 	if (access(full_path, X_OK) == 0)
 		return (full_path);
-	free(full_path);
 	return (NULL);
 }
 
@@ -30,24 +24,16 @@ char	*find_in_path(char *cmd, t_envlist *env)
 	if (!env || !env->value || !env->value[0])
 		return (search_in_cwd(cmd));
 	pt.paths = ft_split(env->value, ':');
-	if (!pt.paths)
-		return (NULL);
 	pt.i = 0;
 	while (pt.paths[pt.i])
 	{
-		pt.tmp = ft_strjoin(pt.paths[pt.i], "/");
-		if (!pt.tmp)
-			return (free_argv(pt.paths), NULL);
-		pt.full_path = ft_strjoin(pt.tmp, cmd);
-		free(pt.tmp);
-		if (!pt.full_path)
-			return (free_argv(pt.paths), NULL);
+		pt.tmp = allocate_gc(ft_strjoin(pt.paths[pt.i], "/"));
+		pt.full_path = allocate_gc(ft_strjoin(pt.tmp, cmd));
 		if (access(pt.full_path, X_OK) == 0)
-			return (free_argv(pt.paths), pt.full_path);
-		free(pt.full_path);
+			return (pt.full_path);
 		pt.i++;
 	}
-	return (free_argv(pt.paths), NULL);
+	return (NULL);
 }
 
 static char	*get_absolute_path(char *cmd, t_envlist *env, int *flag, int *err)
@@ -62,9 +48,9 @@ static char	*get_absolute_path(char *cmd, t_envlist *env, int *flag, int *err)
 		if (is_it_dir(cmd))
 			return (*err = 21, NULL);
 		if (access(cmd, X_OK) == 0)
-			return (*err = errno, ft_strdup(cmd));
+			return (*err = errno, allocate_gc(ft_strdup(cmd)));
 		else if (access(cmd, X_OK) == -1 || access(cmd, F_OK) == -1)
-			return (*flag = 1, *err = errno, ft_strdup(cmd));
+			return (*flag = 1, *err = errno, allocate_gc(ft_strdup(cmd)));
 		return (NULL);
 	}
 	path = find_in_path(cmd, env);
@@ -87,17 +73,12 @@ static int	handle_child(t_tree *node, t_data *data)
 		exit(err_number);
 	if (path[o_ft_strlen(path) - 1] == '/' || flag == 1)
 	{
-		free(path);
 		if (err_number != 0)
-			exit(err_number); // Is a directory (we simulate this case)
+			exit(err_number);
 	}
+	printf("===> %s\n", path);
 	execve(path, node->argv, data->env_vec);
-
-	// TODO: garbage collector cleanup here
-	free(path);
-	free_argv(data->env_vec);
-	free_envlist(data->env);
-	exit(1);
+	exit(pipe_child_free(1));
 }
 
 int	exec_node(t_tree *node, t_data *data)
@@ -108,7 +89,9 @@ int	exec_node(t_tree *node, t_data *data)
 	if (node->fake == true)
 		return (EXIT_SUCCESS);
 	start_signals();
-	id = fork(); // protect.
+	id = fork();
+	if (id == -1)
+		return (mind_free_all(PANIC), EXIT_FAILURE);
 	if (id == 0)
 	{
 		signal(SIGINT, sig_kill);

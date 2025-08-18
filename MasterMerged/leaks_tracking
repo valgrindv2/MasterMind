@@ -1,6 +1,5 @@
 
 
-
 first entry is execute tree_traverser
 
 data->env linked list (NOT in Garbage collector)
@@ -15,8 +14,10 @@ convert list [cleared]
 
 
 
-
 curr line execute_pipeline
+
+
+execute_pipeline fork_pipeline_node
 
 
 
@@ -30,3 +31,4 @@ merge_env (DONE)
 join_system.c (DONE)
 internal_field_utils.c (DONE)
 internal_field_seperator_pass.c (DONE)
+

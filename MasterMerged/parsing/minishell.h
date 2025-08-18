@@ -207,6 +207,7 @@ typedef struct s_pocket
 typedef struct s_mind_alloc
 {
 	void				*ptr;
+	bool				free_at_end;
 	struct s_mind_alloc	*next;
 }	t_mind_alloc;
 
@@ -632,6 +633,10 @@ t_mind_alloc    	**get_head(void);
 void 				tree_gc_collector(t_tree *node);
 void				*allocate_gc_no_exit(void *ptr);
 int					add_to_gc_no_ex(void *new_address);
+int					pipe_child_free(int ret);
+void				*env_allocate_gc(void *ptr);
+char				*env_get_key(char *str);
+char				*env_get_value(char *str);
 
 
 // Linked env

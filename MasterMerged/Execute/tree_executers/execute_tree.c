@@ -25,7 +25,7 @@ static int	exec_command(t_tree *node, t_data *data)
 		if (validate_builtin(node->argv[0]))
 			data->exit_status = exec_builtin(node, data); // after merge
 		else
-			data->exit_status = exec_node(node, data); // after merge
+			data->exit_status = exec_node(node, data);
 	}
 	else
 		data->exit_status = EXIT_SUCCESS;
@@ -61,5 +61,6 @@ int execute_tree(t_tree *root, t_data *data, char **env, void *re_built)
     if (merger(root, data, env) != EXIT_SUCCESS)
         return (perror("Merge Failed"), EXIT_FAILURE);
     rec_exit_status = recursive_execution(root, data);
-    return (mind_free_all(CHILL), rec_exit_status);
+	mind_free_all(CHILL);
+    return (rec_exit_status);
 }

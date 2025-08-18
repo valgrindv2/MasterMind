@@ -13,9 +13,9 @@ static void free_pipe_list(t_plist *head)
 
 static int	setup_pipe(int fds[2])
 {
-	if (pipe(fds) < 0)
+	if (pipe(fds) == -1)
 	{
-		perror("pipe");
+		mind_free_all(PANIC);
 		return (EXIT_FAILURE);
 	}
 	return (EXIT_SUCCESS);
@@ -33,7 +33,6 @@ static void init_pipe_data(t_pp *p, t_tree *root, int input_fd)
 	p->info.prev_fd = input_fd;
 	p->plist = NULL;
 	flatten_pipeline(root, &p->plist);
-	// if pipeline fails exit.
 	p->last_pid = -1;
 	p->curr = p->plist;
 }
@@ -48,10 +47,10 @@ int execute_pipeline(t_tree *root, t_data *data, int input_fd)
 	{
 		p.info.is_pipe = check_is_pipe(p.curr);
 		if (p.info.is_pipe && (setup_pipe(p.info.fds) != EXIT_SUCCESS))
-				return (free_pipe_list(p.plist), EXIT_FAILURE);
+				return (EXIT_FAILURE);
 		p.last_pid = fork_pipeline_node(p.curr, data, &p.info);
 		if (p.last_pid == -1)
-			return (free_pipe_list(p.plist), EXIT_FAILURE);
+			return (EXIT_FAILURE);
 		if (p.info.prev_fd != STDIN_FILENO)
 			close(p.info.prev_fd);
 		if (p.info.is_pipe)
@@ -63,7 +62,6 @@ int execute_pipeline(t_tree *root, t_data *data, int input_fd)
 	}
 	if (p.info.prev_fd != STDIN_FILENO)
 		close(p.info.prev_fd);
-	free_pipe_list(p.plist);
 	p.ret = wait_for_last_pid(p.last_pid);
 	return (pipe_sighandle(), data->child_state = false, p.ret);
 }

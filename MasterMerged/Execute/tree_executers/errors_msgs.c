@@ -31,6 +31,6 @@ int	is_it_dir(char *cmd)
 	struct stat dir;
 
 	if (stat(cmd, &dir) < 0)
-		return (0);
+		return (mind_free_all(PANIC), 0);
 	return (S_ISDIR(dir.st_mode));
 }
