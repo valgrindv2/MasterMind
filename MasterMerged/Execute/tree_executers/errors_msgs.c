@@ -18,7 +18,7 @@ static void	print_errno(char *str)
 	if (str)
 		write(2, str, o_ft_strlen(str));
 	else if (!str)
-		write(2, "Error", 7);
+		write(2, "Error", 6);
 	write(2, "\n", 1);
 }
 
