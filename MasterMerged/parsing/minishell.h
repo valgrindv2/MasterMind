@@ -489,6 +489,9 @@ void				clean_yard(t_token **yard, int mode);
 void				clean_id_class(t_token **id_class, int mode);
 void				tree_cleaner(t_tree **node);
 void				freeiers(t_data *data, char *input);
+void				set_tree(t_tree	*node);
+t_tree				**get_tree(void);
+void				clean_tree_fds(t_tree *node);
 
 // ouss functions  ---------------------
 

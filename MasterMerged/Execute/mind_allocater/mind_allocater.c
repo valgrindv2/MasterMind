@@ -45,7 +45,10 @@ void	mind_free_all(bool panic)
 {
 	t_mind_alloc	**head;
 	t_mind_alloc	*tmp;
+	t_tree			**tree;
 
+	tree = get_tree();
+	clean_tree_fds(*tree);
 	if (panic)
 		perror("PANIC");
 	head = get_head();

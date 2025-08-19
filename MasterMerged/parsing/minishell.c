@@ -56,6 +56,11 @@ t_tree	*masterpasrse(char *input, t_data *data, t_token **prompts)
 	return (build_tree(*prompts, data));
 }
 
+void	f(void)
+{
+	system("leaks minishell");
+}
+
 int	main(int argc, char **argv, char **env)
 {
 	char	*input;
@@ -63,6 +68,7 @@ int	main(int argc, char **argv, char **env)
 	t_tree	*tree;
 	t_token	*re_built;
 
+	// atexit(f);
 	tree = NULL;
 	input = NULL;
 	master_tools(argc, argv, env, &data);
