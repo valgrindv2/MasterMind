@@ -41,6 +41,14 @@ t_tree	**get_tree(void)
 	return (&tree);
 }
 
+void	set_tree(t_tree	*node)
+{
+	t_tree	**tree;
+
+	tree = get_tree();
+	*tree = node;
+}
+
 static void	clean_red_list(t_red *red)
 {
 	if (!red)
