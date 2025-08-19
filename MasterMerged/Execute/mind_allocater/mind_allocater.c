@@ -44,7 +44,6 @@ void	mind_free_all(bool panic)
 	t_mind_alloc	*tmp;
 	t_tree			**tree;
 	t_envlist		**env;
-	char			**pwd;
 
 	tree = get_tree();
 	clean_tree_fds(*tree);
@@ -60,8 +59,8 @@ void	mind_free_all(bool panic)
 	{
 		env = get_env();
 		free_envlist(*env);
-		pwd = get_pwd_reserve();
-		free(*pwd);
+		free(*get_pwd_reserve());
+		free_argv(*get_env_vec());
 		exit(peak_status());
 	}
 }

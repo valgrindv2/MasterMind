@@ -500,6 +500,8 @@ char				**get_pwd_reserve(void);
 int					**get_exit_status(void);
 void				set_exit_status(int *status);
 int					peak_status(void);
+void				set_env_vec(char **envp);
+char				***get_env_vec(void);
 
 // ouss functions  ---------------------
 

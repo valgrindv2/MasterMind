@@ -74,6 +74,7 @@ SRC = minishell.c identificators/identity_tools/identool0.c\
 		../execute/tree_executers/errors_msgs.c ../execute/mind_allocater/get_tree_adrs.c \
 		../execute/tree_executers/handle_red_fds.c ../execute/tree_executers/handle_red_utils.c \
 		../execute/mind_allocater/mind_allocater_utils.c ../execute/o_builtins/unset_tools/unsett2.c \
+		../execute/mind_allocater/gc_env_vec.c \
 		
 
 OBJ = $(SRC:.c=.o)
