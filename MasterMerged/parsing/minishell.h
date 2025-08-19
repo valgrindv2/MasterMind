@@ -497,6 +497,9 @@ t_envlist			**get_env(void);
 void				set_env(t_envlist *env);
 void				set_pwd(char *pwd);
 char				**get_pwd_reserve(void);
+int					**get_exit_status(void);
+void				set_exit_status(int *status);
+int					peak_status(void);
 
 // ouss functions  ---------------------
 

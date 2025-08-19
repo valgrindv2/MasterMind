@@ -76,7 +76,8 @@ static void	numeric_value(char *str, t_data *data)
 		if (data->child_state == false)
 			puterror("exit\n");
 		puterror("Master@Mind: Exit Requires A Numeric Value\n");
-		exit(255);
+		data->exit_status = 255;
+		mind_free_all(PANIC);
 	}
 }
 
@@ -90,7 +91,7 @@ int	o_exit(t_tree *node, t_data *data)
 	{
 		if (data->child_state == false)
 			puterror("exit\n");
-		exit(data->exit_status);
+		mind_free_all(PANIC);
 	}
 	numeric_value(argv[1], data);
 	if (!count_args(argv))
@@ -103,6 +104,7 @@ int	o_exit(t_tree *node, t_data *data)
 	if (data->child_state == false)
 		puterror("exit\n");
 	exit_call = ft_atol(argv[1]);
-	exit(exit_call);
+	data->exit_status = exit_call;
+	mind_free_all(PANIC);
 	return (EXIT_SUCCESS);
 }

@@ -49,3 +49,26 @@ int	exec_builtin(t_tree *node, t_data *data)
 		return (o_exit(node, data));
 	return (EXIT_SUCCESS);
 }
+
+int	**get_exit_status(void)
+{
+	static int	*ex = NULL;
+
+	return (&ex);
+}
+
+void	set_exit_status(int *status)
+{
+	int	**exit_status;
+
+	exit_status = get_exit_status();
+	*exit_status = status;
+}
+
+int	peak_status(void)
+{
+	int	**exit_status;
+
+	exit_status = get_exit_status();
+	return (**exit_status);
+}

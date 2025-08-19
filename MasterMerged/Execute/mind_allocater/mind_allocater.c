@@ -38,9 +38,6 @@ int	add_to_gc(void *new_address)
 	return (EXIT_SUCCESS);
 }
 
-// free env_vec
-// free env
-
 void	mind_free_all(bool panic)
 {
 	t_mind_alloc	**head;
@@ -61,12 +58,11 @@ void	mind_free_all(bool panic)
 	}
 	if (panic)
 	{
-		perror("PANIC");
 		env = get_env();
 		free_envlist(*env);
 		pwd = get_pwd_reserve();
 		free(*pwd);
-		exit(EXIT_FAILURE);
+		exit(peak_status());
 	}
 }
 

@@ -30,13 +30,14 @@ void	master_tools(int argc, char **argv, char **env, t_data *data)
 	init_data_struct(data, env);
 	signal(SIGINT, sig_handler);
 	signal(SIGQUIT, SIG_IGN);
+	set_exit_status(&data->exit_status);
 }
 
 int	scan_input(char *input, t_data *data)
 {
 	if (input == NULL)
 	{
-		printf("exit\n"); //  Garbage coll
+		printf("exit\n");
 		freeiers(data, input);
 		exit (data->exit_status);
 	}
