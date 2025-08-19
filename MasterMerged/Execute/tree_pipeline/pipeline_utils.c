@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipeline_utils.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oimzilen <oimzilen@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ayel-bou <ayel-bou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/18 15:23:33 by oimzilen          #+#    #+#             */
-/*   Updated: 2025/08/18 15:23:33 by oimzilen         ###   ########.fr       */
+/*   Updated: 2025/08/19 05:18:54 by ayel-bou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,6 @@ static void	cmd_add_last(t_tree *node, t_plist **head)
 
 void	flatten_pipeline(t_tree *node, t_plist **head)
 {
-	t_plist	*plist;
-
 	if (!node)
 		return ;
 	if (node->tok == PIPE_ID)

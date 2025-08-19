@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   expand_arglist.c                                   :+:      :+:    :+:   */
+/*   join_system.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oimzilen <oimzilen@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ayel-bou <ayel-bou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/18 16:02:06 by oimzilen          #+#    #+#             */
-/*   Updated: 2025/08/18 16:02:06 by oimzilen         ###   ########.fr       */
+/*   Updated: 2025/08/19 05:17:55 by ayel-bou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,6 @@ char	*join_system(t_arg **p_arg)
 {
 	t_arg	*curr;
 	char	*res;
-	char	*tmp;
 
 	res = NULL;
 	curr = *p_arg;

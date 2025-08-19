@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   valid_identifier.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oimzilen <oimzilen@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ayel-bou <ayel-bou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/18 14:27:38 by oimzilen          #+#    #+#             */
-/*   Updated: 2025/08/18 14:27:38 by oimzilen         ###   ########.fr       */
+/*   Updated: 2025/08/19 05:16:15 by ayel-bou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ static bool	is_printable(char c)
 {
 	if (c == '=')
 		return (true);
-	if (c >= 32 && c <= 126 || c == '\0'
+	if ((c >= 32 && c <= 126) || c == '\0'
 		|| (((9 <= c && c <= 13) || c == 32)))
 	{
 		return (true);

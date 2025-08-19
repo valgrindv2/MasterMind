@@ -3,26 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   tree_pipeline.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oimzilen <oimzilen@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ayel-bou <ayel-bou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/18 15:27:03 by oimzilen          #+#    #+#             */
-/*   Updated: 2025/08/18 15:27:03 by oimzilen         ###   ########.fr       */
+/*   Updated: 2025/08/19 05:10:08 by ayel-bou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../execute.h"
-
-static void	free_pipe_list(t_plist *head)
-{
-	t_plist	*tmp;
-
-	while (head)
-	{
-		tmp = head;
-		head = head->next;
-		free(tmp);
-	}
-}
 
 static int	setup_pipe(int fds[2])
 {

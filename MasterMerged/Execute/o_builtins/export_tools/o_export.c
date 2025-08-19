@@ -3,28 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   o_export.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oimzilen <oimzilen@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ayel-bou <ayel-bou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/18 14:10:34 by oimzilen          #+#    #+#             */
-/*   Updated: 2025/08/18 14:10:34 by oimzilen         ###   ########.fr       */
+/*   Updated: 2025/08/19 05:15:42 by ayel-bou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../execute.h"
-
-static bool	printable(char *str)
-{
-	int	i;
-
-	i = 0;
-	while (str[i])
-	{
-		if (str[i] == ANON)
-			return (false);
-		i++;
-	}
-	return (true);
-}
 
 static void	print_export_list(t_envlist *env)
 {
