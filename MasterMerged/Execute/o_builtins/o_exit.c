@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   o_exit.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oimzilen <oimzilen@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ayel-bou <ayel-bou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/18 15:11:48 by oimzilen          #+#    #+#             */
-/*   Updated: 2025/08/18 15:11:48 by oimzilen         ###   ########.fr       */
+/*   Updated: 2025/08/19 05:15:02 by ayel-bou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,6 @@ static void	numeric_value(char *str, t_data *data)
 int	o_exit(t_tree *node, t_data *data)
 {
 	char	**argv;
-	int		in_parent;
 	long	exit_call;
 
 	argv = node->argv;

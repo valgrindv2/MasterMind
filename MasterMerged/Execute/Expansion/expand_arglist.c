@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand_arglist.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oimzilen <oimzilen@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ayel-bou <ayel-bou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/18 16:02:06 by oimzilen          #+#    #+#             */
-/*   Updated: 2025/08/18 16:02:06 by oimzilen         ###   ########.fr       */
+/*   Updated: 2025/08/19 05:17:30 by ayel-bou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,6 @@ char	*expand_var(char *str, t_data *data, bool was_d_quoted)
 int	expand_list(t_arg *arg, t_data *data)
 {
 	t_arg	*curr;
-	char	*expanded;
 
 	curr = arg;
 	while (curr)

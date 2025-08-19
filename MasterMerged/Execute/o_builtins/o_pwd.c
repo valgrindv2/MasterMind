@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   o_pwd.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oimzilen <oimzilen@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ayel-bou <ayel-bou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/18 15:15:17 by oimzilen          #+#    #+#             */
-/*   Updated: 2025/08/18 15:15:17 by oimzilen         ###   ########.fr       */
+/*   Updated: 2025/08/19 05:17:15 by ayel-bou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	o_pwd(t_tree *node, t_data *data)
 {
-	char	*path;
+	(void)node;
 	char	pwd[PATH_MAX];
 
 	if (getcwd(pwd, sizeof(pwd)))

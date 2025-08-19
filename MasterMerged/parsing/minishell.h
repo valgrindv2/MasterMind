@@ -6,7 +6,7 @@
 /*   By: ayel-bou <ayel-bou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/04 03:32:22 by ayel-bou          #+#    #+#             */
-/*   Updated: 2025/08/18 13:41:28 by ayel-bou         ###   ########.fr       */
+/*   Updated: 2025/08/19 04:59:55 by ayel-bou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -289,13 +289,12 @@ typedef struct s_token
 	t_arg			*arg;
 }	t_token;
 
-typedef	struct	s_ff
+typedef struct s_ff
 {
 	struct dirent	*entry;
 	char			**files;
-    int				i;
+	int				i;
 }	t_ff;
-
 
 // Signal Tools
 void				sig_handler(int signum);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   o_cd.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oimzilen <oimzilen@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ayel-bou <ayel-bou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/18 14:56:15 by oimzilen          #+#    #+#             */
-/*   Updated: 2025/08/18 14:56:15 by oimzilen         ###   ########.fr       */
+/*   Updated: 2025/08/19 05:14:46 by ayel-bou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,6 @@ static int	new_wdir_t(t_tree *node, t_data *data, int *chpwd)
 static int	unreachable(t_tree *node, t_data *data)
 {
 	char	*tmp;
-	char	pwd[PATH_MAX];
 
 	if (con_check(node))
 		return (0);
@@ -86,7 +85,6 @@ static int	op_dir(t_tree *node, t_data *data, int *x)
 
 static int	new_wdir(t_tree *node, t_data *data, int *chpwd)
 {
-	char	*pwd;
 	DIR		*dir;
 	int		x;
 

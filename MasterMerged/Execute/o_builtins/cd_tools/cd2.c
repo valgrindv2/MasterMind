@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd2.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oimzilen <oimzilen@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ayel-bou <ayel-bou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/18 14:41:09 by oimzilen          #+#    #+#             */
-/*   Updated: 2025/08/18 14:41:09 by oimzilen         ###   ########.fr       */
+/*   Updated: 2025/08/19 05:08:21 by ayel-bou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ int	update_old(t_tree *node, t_data *data)
 {
 	char	*oldpwd;
 
+	(void)node;
 	oldpwd = get_path(data->env, P_W_D);
 	if (!oldpwd)
 	{
@@ -43,6 +44,7 @@ int	reserve_pwd(t_tree *node, t_data *data, int one, int two)
 	char	*tmp;
 	char	*pwd;
 
+	(void)node;
 	pwd = get_path(data->env, P_W_D);
 	tmp = data->pwd_reserve;
 	if (!pwd)
@@ -97,9 +99,9 @@ int	get_last_slash(char *pwd, int constant)
 
 int	dir_verify(DIR *dir, char **arg)
 {
-	if (!dir && !(arg[1][0] == '.' && arg[1][1] == '.'
-			&& arg[1][2] == '\0')
-		|| !dir && (arg[1][0] == '.' && arg[1][1] == '\0'))
+	if ((!dir && !(arg[1][0] == '.' && arg[1][1] == '.'
+			&& arg[1][2] == '\0'))
+		|| (!dir && (arg[1][0] == '.' && arg[1][1] == '\0')))
 		return (1);
 	if (dir)
 		closedir(dir);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute_tree.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oimzilen <oimzilen@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ayel-bou <ayel-bou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/18 15:28:26 by oimzilen          #+#    #+#             */
-/*   Updated: 2025/08/18 15:28:26 by oimzilen         ###   ########.fr       */
+/*   Updated: 2025/08/19 05:08:45 by ayel-bou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,8 @@ int	recursive_execution(t_tree *node, t_data *data)
 int	execute_tree(t_tree *root, t_data *data, char **env, void *re_built)
 {
 	int	rec_exit_status;
-
+	
+	(void)re_built;
 	if (!root)
 		return (EXIT_FAILURE);
 	tree_gc_collector(root);
