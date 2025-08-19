@@ -84,8 +84,10 @@ static int	handle_child(t_tree *node, t_data *data)
 		path = node->argv[0];
 	}
 	if (execve(path, node->argv, data->env_vec) != 0)
-		exit(errors_msgs(errno, node->argv[0]));
-	exit(pipe_child_free(1));
+	{
+		exit(pipe_child_free((errors_msgs(errno, node->argv[0]))));
+	}
+	return (EXIT_SUCCESS);
 }
 
 int	exec_node(t_tree *node, t_data *data)

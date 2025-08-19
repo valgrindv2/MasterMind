@@ -66,7 +66,11 @@ int	pipe_child_free(int ret)
 {
 	t_mind_alloc	**head;
 	t_mind_alloc	*tmp;
+	t_tree			**tree;
+	t_envlist		**env;
 
+	tree = get_tree();
+	clean_tree_fds(*tree);
 	head = get_head();
 	while (*head)
 	{
@@ -75,5 +79,9 @@ int	pipe_child_free(int ret)
 		free(*head);
 		*head = tmp;
 	}
+	env = get_env();
+	free_envlist(*env);
+	free(*get_pwd_reserve());
+	free_argv(*get_env_vec());
 	return (ret);
 }
