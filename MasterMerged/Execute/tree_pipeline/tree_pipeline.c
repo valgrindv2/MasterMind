@@ -51,16 +51,20 @@ int	execute_pipeline(t_tree *root, t_data *data, int input_fd)
 		p.last_pid = fork_pipeline_node(p.curr, data, &p.info);
 		if (p.last_pid == -1)
 			return (EXIT_FAILURE);
-		if (p.info.prev_fd != STDIN_FILENO)
+		if (p.info.prev_fd != STDIN_FILENO && p.info.prev_fd != -1)
+		{
 			close(p.info.prev_fd);
+			p.info.prev_fd = -1;
+		}
 		if (p.info.is_pipe)
 		{
 			close(p.info.fds[1]);
+			p.info.fds[1] = -1;
 			p.info.prev_fd = p.info.fds[0];
 		}
 		p.curr = p.curr->next;
 	}
-	if (p.info.prev_fd != STDIN_FILENO)
+	if (p.info.prev_fd != STDIN_FILENO && p.info.prev_fd != -1)
 		close(p.info.prev_fd);
 	p.ret = wait_for_last_pid(p.last_pid);
 	return (pipe_sighandle(), data->child_state = false, p.ret);

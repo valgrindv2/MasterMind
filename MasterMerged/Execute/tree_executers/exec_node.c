@@ -35,7 +35,7 @@ char	*find_in_path(char *cmd, t_envlist *env)
 		env = env->next;
 	if (!env || !env->value || !env->value[0])
 		return (search_in_cwd(cmd));
-	pt.paths = allocate_gc(ft_split(env->value, ':'));
+	pt.paths = ft_split(env->value, ':');
 	pt.i = 0;
 	while (pt.paths[pt.i])
 	{
