@@ -6,7 +6,7 @@
 /*   By: ayel-bou <ayel-bou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/04 03:32:22 by ayel-bou          #+#    #+#             */
-/*   Updated: 2025/08/19 06:28:29 by ayel-bou         ###   ########.fr       */
+/*   Updated: 2025/08/19 08:54:08 by ayel-bou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@
 # include <string.h>
 # include <errno.h>
 # include <sys/stat.h>
+# include "../execute/execute.h"
 
 // Macros
 # define F 1

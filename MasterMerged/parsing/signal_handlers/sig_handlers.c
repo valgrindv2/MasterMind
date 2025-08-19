@@ -6,7 +6,7 @@
 /*   By: ayel-bou <ayel-bou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/03 20:52:11 by ayel-bou          #+#    #+#             */
-/*   Updated: 2025/08/16 07:27:07 by ayel-bou         ###   ########.fr       */
+/*   Updated: 2025/08/19 08:54:42 by ayel-bou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ void	sig_heredoc(int signum)
 void	sig_kill(int signum)
 {
 	if (signum == SIGINT)
-		exit(F);
+		mind_free_all(PANIC);
 	else if (signum == SIGQUIT)
-		exit(F);
+		mind_free_all(PANIC);
 }
