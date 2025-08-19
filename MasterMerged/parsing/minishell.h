@@ -203,7 +203,7 @@ typedef struct s_pocket
 	size_t	cap;
 }	t_pocket;
 
-// garbage collector
+// Garbage collector
 typedef struct s_mind_alloc
 {
 	void				*ptr;
@@ -220,6 +220,16 @@ typedef struct s_udouble
 	int		mc_argc;
 	char	**split;
 }	t_udouble;
+// Wild Card
+typedef struct s_wcard
+{
+	char		**files;
+	t_arg		*curr;
+	t_arg		*next;
+	int			i;
+	t_arg		*new_node;
+
+}	t_wcard;
 
 // Struct Holding MasterMind Data
 typedef struct s_data

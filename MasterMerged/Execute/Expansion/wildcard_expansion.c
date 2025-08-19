@@ -66,34 +66,31 @@ static t_arg	*create_arg_node(char *value, t_grammar tok)
 
 int	expand_star_in_arg(t_arg *arg)
 {
-	char	**files;
-	t_arg	*curr;
-	t_arg	*next;
-	int		i;
-	t_arg	*new_node;
+	t_wcard	wc;
 
-	files = get_all_files();
-	if (!files || !files[0])
+	wc.files = get_all_files();
+	if (!wc.files || !wc.files[0])
 		return (EXIT_SUCCESS);
-	sort_files(files);
-	next = arg->next;
-	arg->value = allocate_gc_no_exit(ft_strdup(files[0]));
-	if (arg->value)
-		return (free_argv(files), EXIT_FAILURE);
+	sort_files(wc.files);
+	wc.next = arg->next;
+	arg->value = allocate_gc_no_exit(ft_strdup(wc.files[0]));
+	if (!arg->value)
+		return (free_argv(wc.files), EXIT_FAILURE);
 	arg->was_s_quote = 0;
 	arg->was_d_quote = 0;
 	arg->space_next = 1;
-	curr = arg;
-	i = 1;
-	while (files[i])
+	wc.curr = arg;
+	wc.i = 1;
+	while (wc.files[wc.i])
 	{
-		new_node = allocate_gc_no_exit(create_arg_node(files[i++], curr->tok));
-		if (!new_node)
-			return (free_argv(files), EXIT_FAILURE);
-		curr->next = new_node;
-		curr = new_node;
+		wc.new_node = allocate_gc_no_exit(create_arg_node(wc.files[wc.i++],
+					wc.curr->tok));
+		if (!wc.new_node)
+			return (free_argv(wc.files), EXIT_FAILURE);
+		wc.curr->next = wc.new_node;
+		wc.curr = wc.new_node;
 	}
-	return (curr->next = next, free_argv(files), EXIT_SUCCESS);
+	return (wc.curr->next = wc.next, free_argv(wc.files), EXIT_SUCCESS);
 }
 
 int	try_expand_wildcard(t_arg *arg)

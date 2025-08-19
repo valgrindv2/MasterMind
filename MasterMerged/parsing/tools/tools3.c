@@ -21,7 +21,6 @@ static void	init_data_tt(t_data *data)
 	data->unreach = false;
 	data->home_p = NULL;
 	data->br_fail = 0;
-	data->pwd_reserve = NULL;
 	data->export_status = false;
 	data->pid = 1111;
 	data->last_executed = NULL;

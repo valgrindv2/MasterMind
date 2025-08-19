@@ -129,6 +129,7 @@ int	o_cd(t_tree *node, t_data *data)
 			return (EXIT_FAILURE);
 		free(data->pwd_reserve);
 		data->pwd_reserve = ft_strdup(data->home_p);
+		set_pwd(data->pwd_reserve);
 		if (!data->pwd_reserve)
 			return (EXIT_FAILURE);
 		return (EXIT_SUCCESS);

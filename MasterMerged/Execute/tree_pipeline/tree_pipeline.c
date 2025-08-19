@@ -38,6 +38,13 @@ static void	init_pipe_data(t_pp *p, t_tree *root, int input_fd)
 	p->curr = p->plist;
 }
 
+static void	update_prev(t_pp *p)
+{
+	close(p->info.fds[1]);
+	p->info.fds[1] = -1;
+	p->info.prev_fd = p->info.fds[0];
+}
+
 int	execute_pipeline(t_tree *root, t_data *data, int input_fd)
 {
 	t_pp	p;
@@ -57,11 +64,7 @@ int	execute_pipeline(t_tree *root, t_data *data, int input_fd)
 			p.info.prev_fd = -1;
 		}
 		if (p.info.is_pipe)
-		{
-			close(p.info.fds[1]);
-			p.info.fds[1] = -1;
-			p.info.prev_fd = p.info.fds[0];
-		}
+			update_prev(&p);
 		p.curr = p.curr->next;
 	}
 	if (p.info.prev_fd != STDIN_FILENO && p.info.prev_fd != -1)

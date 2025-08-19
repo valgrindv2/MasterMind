@@ -48,6 +48,7 @@ int	reserve_pwd(t_tree *node, t_data *data, int one, int two)
 	if (!pwd)
 		return (EXIT_FAILURE);
 	data->pwd_reserve = reserve_tool(pwd, data, two, one);
+	set_pwd(data->pwd_reserve);
 	if (!data->pwd_reserve)
 		return (EXIT_FAILURE);
 	return (EXIT_SUCCESS);
