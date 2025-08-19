@@ -95,6 +95,7 @@ int	red_here_doc(t_red *red, t_data *data)
 
 	if (red->fd_here_doc == -1)
 		return (data->here_int = true, EXIT_SUCCESS);
+	data->here_int = false;
 	joined = NULL;
 	read_file(red, &joined);
 	if (!joined)

@@ -87,7 +87,7 @@ static int	open_heredoc(t_token *id_class, t_token *curr, t_data *data)
 		return (close(data->here_fd), data->here_fd = -1,
 			free(del), free(gename), 0);
 	unlink(gename);
-	if (!here_doc_ops(id_class, data, del))
+	if (!here_doc_ops(curr, data, del))
 		return (free(del), free(gename), 0);
 	return (free(del), free(gename), 1);
 }

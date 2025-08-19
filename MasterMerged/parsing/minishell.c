@@ -52,6 +52,7 @@ t_tree	*masterpasrse(char *input, t_data *data, t_token **prompts)
 
 	if (!edge_braces(input, data))
 		return (NULL);
+	data->here_node = 0;
 	token = get_identity(input, data);
 	*prompts = re_identity(token);
 	return (build_tree(*prompts, data));

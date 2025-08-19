@@ -263,6 +263,8 @@ typedef struct s_data
 	bool			child_state;
 	bool			piped;
 	bool			here_int;
+	bool			bug;
+	int				here_node;
 }	t_data;
 
 // Linked List To Store Each Entity
@@ -294,6 +296,7 @@ typedef struct s_token
 	bool			cmd_up_next;
 	bool			cmd_added;
 	bool			alre_doc;
+	bool			passed;
 	struct s_token	*next;
 	enum grammar	tok;
 	char			*identity;

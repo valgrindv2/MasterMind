@@ -49,6 +49,8 @@ void	init_data_struct(t_data *data, char **env)
 	data->saved_out = -1;
 	data->read_f = false;
 	data->piped = false;
+	data->bug = true;
+	data->here_node = 0;
 	init_data_tt(data);
 }
 

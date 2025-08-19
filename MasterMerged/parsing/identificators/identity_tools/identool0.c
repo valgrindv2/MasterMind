@@ -35,6 +35,7 @@ void	init_properties(t_token *new)
 	new->brace_c = 0;
 	new->used = false;
 	new->space_next = 0;
+	new->passed = false;
 	init_tool(new);
 }
 
@@ -51,6 +52,7 @@ static int	re_initialization(t_token *new, t_token *old)
 	new->del_fd = old->del_fd;
 	new->firsts = old->firsts;
 	new->marked = old->marked;
+	new->passed = old->passed;
 	re_init_tool(new, old);
 	if (old->here_doc_fd != -1)
 	{

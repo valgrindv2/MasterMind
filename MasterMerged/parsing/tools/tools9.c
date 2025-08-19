@@ -76,7 +76,7 @@ int	here_doc_ops(t_token *id_class, t_data *data, char *del)
 	close(data->here_fd);
 	data->here_fd = -1;
 	signal(SIGINT, sig_handler);
-	if (!store_fd(id_class, data))
+	if (!store_fd(id_class->next, data))
 		return (free(in), 0);
 	return (free(in), 1);
 }
