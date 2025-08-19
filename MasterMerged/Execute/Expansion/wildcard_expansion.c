@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   wildcard_expansion.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oimzilen <oimzilen@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ayel-bou <ayel-bou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/18 16:00:58 by oimzilen          #+#    #+#             */
-/*   Updated: 2025/08/18 16:00:58 by oimzilen         ###   ########.fr       */
+/*   Updated: 2025/08/19 06:22:23 by ayel-bou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,17 +14,12 @@
 
 static char	**fill_files_array(int count)
 {
-	DIR		*dir;
 	t_ff	ff;
 
-	ff.files = alloc_files(count);
-	if (!ff.files)
+	if (!init_asterisk(&ff, count))
 		return (NULL);
-	dir = opendir(".");
-	if (!dir)
-		return (free(ff.files), NULL);
 	ff.i = 0;
-	ff.entry = readdir(dir);
+	ff.entry = readdir(ff.dir);
 	while (ff.entry)
 	{
 		if (ff.entry->d_name[0] != '.')
@@ -34,13 +29,13 @@ static char	**fill_files_array(int count)
 			{
 				while (--ff.i >= 0)
 					free(ff.files[ff.i]);
-				return (free(ff.files), closedir(dir), NULL);
+				return (free(ff.files), closedir(ff.dir), NULL);
 			}
 			ff.i++;
 		}
-		ff.entry = readdir(dir);
+		ff.entry = readdir(ff.dir);
 	}
-	return (ff.files[ff.i] = NULL, closedir(dir), ff.files);
+	return (ff.files[ff.i] = NULL, closedir(ff.dir), ff.files);
 }
 
 char	**get_all_files(void)

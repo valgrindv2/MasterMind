@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   expand_arglist.c                                   :+:      :+:    :+:   */
+/*   split_ifs.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oimzilen <oimzilen@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ayel-bou <ayel-bou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/18 16:02:06 by oimzilen          #+#    #+#             */
-/*   Updated: 2025/08/18 16:02:06 by oimzilen         ###   ########.fr       */
+/*   Updated: 2025/08/19 06:13:00 by ayel-bou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,32 +63,28 @@ bool	only_spaces(char *raw)
 
 int	expand_unqoted_d(char ***pockets, t_data *data, char *raw)
 {
-	int		i;
-	int		j;
-	char	**new_pocket;
-	int		mc_argc;
-	char	**split;
+	t_udouble	ud;
 
-	split = tab_split(raw, " \t\n\v\f\r");
-	mc_argc = arg_count(split);
-	new_pocket = allocate_gc(malloc((data->pc.j + mc_argc + 1)
+	ud.split = tab_split(raw, " \t\n\v\f\r");
+	ud.mc_argc = arg_count(ud.split);
+	ud.new_pocket = allocate_gc(malloc((data->pc.j + ud.mc_argc + 1)
 				* sizeof(char *)));
-	i = 0;
-	while (i < data->pc.j)
+	ud.i = 0;
+	while (ud.i < data->pc.j)
 	{
-		new_pocket[i] = allocate_gc(ft_strdup((*pockets)[i]));
-		i++;
+		ud.new_pocket[ud.i] = allocate_gc(ft_strdup((*pockets)[ud.i]));
+		ud.i++;
 	}
-	j = 0;
-	while (split[j])
+	ud.j = 0;
+	while (ud.split[ud.j])
 	{
-		if (j == 0)
-			new_pocket[i++] = back_append_delimiter(split[j++]);
-		else if (split[j] && split[j + 1] == NULL)
-			new_pocket[i++] = front_append_delimiter(split[j++]);
+		if (ud.j == 0)
+			ud.new_pocket[ud.i++] = back_append_delimiter(ud.split[ud.j++]);
+		else if (ud.split[ud.j] && ud.split[ud.j + 1] == NULL)
+			ud.new_pocket[ud.i++] = front_append_delimiter(ud.split[ud.j++]);
 		else
-			new_pocket[i++] = append_delimiter(split[j++]);
+			ud.new_pocket[ud.i++] = append_delimiter(ud.split[ud.j++]);
 	}
-	return (new_pocket[i] = NULL, (*pockets) = new_pocket,
-		data->pc.j = i, EXIT_SUCCESS);
+	return (ud.new_pocket[ud.i] = NULL, (*pockets) = ud.new_pocket,
+		data->pc.j = ud.i, EXIT_SUCCESS);
 }

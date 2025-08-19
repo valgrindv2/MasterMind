@@ -6,7 +6,7 @@
 /*   By: ayel-bou <ayel-bou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/18 16:01:35 by oimzilen          #+#    #+#             */
-/*   Updated: 2025/08/19 05:00:27 by ayel-bou         ###   ########.fr       */
+/*   Updated: 2025/08/19 06:18:03 by ayel-bou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,4 +71,15 @@ char	**alloc_files(int count)
 	if (!files)
 		return (NULL);
 	return (files);
+}
+
+int	init_asterisk(t_ff *ff, int count)
+{
+	ff->files = alloc_files(count);
+	if (!ff->files)
+		return (0);
+	ff->dir = opendir(".");
+	if (!ff->dir)
+		return (free(ff->files), 0);
+	return (1);
 }

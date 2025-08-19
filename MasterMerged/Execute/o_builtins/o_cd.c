@@ -6,7 +6,7 @@
 /*   By: ayel-bou <ayel-bou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/18 14:56:15 by oimzilen          #+#    #+#             */
-/*   Updated: 2025/08/19 05:14:46 by ayel-bou         ###   ########.fr       */
+/*   Updated: 2025/08/19 06:32:36 by ayel-bou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,10 +115,7 @@ int	o_cd(t_tree *node, t_data *data)
 {
 	int		chpwd;
 
-	chpwd = 0;
-	data->unreach = false;
-	data->check = false;
-	data->home_p = handle_no_arg(node, data);
+	init_cd_tools(node, data, &chpwd);
 	if (!data->home_p && data->check == true)
 		return (EXIT_FAILURE);
 	else if (data->home_p && !node->argv[1])

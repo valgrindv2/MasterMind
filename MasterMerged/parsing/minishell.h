@@ -6,7 +6,7 @@
 /*   By: ayel-bou <ayel-bou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/04 03:32:22 by ayel-bou          #+#    #+#             */
-/*   Updated: 2025/08/19 04:59:55 by ayel-bou         ###   ########.fr       */
+/*   Updated: 2025/08/19 06:28:29 by ayel-bou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -210,6 +210,16 @@ typedef struct s_mind_alloc
 	struct s_mind_alloc	*next;
 }	t_mind_alloc;
 
+// Expand Helper Struct
+typedef struct s_udouble
+{
+	int		i;
+	int		j;
+	char	**new_pocket;
+	int		mc_argc;
+	char	**split;
+}	t_udouble;
+
 // Struct Holding MasterMind Data
 typedef struct s_data
 {
@@ -294,6 +304,7 @@ typedef struct s_ff
 	struct dirent	*entry;
 	char			**files;
 	int				i;
+	DIR				*dir;
 }	t_ff;
 
 // Signal Tools
@@ -560,8 +571,12 @@ int					errors_msgs(int err);
 int					is_it_dir(char *cmd);
 
 // Builtins
+size_t				arg_count(char **argv);
 int					o_echo(t_tree *node);
+void				delete(t_envlist *node);
 bool				validate_builtin(char *str);
+bool				valid_identifier(char *str);
+bool				valid_identifier_un(char *str);
 int					o_cd(t_tree *node, t_data *data);
 int					o_pwd(t_tree *node, t_data *data);
 int					o_env(t_tree *node, t_data *data);
@@ -569,10 +584,7 @@ int					o_exit(t_tree *node, t_data *data);
 int					o_unset(t_tree *node, t_data *data);
 int					o_export(t_tree *node, t_data *data);
 int					exec_builtin(t_tree *node, t_data *data);
-bool				valid_identifier(char *str);
-bool				valid_identifier_un(char *str);
-size_t				arg_count(char **argv);
-void				delete(t_envlist *node);
+char				*reserve_tool(char *pwd, t_data *data, int two, int one);
 
 // Export
 int					add_last_executed(t_tree *node, t_data *data);
@@ -631,6 +643,7 @@ int					try_expand_wildcard(t_arg *arg);
 void				sort_files(char **files);
 int					count_files(void);
 char				**alloc_files(int count);
+int					init_asterisk(t_ff *ff, int count);
 
 // garbage collector.
 
@@ -692,6 +705,7 @@ char				**remove_nonprintables_argv(char **argv);
 // Builtins Tools
 int					con_check(t_tree *node);
 int					dir_verify(DIR *dir, char **arg);
+bool				check_identifier(char *str, int i);
 char				*get_path(t_envlist *env, char *name);
 int					update_old(t_tree *node, t_data *data);
 int					get_last_slash(char *pwd, int constant);
@@ -705,7 +719,8 @@ void				check_dots(t_tree *node, int *one_dot,
 						int *two_dot);
 int					change_pwd(char *name, t_envlist *env,
 						char *update);
-bool				check_identifier(char *str, int i);
+void				init_cd_tools(t_tree *node, t_data *data,
+						int *chpwd);
 
 // ----------------------------------------------------------------------------
 #endif

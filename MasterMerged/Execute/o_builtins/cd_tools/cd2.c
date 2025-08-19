@@ -6,7 +6,7 @@
 /*   By: ayel-bou <ayel-bou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/18 14:41:09 by oimzilen          #+#    #+#             */
-/*   Updated: 2025/08/19 05:46:44 by ayel-bou         ###   ########.fr       */
+/*   Updated: 2025/08/19 05:58:58 by ayel-bou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,29 +41,13 @@ void	check_dots(t_tree *node, int *one_dot, int *two_dot)
 
 int	reserve_pwd(t_tree *node, t_data *data, int one, int two)
 {
-	char	*tmp;
 	char	*pwd;
 
 	(void)node;
 	pwd = get_path(data->env, P_W_D);
-	tmp = data->pwd_reserve;
 	if (!pwd)
 		return (EXIT_FAILURE);
-	if (two && data->flag == 1)
-	{
-		data->pwd_reserve = ft_strjoin(data->pwd_reserve, "/..");
-		free(tmp);
-	}
-	else if (one && data->flag == 1)
-	{
-		data->pwd_reserve = ft_strjoin(data->pwd_reserve, "/.");
-		free(tmp);
-	}
-	else
-	{
-		free(data->pwd_reserve);
-		data->pwd_reserve = ft_strdup(pwd);
-	}
+	data->pwd_reserve = reserve_tool(pwd, data, two, one);
 	if (!data->pwd_reserve)
 		return (EXIT_FAILURE);
 	return (EXIT_SUCCESS);

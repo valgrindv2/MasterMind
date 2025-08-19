@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mind_allocater.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oimzilen <oimzilen@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ayel-bou <ayel-bou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/18 15:54:47 by oimzilen          #+#    #+#             */
-/*   Updated: 2025/08/18 15:54:47 by oimzilen         ###   ########.fr       */
+/*   Updated: 2025/08/19 05:51:43 by ayel-bou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,8 @@ void	mind_free_all(bool panic)
 	}
 	if (panic)
 	{
+		// FREE ENV LIST
+		// FREE PWD RESERVED ALLOCATED IN DATA STRUCT
 		exit(EXIT_FAILURE);
 	}
 }
