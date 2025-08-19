@@ -6,7 +6,7 @@
 /*   By: ayel-bou <ayel-bou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/18 14:41:09 by oimzilen          #+#    #+#             */
-/*   Updated: 2025/08/19 05:08:21 by ayel-bou         ###   ########.fr       */
+/*   Updated: 2025/08/19 05:46:44 by ayel-bou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,7 @@ int	get_last_slash(char *pwd, int constant)
 int	dir_verify(DIR *dir, char **arg)
 {
 	if ((!dir && !(arg[1][0] == '.' && arg[1][1] == '.'
-			&& arg[1][2] == '\0'))
+		&& arg[1][2] == '\0'))
 		|| (!dir && (arg[1][0] == '.' && arg[1][1] == '\0')))
 		return (1);
 	if (dir)

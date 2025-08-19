@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   unsett2.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oimzilen <oimzilen@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ayel-bou <ayel-bou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/18 14:51:01 by oimzilen          #+#    #+#             */
-/*   Updated: 2025/08/18 14:51:01 by oimzilen         ###   ########.fr       */
+/*   Updated: 2025/08/19 05:40:04 by ayel-bou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ static bool	is_printable(char c)
 {
 	if (c == '=')
 		return (true);
-	if (c >= 32 && c <= 126 || c == '\0')
+	if ((c >= 32 && c <= 126) || c == '\0')
 	{
 		return (true);
 	}
