@@ -94,7 +94,7 @@ int	red_here_doc(t_red *red, t_data *data)
 	int		pipefd[2];
 
 	if (red->fd_here_doc == -1)
-		return (EXIT_SUCCESS);
+		return (data->here_int = true, EXIT_SUCCESS);
 	joined = NULL;
 	read_file(red, &joined);
 	if (!joined)

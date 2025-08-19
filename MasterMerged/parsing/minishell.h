@@ -261,6 +261,7 @@ typedef struct s_data
 	char			**pockets;
 	bool			child_state;
 	bool			piped;
+	bool			here_int;
 }	t_data;
 
 // Linked List To Store Each Entity

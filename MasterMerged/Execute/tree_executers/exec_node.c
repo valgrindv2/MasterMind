@@ -99,6 +99,8 @@ int	exec_node(t_tree *node, t_data *data)
 
 	if (node->fake == true)
 		return (EXIT_SUCCESS);
+	if (data->here_int == true)
+		return (data->here_int = false, EXIT_SUCCESS);
 	start_signals();
 	id = fork();
 	if (id == -1)
