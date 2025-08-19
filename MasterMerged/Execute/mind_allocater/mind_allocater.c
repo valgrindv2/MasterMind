@@ -46,6 +46,8 @@ void	mind_free_all(bool panic)
 	t_mind_alloc	**head;
 	t_mind_alloc	*tmp;
 
+	if (panic)
+		perror("PANIC");
 	head = get_head();
 	while (*head)
 	{
@@ -56,7 +58,6 @@ void	mind_free_all(bool panic)
 	}
 	if (panic)
 	{
-		perror("PANIC");
 		exit(EXIT_FAILURE);
 	}
 }

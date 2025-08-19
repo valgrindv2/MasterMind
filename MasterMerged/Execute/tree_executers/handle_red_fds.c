@@ -6,7 +6,7 @@
 /*   By: oimzilen <oimzilen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/18 15:31:09 by oimzilen          #+#    #+#             */
-/*   Updated: 2025/08/18 15:44:01 by oimzilen         ###   ########.fr       */
+/*   Updated: 2025/08/19 05:32:51 by oimzilen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,13 @@ int	red_in(t_red *red, t_data *data)
 {
 	int	in_fd;
 
+	(void)data;
 	in_fd = open(red->value, O_RDONLY);
 	if (in_fd == -1)
-		return (puterror("Master@Mind:"), puterror(red->value),
+		return (puterror("Master@Mind: "), puterror(red->value),
 			perror(" "), EXIT_FAILURE);
 	if (dup2(in_fd, STDIN_FILENO) == -1)
-		return (puterror("Master@Mind:"), puterror(red->value),
+		return (puterror("Master@Mind: "), puterror(red->value),
 			close(in_fd), EXIT_FAILURE);
 	close(in_fd);
 	return (EXIT_SUCCESS);
@@ -31,12 +32,13 @@ int	red_out(t_red *red, t_data *data)
 {
 	int	out_fd;
 
+	(void)data;
 	out_fd = open(red->value, O_CREAT | O_WRONLY | O_TRUNC, 0644);
 	if (out_fd == -1)
-		return (puterror("Master@Mind:"), puterror(red->value),
+		return (puterror("Master@Mind: "), puterror(red->value),
 			perror(" "), EXIT_FAILURE);
 	if (dup2(out_fd, STDOUT_FILENO) == -1)
-		return (puterror("Master@Mind:"), puterror(red->value),
+		return (puterror("Master@Mind: "), puterror(red->value),
 			perror(" "), close(out_fd), EXIT_FAILURE);
 	close(out_fd);
 	return (EXIT_SUCCESS);
@@ -46,12 +48,13 @@ int	red_append(t_red *red, t_data *data)
 {
 	int	out_fd;
 
+	(void)data;
 	out_fd = open(red->value, O_CREAT | O_WRONLY | O_APPEND, 0644);
 	if (out_fd == -1)
-		return (puterror("Master@Mind:"), puterror(red->value),
+		return (puterror("Master@Mind: "), puterror(red->value),
 			perror(" "), EXIT_FAILURE);
 	if (dup2(out_fd, STDOUT_FILENO) == -1)
-		return (puterror("Master@Mind:"), puterror(red->value),
+		return (puterror("Master@Mind: "), puterror(red->value),
 			perror(" "), close(out_fd), EXIT_FAILURE);
 	close(out_fd);
 	return (EXIT_SUCCESS);
@@ -64,7 +67,7 @@ int	read_file(t_red *red, char **joined)
 
 	file = get_next_line(red->fd_here_doc);
 	if (!file)
-		return (EXIT_FAILURE);
+		return (EXIT_SUCCESS);
 	while (file)
 	{
 		tmp = *joined;
@@ -74,20 +77,18 @@ int	read_file(t_red *red, char **joined)
 			free(tmp);
 			free(file);
 			get_next_line(-1);
-			return (EXIT_FAILURE);
+			return (mind_free_all(PANIC), EXIT_FAILURE);
 		}
 		free(tmp);
 		free(file);
 		file = get_next_line(red->fd_here_doc);
-		if (!file)
-			return (free(joined), get_next_line(-1), EXIT_FAILURE);
 	}
+	get_next_line(-1);
 	return (EXIT_SUCCESS);
 }
 
 int	red_here_doc(t_red *red, t_data *data)
 {
-	char	*file;
 	char	*joined ;
 	char	*expanded;
 	int		pipefd[2];
