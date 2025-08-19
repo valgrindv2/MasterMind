@@ -35,7 +35,7 @@ char	*find_in_path(char *cmd, t_envlist *env)
 		env = env->next;
 	if (!env || !env->value || !env->value[0])
 		return (search_in_cwd(cmd));
-	pt.paths = ft_split(env->value, ':');
+	pt.paths = allocate_gc(ft_split(env->value, ':'));
 	pt.i = 0;
 	while (pt.paths[pt.i])
 	{
@@ -48,7 +48,7 @@ char	*find_in_path(char *cmd, t_envlist *env)
 	return (NULL);
 }
 
-static char	*get_absolute_path(char *cmd, t_envlist *env, int *flag, int *err)
+static char	*get_absolute_path(char *cmd, t_envlist *env, int *err)
 {
 	char	*path;
 
@@ -60,9 +60,7 @@ static char	*get_absolute_path(char *cmd, t_envlist *env, int *flag, int *err)
 		if (is_it_dir(cmd))
 			return (*err = 21, NULL);
 		if (access(cmd, X_OK) == 0)
-			return (*err = errno, allocate_gc(ft_strdup(cmd)));
-		else if (access(cmd, X_OK) == -1 || access(cmd, F_OK) == -1)
-			return (*flag = 1, *err = errno, allocate_gc(ft_strdup(cmd)));
+			return (*err = errno, find_in_path(cmd, env));
 		return (NULL);
 	}
 	path = find_in_path(cmd, env);
@@ -74,21 +72,19 @@ static char	*get_absolute_path(char *cmd, t_envlist *env, int *flag, int *err)
 static int	handle_child(t_tree *node, t_data *data)
 {
 	char	*path;
-	int		flag;
 	int		err_number;
 
 	path = NULL;
-	flag = 0;
 	err_number = 0;
-	path = get_absolute_path(node->argv[0], data->env, &flag, &err_number);
+	path = get_absolute_path(node->argv[0], data->env, &err_number);
 	if (!path)
-		exit(err_number);
-	if (path[o_ft_strlen(path) - 1] == '/' || flag == 1)
 	{
-		if (err_number != 0)
-			exit(err_number);
+		if (err_number == 21)
+			exit(errors_msgs(err_number, node->argv[0]));
+		path = node->argv[0];
 	}
-	execve(path, node->argv, data->env_vec);
+	if (execve(path, node->argv, data->env_vec) != 0)
+		exit(errors_msgs(errno, node->argv[0]));
 	exit(pipe_child_free(1));
 }
 
@@ -114,7 +110,7 @@ int	exec_node(t_tree *node, t_data *data)
 	waitpid(id, &ex_status, 0);
 	pipe_sighandle();
 	if (WIFEXITED(ex_status))
-		return (errors_msgs(WEXITSTATUS(ex_status)));
+		return (WEXITSTATUS(ex_status));
 	if (WIFSIGNALED(ex_status))
 		return (printf("\n"), 128 + WTERMSIG(ex_status));
 	return (ex_status);

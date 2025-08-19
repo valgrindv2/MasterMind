@@ -26,56 +26,56 @@ size_t	no_value_nodes_num(t_envlist *env)
 	return (num);
 }
 
-char	*get_value(char *str)
-{
-	int		equals;
-	bool	has_equal;
-	char	*value;
+// char	*get_value(char *str)
+// {
+// 	int		equals;
+// 	bool	has_equal;
+// 	char	*value;
 
-	if (!str)
-		return (perror("NULL Key in envp."), NULL);
-	equals = 0;
-	has_equal = false;
-	while (str[equals])
-	{
-		if (str[equals++] == '=')
-		{
-			has_equal = true;
-			break ;
-		}
-	}
-	if (has_equal)
-		value = allocate_gc(ft_substr(str, equals, o_ft_strlen(str)));
-	else
-		value = allocate_gc(ft_strdup(""));
-	return (value);
-}
+// 	if (!str)
+// 		return (perror("NULL Key in envp."), NULL);
+// 	equals = 0;
+// 	has_equal = false;
+// 	while (str[equals])
+// 	{
+// 		if (str[equals++] == '=')
+// 		{
+// 			has_equal = true;
+// 			break ;
+// 		}
+// 	}
+// 	if (has_equal)
+// 		value = allocate_gc(ft_substr(str, equals, o_ft_strlen(str)));
+// 	else
+// 		value = allocate_gc(ft_strdup(""));
+// 	return (value);
+// }
 
-char	*get_key(char *str)
-{
-	int		equals;
-	bool	has_equal;
-	char	*key;
+// char	*get_key(char *str)
+// {
+// 	int		equals;
+// 	bool	has_equal;
+// 	char	*key;
 
-	if (!str)
-		return (perror("NULL Key in envp."), NULL);
-	equals = 0;
-	has_equal = false;
-	while (str[equals])
-	{
-		if (str[equals] == '+' || str[equals] == '=')
-		{
-			has_equal = true;
-			break ;
-		}
-		equals++;
-	}
-	if (has_equal)
-		key = allocate_gc(ft_substr(str, 0, equals));
-	else
-		key = allocate_gc(ft_strdup(str));
-	return (key);
-}
+// 	if (!str)
+// 		return (perror("NULL Key in envp."), NULL);
+// 	equals = 0;
+// 	has_equal = false;
+// 	while (str[equals])
+// 	{
+// 		if (str[equals] == '+' || str[equals] == '=')
+// 		{
+// 			has_equal = true;
+// 			break ;
+// 		}
+// 		equals++;
+// 	}
+// 	if (has_equal)
+// 		key = allocate_gc(ft_substr(str, 0, equals));
+// 	else
+// 		key = allocate_gc(ft_strdup(str));
+// 	return (key);
+// }
 
 int	add_to_envlist(t_envlist **envlist, char *str, bool exported)
 {

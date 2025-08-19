@@ -581,7 +581,7 @@ void				flatten_pipeline(t_tree *node, t_plist **head);
 void				pipe_sighandle(void);
 void				start_signals(void);
 int					print_exec_error(char *cmd, int code);
-int					errors_msgs(int err);
+int					errors_msgs(int err, char *cmd);
 int					is_it_dir(char *cmd);
 
 // Builtins
