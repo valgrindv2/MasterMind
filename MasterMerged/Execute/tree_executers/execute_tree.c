@@ -71,6 +71,8 @@ int	execute_tree(t_tree *root, t_data *data, char **env, void *re_built)
 	if (!root)
 		return (EXIT_FAILURE);
 	set_tree(root);
+	set_pwd(data->pwd_reserve);
+	set_env(data->env);
 	tree_gc_collector(root);
 	if (merger(root, data, env) != EXIT_SUCCESS)
 		return (perror("Merge Failed"), EXIT_FAILURE);

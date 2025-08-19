@@ -28,7 +28,6 @@ void	free_envlist(t_envlist *env)
 	}
 }
 
-// CLOSE FDS IN RED
 static void	free_redir(t_red *red)
 {
 	t_red	*tmp;

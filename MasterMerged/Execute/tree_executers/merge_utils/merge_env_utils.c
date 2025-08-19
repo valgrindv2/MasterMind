@@ -12,6 +12,21 @@
 
 #include "../../execute.h"
 
+char	**get_pwd_reserve(void)
+{
+	static char	*pwd = NULL;
+
+	return (&pwd);
+}
+
+void	set_pwd(char *pwd)
+{
+	char	**pwd_head;
+
+	pwd_head = get_pwd_reserve();
+	*pwd_head = pwd;
+}
+
 size_t	env_strlen(t_envlist *envlist)
 {
 	int	i;

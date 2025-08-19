@@ -493,6 +493,10 @@ void				freeiers(t_data *data, char *input);
 void				set_tree(t_tree	*node);
 t_tree				**get_tree(void);
 void				clean_tree_fds(t_tree *node);
+t_envlist			**get_env(void);
+void				set_env(t_envlist *env);
+void				set_pwd(char *pwd);
+char				**get_pwd_reserve(void);
 
 // ouss functions  ---------------------
 

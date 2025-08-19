@@ -53,3 +53,18 @@ int	add_last_executed(t_tree *node, t_data *data)
 	data->last_executed = NULL;
 	return (EXIT_SUCCESS);
 }
+
+t_envlist	**get_env(void)
+{
+	static t_envlist	*gc = NULL;
+
+	return (&gc);
+}
+
+void	set_env(t_envlist *env)
+{
+	t_envlist	**env_head;
+
+	env_head = get_env();
+	*env_head = env;
+}
