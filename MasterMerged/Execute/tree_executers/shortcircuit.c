@@ -41,12 +41,16 @@ t_tree	**get_tree(void)
 	return (&tree);
 }
 
-void	set_tree(t_tree	*node)
+static void	clean_red_list(t_red *red)
 {
-	t_tree	**tree;
-
-	tree = get_tree();
-	*tree = node;
+	if (!red)
+		return ;
+	while (red)
+	{
+		if (red->fd_here_doc != -1)
+			close(red->fd_here_doc);
+		red = red->next;
+	}
 }
 
 void	clean_tree_fds(t_tree *node)
@@ -58,8 +62,5 @@ void	clean_tree_fds(t_tree *node)
 	if (node->right)
 		clean_tree_fds(node->right);
 	if (node->red)
-	{
-		if (node->red->fd_here_doc != -1)
-			close(node->red->fd_here_doc);
-	}
+		clean_red_list(node->red);
 }
