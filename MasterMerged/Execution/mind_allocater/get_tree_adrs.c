@@ -77,7 +77,7 @@ int	pipe_child_free(int ret)
 		free(*head);
 		*head = tmp;
 	}
-	*head = NULL;
+	*get_head() = NULL;
 	env = get_env();
 	free_envlist(*env);
 	free(*get_pwd_reserve());

@@ -55,7 +55,7 @@ void	mind_free_all(bool panic)
 		free(*head);
 		*head = tmp;
 	}
-	*head = NULL;
+	*get_head() = NULL;
 	if (panic)
 	{
 		env = get_env();
