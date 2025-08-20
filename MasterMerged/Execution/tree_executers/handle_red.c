@@ -81,7 +81,7 @@ int	handle_red(t_tree *node, t_data *data)
 		if (curr_red->tok != DEL_ID && ambig_wrapper(curr_red->value,
 				ambig, curr_red->was_d_quote))
 			return (puterror("Master@Mind: ambiguous redirect\n"),
-				EXIT_FAILURE);
+				data->exit_status = EXIT_FAILURE, EXIT_FAILURE);
 		curr_red->value = red_ifs_pass(curr_red->value);
 		if (redirect_current(curr_red, data) != EXIT_SUCCESS)
 			return (data->exit_status = EXIT_FAILURE, EXIT_FAILURE);

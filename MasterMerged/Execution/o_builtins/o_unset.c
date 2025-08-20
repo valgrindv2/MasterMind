@@ -47,6 +47,7 @@ static void	unset_node(char *argument, t_envlist **env)
 		if (ft_strcmp(argument, curr->variable) == 0)
 		{
 			delete_node(env, curr);
+			set_env(*env);
 			break ;
 		}
 		curr = curr->next;
