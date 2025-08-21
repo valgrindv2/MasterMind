@@ -6,7 +6,7 @@
 /*   By: ayel-bou <ayel-bou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/18 15:28:17 by oimzilen          #+#    #+#             */
-/*   Updated: 2025/08/19 19:25:13 by ayel-bou         ###   ########.fr       */
+/*   Updated: 2025/08/22 00:12:02 by ayel-bou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ char	*find_in_path(char *cmd, t_envlist *env)
 	return (NULL);
 }
 
-static char	*get_absolute_path(char *cmd, t_envlist *env, int *err)
+static char	*get_absolute_path(char *cmd, t_envlist *env, int *err, int *ex)
 {
 	char	*path;
 
@@ -59,9 +59,9 @@ static char	*get_absolute_path(char *cmd, t_envlist *env, int *err)
 	{
 		if (is_it_dir(cmd))
 			return (*err = 21, NULL);
-		if (access(cmd, X_OK) == 0)
-			return (*err = errno, find_in_path(cmd, env));
-		return (NULL);
+		if (access(cmd, F_OK) == 0)
+			return (*err = errno, cmd);
+		return (*ex = 1, NULL);
 	}
 	path = find_in_path(cmd, env);
 	if (!path)
@@ -73,21 +73,31 @@ static int	handle_child(t_tree *node, t_data *data)
 {
 	char	*path;
 	int		err_number;
+	int		exists;
 
+	exists = 0;
 	path = NULL;
 	err_number = 0;
-	path = get_absolute_path(node->argv[0], data->env, &err_number);
+	path = get_absolute_path(node->argv[0], data->env, &err_number, &exists);
 	if (!path)
 	{
 		if (err_number == 21)
 			exit(errors_msgs(err_number, node->argv[0]));
-		path = node->argv[0];
+		if (exists == 0)
+		{
+			print_errno(allocate_gc(ft_strjoin(node->argv[0],
+							" ...command not found\n")));
+			exit(pipe_child_free(127));
+		}
+		else
+			path = node->argv[0];
 	}
 	if (execve(path, node->argv, data->env_vec) != 0)
 	{
-		// beware of double close check if -1
-		close(data->saved_in);
-		close(data->saved_out);
+		if (data->saved_in != -1)
+			close(data->saved_in);
+		if (data->saved_out != -1)
+			close(data->saved_out);
 		exit(pipe_child_free((errors_msgs(errno, node->argv[0]))));
 	}
 	return (EXIT_SUCCESS);

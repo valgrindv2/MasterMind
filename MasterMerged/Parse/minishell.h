@@ -6,7 +6,7 @@
 /*   By: ayel-bou <ayel-bou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/04 03:32:22 by ayel-bou          #+#    #+#             */
-/*   Updated: 2025/08/19 17:56:24 by ayel-bou         ###   ########.fr       */
+/*   Updated: 2025/08/22 00:04:08 by ayel-bou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -613,6 +613,7 @@ void				start_signals(void);
 int					print_exec_error(char *cmd, int code);
 int					errors_msgs(int err, char *cmd);
 int					is_it_dir(char *cmd);
+void				print_errno(char *str);
 
 // Builtins
 size_t				arg_count(char **argv);

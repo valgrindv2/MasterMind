@@ -6,7 +6,7 @@
 /*   By: ayel-bou <ayel-bou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/18 14:21:57 by oimzilen          #+#    #+#             */
-/*   Updated: 2025/08/19 19:26:57 by ayel-bou         ###   ########.fr       */
+/*   Updated: 2025/08/22 00:04:52 by ayel-bou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,6 @@ static bool	already_exported(char *new_var, t_data *data)
 	curr = data->env;
 	while (curr)
 	{
-
 		if (ft_strcmp(key, curr->variable) == 0)
 		{
 			return (free(key), true);

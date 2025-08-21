@@ -6,13 +6,13 @@
 /*   By: ayel-bou <ayel-bou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/18 15:28:06 by oimzilen          #+#    #+#             */
-/*   Updated: 2025/08/19 19:25:10 by ayel-bou         ###   ########.fr       */
+/*   Updated: 2025/08/22 00:03:37 by ayel-bou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../Parse/minishell.h"
 
-static void	print_errno(char *str)
+void	print_errno(char *str)
 {
 	if (str)
 		puterror(allocate_gc(ft_strjoin("Master@Mind: ", str)));
@@ -34,6 +34,8 @@ int	errors_msgs(int err, char *cmd)
 		else
 			return (print_errno("No such file or directory\n"), 127);
 	}
+	else if (err == 14)
+		return (print_errno("No such file or directory\n"), 127);
 	else if (err == 13)
 		return (print_errno("Permission denied\n"), 126);
 	else if (err == 20)

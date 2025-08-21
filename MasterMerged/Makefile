@@ -1,7 +1,7 @@
 CC = cc 
 SANITIZE= -fsanitize=address -g3
 CFLAG = -I$(READLINE_DIR)/include #-Wall -Wextra -Werror
-READLINE_DIR := #lib/readline/install
+READLINE_DIR := lib/readline/install
 LDFLAGS += -L$(READLINE_DIR)/lib -lreadline -lhistory -lncurses
 H = Parse/minishell.h 
 NAME = minishell
