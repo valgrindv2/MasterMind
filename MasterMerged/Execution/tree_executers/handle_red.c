@@ -6,7 +6,7 @@
 /*   By: ayel-bou <ayel-bou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/18 15:30:33 by oimzilen          #+#    #+#             */
-/*   Updated: 2025/08/22 00:14:52 by ayel-bou         ###   ########.fr       */
+/*   Updated: 2025/08/22 00:18:57 by ayel-bou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,5 +101,4 @@ void	restore_io(int saved_in, int saved_out, bool no_red)
 		mind_free_all(PANIC);
 	close(saved_in);
 	close(saved_out);
-	puts("dkhl");
 }
