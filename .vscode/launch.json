@@ -1,0 +1,13 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "C/C++ Runner: Debug Session",
+      "type": "lldb",
+      "request": "launch",
+      "args": [],
+      "cwd": "/mnt/homes/ayel-bou/Desktop/to_merge_latest/MasterMind/MasterMerged/Execution/tree_executers",
+      "program": "/mnt/homes/ayel-bou/Desktop/to_merge_latest/MasterMind/MasterMerged/Execution/tree_executers/build/Debug/outDebug"
+    }
+  ]
+}
