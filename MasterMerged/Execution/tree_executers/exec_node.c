@@ -105,6 +105,7 @@ int	exec_node(t_tree *node, t_data *data)
 		return (mind_free_all(PANIC), EXIT_FAILURE);
 	if (id == 0)
 	{
+		// ft_strdup("test");
 		signal(SIGINT, sig_kill);
 		signal(SIGQUIT, sig_kill);
 		handle_child(node, data);

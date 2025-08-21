@@ -42,17 +42,13 @@ static void	here_doc_interruption(char *in, t_data *data, int sv)
 	signal(SIGINT, sig_handler);
 }
 
-static void	single_interruption(char *in, t_data *data, int sv)
+static void	single_interruption(char *in, t_data *data)
 {
 	puterror("Master@Mind: Single Heredoc Blocked\n");
-	close(data->here_read_fd);
-	data->here_read_fd = -1;
 	data->exit_status = 0;
 	close(data->here_fd);
 	data->here_fd = -1;
-	close(sv);
 	free(in);
-	signal(SIGINT, sig_handler);
 }
 
 int	here_doc_ops(t_token *id_class, t_data *data, char *del)
@@ -68,7 +64,10 @@ int	here_doc_ops(t_token *id_class, t_data *data, char *del)
 		if (!in && g_flag == SIGINT)
 			return (here_doc_interruption(in, data, sv), 0);
 		else if (!in && g_flag != SIGINT)
-			return (single_interruption(in, data, sv), 1);
+		{
+			single_interruption(in, data);
+			break ;
+		}
 		cpy_to_file(in, data);
 		in = readline("Here_doc> ");
 	}

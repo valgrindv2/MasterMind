@@ -19,7 +19,7 @@ int	valide_option(char *str)
 
 	i = 0;
 	op = 0;
-	if (str[i] == '\0')
+	if (!str || str[i] == '\0')
 		return (0);
 	while (str[i])
 	{
@@ -46,13 +46,13 @@ void	echo_args(t_tree *node, bool *newline)
 	print_all = false;
 	while (node->argv[i])
 	{
-		while (valide_option(node->argv[i]) && print_all == false)
+		while (print_all == false && valide_option(node->argv[i]))
 			i++;
 		if (!node->argv[i])
 			break ;
 		printf("%s", node->argv[i]);
 		print_all = true;
-		if (node->argv[i + 1])
+		if (node->argv[i] && node->argv[i + 1])
 			printf(" ");
 		i++;
 	}

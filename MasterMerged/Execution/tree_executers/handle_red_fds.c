@@ -19,8 +19,7 @@ int	red_in(t_red *red, t_data *data)
 	(void)data;
 	in_fd = open(red->value, O_RDONLY);
 	if (in_fd == -1)
-		return (puterror("Master@Mind: "), puterror(red->value),
-			perror(" "), EXIT_FAILURE);
+		return (perror("Master@Mind: "), EXIT_FAILURE);
 	if (dup2(in_fd, STDIN_FILENO) == -1)
 		return (puterror("Master@Mind: "), puterror(red->value),
 			close(in_fd), EXIT_FAILURE);
@@ -35,8 +34,7 @@ int	red_out(t_red *red, t_data *data)
 	(void)data;
 	out_fd = open(red->value, O_CREAT | O_WRONLY | O_TRUNC, 0644);
 	if (out_fd == -1)
-		return (puterror("Master@Mind: "), puterror(red->value),
-			perror(" "), EXIT_FAILURE);
+		return (perror("Master@Mind: "), EXIT_FAILURE);
 	if (dup2(out_fd, STDOUT_FILENO) == -1)
 		return (puterror("Master@Mind: "), puterror(red->value),
 			perror(" "), close(out_fd), EXIT_FAILURE);
@@ -51,8 +49,7 @@ int	red_append(t_red *red, t_data *data)
 	(void)data;
 	out_fd = open(red->value, O_CREAT | O_WRONLY | O_APPEND, 0644);
 	if (out_fd == -1)
-		return (puterror("Master@Mind: "), puterror(red->value),
-			perror(" "), EXIT_FAILURE);
+		return (perror("Master@Mind: "), EXIT_FAILURE);
 	if (dup2(out_fd, STDOUT_FILENO) == -1)
 		return (puterror("Master@Mind: "), puterror(red->value),
 			perror(" "), close(out_fd), EXIT_FAILURE);

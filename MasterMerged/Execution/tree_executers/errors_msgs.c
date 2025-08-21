@@ -14,12 +14,10 @@
 
 static void	print_errno(char *str)
 {
-	puterror("Master@Mind: ");
 	if (str)
-		write(2, str, o_ft_strlen(str));
+		puterror(allocate_gc(ft_strjoin("Master@Mind: ", str)));
 	else if (!str)
 		write(2, "Error", 6);
-	write(2, "\n", 1);
 }
 
 int	errors_msgs(int err, char *cmd)
@@ -32,14 +30,14 @@ int	errors_msgs(int err, char *cmd)
 	{
 		if (!ft_strchr(cmd, '/'))
 			return (print_errno(allocate_gc(ft_strjoin(cmd,
-							" ...command not found"))), 127);
+							" ...command not found\n"))), 127);
 		else
-			return (print_errno("No such file or directory"), 127);
+			return (print_errno("No such file or directory\n"), 127);
 	}
 	else if (err == 13)
-		return (print_errno("Permission denied"), 126);
+		return (print_errno("Permission denied\n"), 126);
 	else if (err == 20)
-		return (print_errno("Not a directory"), 126);
+		return (print_errno("Not a directory\n"), 126);
 	else if (err == 22 || err == 21)
 		return (puterror("Master@Mind: is a directory\n"), 126);
 	return (err);
