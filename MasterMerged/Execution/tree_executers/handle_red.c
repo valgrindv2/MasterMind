@@ -98,6 +98,8 @@ void	restore_io(int saved_in, int saved_out, bool no_red)
 		mind_free_all(PANIC);
 	if (dup2(saved_out, STDOUT_FILENO) == -1)
 		mind_free_all(PANIC);
+	// check if -1;
 	close(saved_in);
 	close(saved_out);
+	puts("dkhl");
 }

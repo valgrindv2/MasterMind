@@ -85,6 +85,9 @@ static int	handle_child(t_tree *node, t_data *data)
 	}
 	if (execve(path, node->argv, data->env_vec) != 0)
 	{
+		// beware of double close check if -1
+		close(data->saved_in);
+		close(data->saved_out);
 		exit(pipe_child_free((errors_msgs(errno, node->argv[0]))));
 	}
 	return (EXIT_SUCCESS);
@@ -105,7 +108,6 @@ int	exec_node(t_tree *node, t_data *data)
 		return (mind_free_all(PANIC), EXIT_FAILURE);
 	if (id == 0)
 	{
-		// ft_strdup("test");
 		signal(SIGINT, sig_kill);
 		signal(SIGQUIT, sig_kill);
 		handle_child(node, data);

@@ -73,7 +73,10 @@ int	add_to_gc_no_ex(void *new_address)
 
 	new_alloc = malloc(sizeof(t_mind_alloc));
 	if (!new_alloc)
+	{
+		free(new_address);
 		return (EXIT_FAILURE);
+	}
 	head = get_head();
 	new_alloc->ptr = new_address;
 	new_alloc->free_at_end = false;

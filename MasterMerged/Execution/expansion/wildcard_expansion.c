@@ -53,7 +53,7 @@ static t_arg	*create_arg_node(char *value, t_grammar tok)
 	new = malloc(sizeof(t_arg));
 	if (!new)
 		return (NULL);
-	new->value = ft_strdup(value);
+	new->value = allocate_gc_no_exit(ft_strdup(value));
 	if (!new->value)
 		return (free(new), NULL);
 	new->tok = tok;
