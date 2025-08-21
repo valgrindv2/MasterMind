@@ -22,11 +22,14 @@ void	identify_argument(t_token **id_class)
 		if (curr->op_case)
 			break ;
 		if (curr->next && ((1 <= curr->tok && curr->tok <= 4)
-				|| curr->tok == DEL_ID))
+				|| curr->tok == DEL_ID
+				|| curr->tok == 7 || curr->tok == 8))
 		{
 			curr = curr->next;
 			continue ;
 		}
+		else if (!curr->next && curr->tok != STRING_ID)
+			break ;
 		curr->tok = ARG_ID;
 		curr = curr->next;
 	}

@@ -30,7 +30,6 @@ int	assign_new_value(char *new_var, t_envlist *env)
 			free(env->value);
 			env->value = value;
 			env->exported = EXPORTED;
-			puts("dkhl");
 			return (free(key), EXIT_SUCCESS);
 		}
 		env = env->next;
@@ -124,13 +123,11 @@ int	process_export_arg(char *arg, t_data *data)
 	}
 	if (already_exported(arg, data))
 	{
-		puts("already");
 		if (process_existing_var(arg, data) != EXIT_SUCCESS)
 			return (EXIT_FAILURE);
 	}
 	else
 	{
-		puts("new");
 		if (process_new_var(arg, data) != EXIT_SUCCESS)
 			return (EXIT_FAILURE);
 	}

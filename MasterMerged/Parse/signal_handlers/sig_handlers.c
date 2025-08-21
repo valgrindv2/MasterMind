@@ -23,6 +23,7 @@ void	sig_handler(int signum)
 			printf("\n");
 		rl_on_new_line();
 		rl_redisplay();
+		**get_exit_status() = 1;
 	}
 	else if (signum == SIGQUIT)
 		return ;

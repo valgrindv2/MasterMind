@@ -23,7 +23,7 @@ static int	new_wdir_t(t_tree *node, t_data *data, int *chpwd)
 	data->flag = 0;
 	if (!getcwd(path, sizeof(path)))
 	{
-		data->exit_status = 1;
+		data->exit_status = 0;
 		*chpwd = 1;
 		data->flag = 1;
 		puterror("Matser@Mind: Getcwd Failed\n");
