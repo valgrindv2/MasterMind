@@ -50,14 +50,14 @@ void	echo_args(t_tree *node, bool *newline)
 			i++;
 		if (!node->argv[i])
 			break ;
-		printf("%s", node->argv[i]);
+		write(1, node->argv[i], o_ft_strlen(node->argv[i]));
 		print_all = true;
 		if (node->argv[i] && node->argv[i + 1])
-			printf(" ");
+			write(1, " ", 1);
 		i++;
 	}
 	if (*newline == true)
-		printf("\n");
+		write(1, "\n", 1);
 }
 
 int	o_echo(t_tree *node)
