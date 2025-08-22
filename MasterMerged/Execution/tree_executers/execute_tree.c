@@ -70,11 +70,17 @@ int	execute_tree(t_tree *root, t_data *data, char **env, void *re_built)
 	if (!root)
 		return (EXIT_FAILURE);
 	set_tree(root);
+	set_data(data);
 	set_pwd(data->pwd_reserve);
 	tree_gc_collector(root);
 	if (merger(root, data, env) != EXIT_SUCCESS)
 		return (perror("Merge Failed"), EXIT_FAILURE);
 	rec_exit_status = recursive_execution(root, data);
+	set_tree(root);
+	set_data(data);
+	set_pwd(data->pwd_reserve);
+	set_env(data->env);
+	set_env_vec(data->env_vec);
 	mind_free_all(CHILL);
 	return (rec_exit_status);
 }

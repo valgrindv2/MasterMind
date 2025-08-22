@@ -102,8 +102,14 @@ void	restore_io(t_data *data, bool no_red)
 		mind_free_all(PANIC);
 	if (dup2(data->saved_out, STDOUT_FILENO) == -1)
 		mind_free_all(PANIC);
-	close(data->saved_in);
-	data->saved_in = -1;
-	close(data->saved_out);
-	data->saved_out = -1;
+	if(data->saved_in != -1)
+	{
+		close(data->saved_in);
+		data->saved_in = -1;
+	}
+	if(data->saved_out != -1)
+	{
+		close(data->saved_out);
+		data->saved_out = -1;
+	}
 }

@@ -57,9 +57,15 @@ int	is_it_dir(char *cmd)
 void	close_saved(t_data *data)
 {
 	if (data->saved_in != -1)
+	{
 		close(data->saved_in);
+		data->saved_in = -1;
+	}
 	if (data->saved_out != -1)
+	{
 		close(data->saved_out);
+		data->saved_out = -1;
+	}
 }
 
 void	exists_zero(t_tree *node, t_data *data)

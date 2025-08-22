@@ -47,6 +47,7 @@ void	mind_free_all(bool panic)
 
 	tree = get_tree();
 	clean_tree_fds(*tree);
+	close_io();
 	head = get_head();
 	while (*head)
 	{

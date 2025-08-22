@@ -56,7 +56,10 @@ static void	clean_red_list(t_red *red)
 	while (red)
 	{
 		if (red->fd_here_doc != -1)
+		{
 			close(red->fd_here_doc);
+			red->fd_here_doc = -1;
+		}
 		red = red->next;
 	}
 }

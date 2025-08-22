@@ -532,6 +532,9 @@ void				set_exit_status(int *status);
 int					peak_status(void);
 void				set_env_vec(char **envp);
 char				***get_env_vec(void);
+t_data				**get_data(void);
+void				set_data(t_data	*dt);
+void				close_io(void);
 
 // ouss functions  ---------------------
 

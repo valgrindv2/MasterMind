@@ -69,6 +69,7 @@ int	pipe_child_free(int ret)
 
 	tree = get_tree();
 	clean_tree_fds(*tree);
+	close_io();
 	head = get_head();
 	while (*head)
 	{
