@@ -85,6 +85,10 @@ static int	handle_child(t_tree *node, t_data *data)
 			exit(errors_msgs(err_number, node->argv[0]));
 		if (exists == 0)
 		{
+			if (data->saved_in != -1)
+			close(data->saved_in);
+			if (data->saved_out != -1)
+			close(data->saved_out);
 			print_errno(allocate_gc(ft_strjoin(node->argv[0],
 							" ...command not found\n")));
 			exit(pipe_child_free(127));

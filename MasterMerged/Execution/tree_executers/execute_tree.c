@@ -29,11 +29,9 @@ static int	exec_command(t_tree *node, t_data *data)
 	if (!anon(node, arg_count(node->argv)) && node->argv[0])
 	{
 		if (node->red && handle_red(node, data) != EXIT_SUCCESS)
-			return (restore_io(data->saved_in, data->saved_out,
-					node->red == NULL), EXIT_FAILURE);
+			return (restore_io(data, node->red == NULL), EXIT_FAILURE);
 		if (add_last_executed(node, data) != EXIT_SUCCESS)
-			return (restore_io(data->saved_in, data->saved_out,
-					node->red == NULL), EXIT_FAILURE);
+			return (restore_io(data, node->red == NULL), EXIT_FAILURE);
 		node->argv = remove_nonprintables_argv(node->argv);
 		if (validate_builtin(node->argv[0]))
 			data->exit_status = exec_builtin(node, data);
@@ -42,7 +40,7 @@ static int	exec_command(t_tree *node, t_data *data)
 	}
 	else
 		data->exit_status = EXIT_SUCCESS;
-	restore_io(data->saved_in, data->saved_out, node->red == NULL);
+	restore_io(data, node->red == NULL);
 	if (update_env_variables(data) != EXIT_SUCCESS)
 		return (EXIT_FAILURE);
 	return (data->exit_status);

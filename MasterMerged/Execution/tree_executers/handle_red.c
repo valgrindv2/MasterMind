@@ -91,14 +91,16 @@ int	handle_red(t_tree *node, t_data *data)
 }
 
 // check if -1; re init back to -1 fds
-void	restore_io(int saved_in, int saved_out, bool no_red)
+void	restore_io(t_data *data, bool no_red)
 {
 	if (no_red)
 		return ;
-	if (dup2(saved_in, STDIN_FILENO) == -1)
+	if (dup2(data->saved_in, STDIN_FILENO) == -1)
 		mind_free_all(PANIC);
-	if (dup2(saved_out, STDOUT_FILENO) == -1)
+	if (dup2(data->saved_out, STDOUT_FILENO) == -1)
 		mind_free_all(PANIC);
-	close(saved_in);
-	close(saved_out);
+	close(data->saved_in);
+	data->saved_in = -1;
+	close(data->saved_out);
+	data->saved_out = -1;
 }

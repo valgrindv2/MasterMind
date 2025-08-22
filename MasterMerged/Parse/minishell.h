@@ -714,7 +714,7 @@ int					add_to_envlist(t_envlist **envlist,
 
 // Redirections 
 int					handle_red(t_tree *node, t_data *data);
-void				restore_io(int saved_in, int saved_out, bool no_red);
+void				restore_io(t_data *data, bool no_red);
 char				*red_ifs_pass(char *str);
 bool				only_spaces(char *raw);
 int					red_here_doc(t_red *red, t_data *data);
