@@ -614,6 +614,8 @@ int					print_exec_error(char *cmd, int code);
 int					errors_msgs(int err, char *cmd);
 int					is_it_dir(char *cmd);
 void				print_errno(char *str);
+void				close_saved(t_data *data);
+void				exists_zero(t_tree *node, t_data *data);
 
 // Builtins
 size_t				arg_count(char **argv);

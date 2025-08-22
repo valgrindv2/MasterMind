@@ -84,24 +84,13 @@ static int	handle_child(t_tree *node, t_data *data)
 		if (err_number == 21)
 			exit(errors_msgs(err_number, node->argv[0]));
 		if (exists == 0)
-		{
-			if (data->saved_in != -1)
-				close(data->saved_in);
-			if (data->saved_out != -1)
-				close(data->saved_out);
-			print_errno(allocate_gc(ft_strjoin(node->argv[0],
-							" ...command not found\n")));
-			exit(pipe_child_free(127));
-		}
+			exists_zero(node, data);
 		else
 			path = node->argv[0];
 	}
 	if (execve(path, node->argv, data->env_vec) != 0)
 	{
-		if (data->saved_in != -1)
-			close(data->saved_in);
-		if (data->saved_out != -1)
-			close(data->saved_out);
+		close_saved(data);
 		exit(pipe_child_free((errors_msgs(errno, node->argv[0]))));
 	}
 	return (EXIT_SUCCESS);

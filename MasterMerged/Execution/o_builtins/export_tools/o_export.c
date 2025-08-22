@@ -30,12 +30,30 @@ static void	print_export_list(t_envlist *env)
 	}
 }
 
+static void	swap_env_nodes(t_envlist *a, t_envlist *b)
+{
+	char	*tmp_var;
+	char	*tmp_value;
+	bool	tmp_exported;
+
+	tmp_var = a->variable;
+	tmp_value = a->value;
+	tmp_exported = a->exported;
+	a->variable = b->variable;
+	a->value = b->value;
+	a->exported = b->exported;
+	b->variable = tmp_var;
+	b->value = tmp_value;
+	b->exported = tmp_exported;
+}
+
 static void	sort_operation(t_envlist **exp)
 {
 	char		*tmp_var;
 	char		*tmp_value;
 	t_envlist	*trav1;
 	t_envlist	*trav2;
+	bool		tmp_exported;
 
 	trav1 = *exp;
 	while (trav1 != NULL)
@@ -44,14 +62,7 @@ static void	sort_operation(t_envlist **exp)
 		while (trav2 != NULL)
 		{
 			if (ft_strcmp(trav1->variable, trav2->variable) > 0)
-			{
-				tmp_var = trav1->variable;
-				tmp_value = trav1->value;
-				trav1->variable = trav2->variable;
-				trav1->value = trav2->value;
-				trav2->variable = tmp_var;
-				trav2->value = tmp_value;
-			}
+				swap_env_nodes(trav1, trav2);
 			trav2 = trav2->next;
 		}
 		trav1 = trav1->next;

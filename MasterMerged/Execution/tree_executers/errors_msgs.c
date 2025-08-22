@@ -53,3 +53,19 @@ int	is_it_dir(char *cmd)
 		return (0);
 	return (S_ISDIR(dir.st_mode));
 }
+
+void	close_saved(t_data *data)
+{
+	if (data->saved_in != -1)
+		close(data->saved_in);
+	if (data->saved_out != -1)
+		close(data->saved_out);
+}
+
+void	exists_zero(t_tree *node, t_data *data)
+{
+	close_saved(data);
+	print_errno(allocate_gc(ft_strjoin(node->argv[0],
+					" ...command not found\n")));
+	exit(pipe_child_free(127));
+}
