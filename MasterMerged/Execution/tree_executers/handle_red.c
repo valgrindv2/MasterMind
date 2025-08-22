@@ -53,8 +53,11 @@ static int	redirect_current(t_red *curr_red, t_data *data)
 	return (EXIT_SUCCESS);
 }
 
-static bool	ambig_wrapper(char *str, bool ambig_dollar, bool dquoted)
+static bool	ambig_wrapper(char *str, bool ambig_dollar, bool dquoted, bool squoted)
 {
+	if (!squoted && !dquoted &&
+		str[0] == '*' && str[1] == '\0')
+		return (true);
 	if (!ambig_dollar)
 		return (false);
 	if (!dquoted && has_ambig_space(str))
@@ -79,7 +82,7 @@ int	handle_red(t_tree *node, t_data *data)
 		check_expanded_malloc(&expanded, data, curr_red);
 		curr_red->value = expanded;
 		if (curr_red->tok != DEL_ID && ambig_wrapper(curr_red->value,
-				ambig, curr_red->was_d_quote))
+				ambig, curr_red->was_d_quote, curr_red->was_s_quote))
 			return (puterror("Master@Mind: ambiguous redirect\n"),
 				data->exit_status = EXIT_FAILURE, EXIT_FAILURE);
 		curr_red->value = red_ifs_pass(curr_red->value);
