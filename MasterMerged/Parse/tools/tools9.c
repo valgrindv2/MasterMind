@@ -6,7 +6,7 @@
 /*   By: ayel-bou <ayel-bou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/03 20:48:04 by ayel-bou          #+#    #+#             */
-/*   Updated: 2025/08/22 19:33:37 by ayel-bou         ###   ########.fr       */
+/*   Updated: 2025/08/22 19:39:09 by ayel-bou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 extern int	g_flag;
 
-static void closing_here_fd(t_data *data)
+static void	closing_here_fd(t_data *data)
 {
 	if (data->here_fd != -1)
 	{
