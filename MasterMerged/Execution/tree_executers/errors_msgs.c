@@ -6,7 +6,7 @@
 /*   By: ayel-bou <ayel-bou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/18 15:28:06 by oimzilen          #+#    #+#             */
-/*   Updated: 2025/08/22 00:03:37 by ayel-bou         ###   ########.fr       */
+/*   Updated: 2025/08/22 23:37:33 by ayel-bou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,6 @@ void	exists_zero(t_tree *node, t_data *data)
 {
 	close_saved(data);
 	print_errno(allocate_gc(ft_strjoin(node->argv[0],
-					" ...command not found\n")));
+				" ...command not found\n")));
 	exit(pipe_child_free(127));
 }

@@ -6,7 +6,7 @@
 /*   By: ayel-bou <ayel-bou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/18 14:56:15 by oimzilen          #+#    #+#             */
-/*   Updated: 2025/08/19 19:24:58 by ayel-bou         ###   ########.fr       */
+/*   Updated: 2025/08/22 23:31:57 by ayel-bou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,15 +126,15 @@ int	o_cd(t_tree *node, t_data *data)
 			return (puterror("Maste@Mind: cd: File Or Directory Not Found\n"),
 				data->exit_status = 1, EXIT_FAILURE);
 		if (change_pwd(data->home_p, data->env, P_W_D))
-			return (EXIT_FAILURE);
+			return (data->exit_status = 1, EXIT_FAILURE);
 		free(data->pwd_reserve);
 		data->pwd_reserve = ft_strdup(data->home_p);
 		set_pwd(data->pwd_reserve);
 		if (!data->pwd_reserve)
-			return (EXIT_FAILURE);
-		return (EXIT_SUCCESS);
+			return (data->exit_status = 1, EXIT_FAILURE);
+		return (data->exit_status = 0, EXIT_SUCCESS);
 	}
 	if (new_wdir(node, data, &chpwd))
-		return (EXIT_FAILURE);
-	return (EXIT_SUCCESS);
+		return (data->exit_status = 1, EXIT_FAILURE);
+	return (data->exit_status = 0, EXIT_SUCCESS);
 }

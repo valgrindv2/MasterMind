@@ -6,7 +6,7 @@
 /*   By: ayel-bou <ayel-bou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/04 03:26:47 by ayel-bou          #+#    #+#             */
-/*   Updated: 2025/08/14 21:39:17 by ayel-bou         ###   ########.fr       */
+/*   Updated: 2025/08/22 23:22:09 by ayel-bou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,5 +98,5 @@ int	store_fd(t_token *curr, t_data *data)
 		close(data->here_read_fd);
 		data->here_read_fd = -1;
 	}
-	return (1);
+	return (data->exit_status = 0, 1);
 }
