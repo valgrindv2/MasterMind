@@ -6,7 +6,7 @@
 /*   By: ayel-bou <ayel-bou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/04 03:32:22 by ayel-bou          #+#    #+#             */
-/*   Updated: 2025/08/22 00:04:08 by ayel-bou         ###   ########.fr       */
+/*   Updated: 2025/08/23 05:34:32 by ayel-bou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -419,6 +419,7 @@ bool				check_identifier(char *str, int i);
 
 // Syntax Verification
 void				puterror(char *str);
+int					evaluate_case(char *input, t_data *data);
 void				pop_out_brace(t_token **token);
 t_token				*get_all_braces(t_token *token);
 int					scan_for_doubles(t_token *token);
