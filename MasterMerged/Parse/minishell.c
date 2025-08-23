@@ -46,16 +46,16 @@ int	scan_input(char *input, t_data *data)
 	return (1);
 }
 
-t_tree	*masterpasrse(char *input, t_data *data, t_token **prompts)
+t_tree	*masterpasrse(char **input, t_data *data, t_token **prompts)
 {
 	t_token	*token;
 
 	data->no_sef = true;
-	if (!evaluate_case(input, data))
+	if (!evaluate_case(*input, data))
 		return (puterror("Master@Mind: Invalid Use Of Braces\n"), 
-			data->exit_status = 258, NULL);
+			data->exit_status = 258, free(*input), *input = NULL, NULL);
 	data->here_node = 0;
-	token = get_identity(input, data);
+	token = get_identity(*input, data);
 	*prompts = re_identity(token);
 	return (build_tree(*prompts, data));
 }
@@ -78,7 +78,7 @@ int	main(int argc, char **argv, char **env)
 		g_flag = 0;
 		if (!scan_input(input, &data))
 			break ;
-		tree = masterpasrse(input, &data, &re_built);
+		tree = masterpasrse(&input, &data, &re_built);
 		execute_tree(tree, &data, env, re_built);
 		if (!restore_previous_state(STDIN_FILENO, &data))
 			panic(&data, input);

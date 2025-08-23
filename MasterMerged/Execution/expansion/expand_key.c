@@ -12,7 +12,7 @@
 
 #include "../../Parse/minishell.h"
 
-static char	*o_ft_strtrim(char *s, char *set)
+char	*o_ft_strtrim(char *s, char *set)
 {
 	int	start;
 	int	end;

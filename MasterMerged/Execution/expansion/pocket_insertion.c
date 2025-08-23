@@ -51,8 +51,10 @@ static int	env_key(char *str, t_data *data, char ***pockets, bool was_d_quoted)
 		if (has_space(raw) && !only_spaces(raw)
 			&& !was_d_quoted && !is_assignment)
 			expand_unqoted_d(pockets, data, raw);
-		else
+		else if (was_d_quoted)
 			(*pockets)[data->pc.j++] = raw;
+		else
+			(*pockets)[data->pc.j++] = o_ft_strtrim(raw, " \t\n\v\f\r");
 	}
 	else
 		(*pockets)[data->pc.j++] = standalone(&data->pc.i);

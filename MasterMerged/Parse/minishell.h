@@ -682,6 +682,7 @@ char				**ifs_list_to_argv(t_ifs *head);
 size_t				ifs_list_size(t_ifs *curr);
 int					should_join(char *curr, char *next);
 int					is_alphanum_underscore(char c);
+char				*o_ft_strtrim(char *s, char *set);
 
 // Anon system.
 bool				anon(t_tree *node, size_t argc);

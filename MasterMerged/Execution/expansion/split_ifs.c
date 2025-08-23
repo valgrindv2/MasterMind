@@ -54,7 +54,7 @@ bool	only_spaces(char *raw)
 	i = 0;
 	while (raw[i])
 	{
-		if (raw[i] != ' ')
+		if (raw[i] != ' ' && !(raw[i] >= 9 && raw[i] <=13))
 			return (false);
 		i++;
 	}
