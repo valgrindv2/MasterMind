@@ -6,7 +6,7 @@
 /*   By: ayel-bou <ayel-bou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/18 14:10:34 by oimzilen          #+#    #+#             */
-/*   Updated: 2025/08/19 19:25:04 by ayel-bou         ###   ########.fr       */
+/*   Updated: 2025/08/22 23:35:11 by ayel-bou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,11 +49,8 @@ static void	swap_env_nodes(t_envlist *a, t_envlist *b)
 
 static void	sort_operation(t_envlist **exp)
 {
-	char		*tmp_var;
-	char		*tmp_value;
 	t_envlist	*trav1;
 	t_envlist	*trav2;
-	bool		tmp_exported;
 
 	trav1 = *exp;
 	while (trav1 != NULL)

@@ -6,7 +6,7 @@
 /*   By: ayel-bou <ayel-bou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/18 15:30:33 by oimzilen          #+#    #+#             */
-/*   Updated: 2025/08/22 00:18:57 by ayel-bou         ###   ########.fr       */
+/*   Updated: 2025/08/22 23:38:20 by ayel-bou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,10 +53,11 @@ static int	redirect_current(t_red *curr_red, t_data *data)
 	return (EXIT_SUCCESS);
 }
 
-static bool	ambig_wrapper(char *str, bool ambig_dollar, bool dquoted, bool squoted)
+static bool	ambig_wrapper(char *str, bool ambig_dollar,
+	bool dquoted, bool squoted)
 {
-	if (!squoted && !dquoted &&
-		str[0] == '*' && str[1] == '\0')
+	if (!squoted && !dquoted
+		&& str[0] == '*' && str[1] == '\0')
 		return (true);
 	if (!ambig_dollar)
 		return (false);
@@ -102,12 +103,12 @@ void	restore_io(t_data *data, bool no_red)
 		mind_free_all(PANIC);
 	if (dup2(data->saved_out, STDOUT_FILENO) == -1)
 		mind_free_all(PANIC);
-	if(data->saved_in != -1)
+	if (data->saved_in != -1)
 	{
 		close(data->saved_in);
 		data->saved_in = -1;
 	}
-	if(data->saved_out != -1)
+	if (data->saved_out != -1)
 	{
 		close(data->saved_out);
 		data->saved_out = -1;
