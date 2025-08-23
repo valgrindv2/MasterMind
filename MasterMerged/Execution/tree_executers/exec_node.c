@@ -82,7 +82,7 @@ static int	handle_child(t_tree *node, t_data *data)
 	if (!path)
 	{
 		if (err_number == 21)
-			exit(errors_msgs(err_number, node->argv[0]));
+			exit(pipe_child_free(errors_msgs(err_number, node->argv[0])));
 		if (exists == 0)
 			exists_zero(node, data);
 		else
