@@ -6,7 +6,7 @@
 /*   By: ayel-bou <ayel-bou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/16 07:24:56 by ayel-bou          #+#    #+#             */
-/*   Updated: 2025/08/23 05:39:57 by ayel-bou         ###   ########.fr       */
+/*   Updated: 2025/08/23 16:04:09 by ayel-bou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,18 +21,18 @@ static	void	op_braces(int *qu, char *np, char x)
 	}
 	else if (!*qu && (x == '\'' || x == '"'))
 	{
-		*qu = 1; 
+		*qu = 1;
 		*np = x;
 	}
 }
 
 int	evaluate_case(char *input, t_data *data)
 {
-	int	i;
-	int	op;
-	int	cl;
-	int	qu;
-	char np;
+	int		i;
+	int		op;
+	int		cl;
+	int		qu;
+	char	np;
 
 	i = 0;
 	op = 0;

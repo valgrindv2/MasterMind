@@ -6,7 +6,7 @@
 /*   By: ayel-bou <ayel-bou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/18 14:19:20 by oimzilen          #+#    #+#             */
-/*   Updated: 2025/08/19 19:25:04 by ayel-bou         ###   ########.fr       */
+/*   Updated: 2025/08/23 15:52:06 by ayel-bou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,11 @@ int	process_new_var(char *arg, t_data *data)
 			if (append_value(arg, data->env) != EXIT_SUCCESS)
 				return (EXIT_FAILURE);
 		}
-		else if (add_to_envlist(&data->env, arg, EXPORTED) != EXIT_SUCCESS)
-			return (EXIT_FAILURE);
+		if (!data->env)
+		{
+			if (add_to_envlist(&data->env, arg, EXPORTED) != EXIT_SUCCESS)
+				return (EXIT_FAILURE);
+		}
 	}
 	else
 	{

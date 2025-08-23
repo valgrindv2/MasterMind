@@ -6,7 +6,7 @@
 /*   By: ayel-bou <ayel-bou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/03 19:15:02 by ayel-bou          #+#    #+#             */
-/*   Updated: 2025/08/23 05:41:39 by ayel-bou         ###   ########.fr       */
+/*   Updated: 2025/08/23 16:02:24 by ayel-bou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ t_tree	*masterpasrse(char **input, t_data *data, t_token **prompts)
 
 	data->no_sef = true;
 	if (!evaluate_case(*input, data))
-		return (puterror("Master@Mind: Invalid Use Of Braces\n"), 
+		return (puterror("Master@Mind: Invalid Use Of Braces\n"),
 			data->exit_status = 258, free(*input), *input = NULL, NULL);
 	data->here_node = 0;
 	token = get_identity(*input, data);
