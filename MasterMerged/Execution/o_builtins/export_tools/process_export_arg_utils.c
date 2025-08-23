@@ -21,7 +21,7 @@ int	process_new_var(char *arg, t_data *data)
 			if (append_value(arg, data->env) != EXIT_SUCCESS)
 				return (EXIT_FAILURE);
 		}
-		if (!data->env)
+		if (!data->env || !has_plus(arg))
 		{
 			if (add_to_envlist(&data->env, arg, EXPORTED) != EXIT_SUCCESS)
 				return (EXIT_FAILURE);
