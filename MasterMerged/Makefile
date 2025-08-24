@@ -1,6 +1,6 @@
 CC = cc 
 SANITIZE= -fsanitize=address -g3
-CFLAG = -I$(READLINE_DIR)/include -Wall -Wextra -Werror
+CFLAG = -I$(READLINE_DIR)/include #-Wall -Wextra -Werror
 READLINE_DIR := lib/readline/install
 LDFLAGS += -L$(READLINE_DIR)/lib -lreadline -lhistory -lncurses
 H = Parse/minishell.h 
@@ -75,6 +75,8 @@ SRC = Parse/minishell.c Parse/identificators/identity_tools/identool0.c\
 	 	Execution/tree_executers/handle_red_fds.c 	Execution/tree_executers/handle_red_utils.c \
 	 	Execution/mind_allocater/mind_allocater_utils.c 	Execution/o_builtins/unset_tools/unsett2.c \
 		Execution/mind_allocater/gc_env_vec.c Execution/tree_executers/data_io_clean.c \
+		Execution/expansio_nova/expansio_nova.c Execution/expansio_nova/expansio_utils.c \
+		Execution/expansio_nova/expansio_utils2.c \
 
 		
 OBJ = $(SRC:.c=.o)

@@ -28,7 +28,7 @@ static size_t	count_printable_chars(const char *s)
 		return (0);
 	while (s[i])
 	{
-		if (!is_nonprintable_char(*s))
+		if (!is_nonprintable_char(s[i]))
 			count++;
 		i++;
 	}

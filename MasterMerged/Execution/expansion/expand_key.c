@@ -41,7 +41,7 @@ static char	*trim_key_spaces(char *key)
 	return (trimmed);
 }
 
-static char	*find_in_env(t_envlist *envlist, char *key)
+char	*find_in_env(t_envlist *envlist, char *key)
 {
 	t_envlist	*cur;
 	char		anon[2];

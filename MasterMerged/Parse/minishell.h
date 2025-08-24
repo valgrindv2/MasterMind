@@ -659,6 +659,10 @@ char				*expand_var(char *str, t_data *data, bool was_d_quoted);
 char				**convert_list_to_argv(t_arg *arg, t_data *data);
 int					pocket_insertion(char **pockets, char *str,
 						t_data *data, bool was_d_quoted);
+int	expand_list_new(t_arg *arg, t_data *data);
+char				*find_in_env(t_envlist *envlist, char *key);
+char				*expand_double_quoted(char *str, t_data *data);
+t_arg				*split_and_create_nodes(char *expanded_value, t_arg *original_arg);
 
 // Expansion Utils.
 char				*expand_key_wrapper(char *str, t_data *data);
@@ -683,6 +687,7 @@ size_t				ifs_list_size(t_ifs *curr);
 int					should_join(char *curr, char *next);
 int					is_alphanum_underscore(char c);
 char				*o_ft_strtrim(char *s, char *set);
+char				*o_ft_strjoin(char *s1, char *s2);
 
 // Anon system.
 bool				anon(t_tree *node, size_t argc);
