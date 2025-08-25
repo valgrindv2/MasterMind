@@ -60,10 +60,7 @@ char	**convert_list_to_argv(t_arg *arg, t_data *data)
 	cv.argv = allocate_gc(malloc((cv.argc + 1) * sizeof(char *)));
 	cv.i = 0;
 	while (arg)
-	{
 		cv.argv[cv.i++] = join_system(&arg);
-	}
 	cv.argv[cv.i] = NULL;
-	cv.new_argv = ifs_pass(cv.argv);
-	return (cv.new_argv);
+	return (cv.argv);
 }

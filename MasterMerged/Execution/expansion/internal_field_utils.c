@@ -44,7 +44,7 @@ int	add_ifs_back(t_ifs **head, char *str)
 	}
 	return (EXIT_SUCCESS);
 }
-
+// used just as a list in anon system to add only true expanded args.
 char	**ifs_list_to_argv(t_ifs *head)
 {
 	size_t	size;
