@@ -2,16 +2,16 @@
 
 typedef struct s_expand_node
 {
-    char                *content;
+    char                *string;
     struct s_expand_node *next;
 } t_expand_node;
 
-static t_expand_node *create_node(char *content)
+static t_expand_node *create_node(char *string)
 {
     t_expand_node *node = allocate_gc(malloc(sizeof(t_expand_node)));
     if (!node)
         return (NULL);
-    node->content = content;
+    node->string = string;
     node->next = NULL;
     return (node);
 }
@@ -47,7 +47,7 @@ static char *list_to_string(t_expand_node *head)
     while (current != NULL)
     {
         j = 0;
-        while (current->content[j] != '\0')
+        while (current->string[j] != '\0')
         {
             i++;
             j++;
@@ -62,9 +62,9 @@ static char *list_to_string(t_expand_node *head)
     while (current != NULL)
     {
         j = 0;
-        while (current->content[j] != '\0')
+        while (current->string[j] != '\0')
         {
-            result[i] = current->content[j];
+            result[i] = current->string[j];
             i++;
             j++;
         }
@@ -137,6 +137,5 @@ char *expand_double_quoted(char *str, t_data *data)
             i++;
         }
     }
-
     return (list_to_string(head));
 }
