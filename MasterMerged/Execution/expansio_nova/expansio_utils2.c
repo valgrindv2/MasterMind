@@ -27,13 +27,23 @@ t_arg	*split_and_create_nodes(char *expanded_value, t_arg *original_arg)
 	int		i;
 
 	split_result = tab_split(expanded_value, " \t");
+    if (split_result == NULL)
+		return (NULL);
+	if (split_result[0] == NULL)
+	{
+		new_node = create_new_arg_node("", original_arg);
+		if (new_node == NULL)
+			return (NULL);
+		new_node->space_next = original_arg->space_next;
+		return (new_node);
+	}
 	head = NULL;
 	current = NULL;
 	i = 0;
 	while (split_result[i] != NULL)
 	{
 		new_node = create_new_arg_node(split_result[i], original_arg);
-		if (split_result[i + 1] != NULL)
+		if (split_result[i] != NULL && split_result[i + 1] != NULL)
 			new_node->space_next = true;
 		else
 			new_node->space_next = original_arg->space_next; 

@@ -58,8 +58,6 @@ char	**terminate_inside_anons(char **argv)
 	{
 		if (!single_anon(argv[i]))
 		{
-			if (still_has_anon(argv[i]))
-				argv[i] = trim_anon_free(argv[i]);
 			if (add_ifs_back(&args, argv[i]) != EXIT_SUCCESS)
 				return (NULL);
 		}

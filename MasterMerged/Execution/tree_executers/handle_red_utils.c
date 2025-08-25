@@ -60,7 +60,7 @@ char	*expand_heredoc(char *joined, t_red *red, t_data *data)
 	char	*expanded;
 
 	if (!red->was_d_quote && !red->was_s_quote)
-		expanded = expand_var(joined, data, true);
+		expanded = expand_double_quoted(joined, data);
 	else
 		expanded = joined;
 	return (expanded);
@@ -71,9 +71,9 @@ bool	check_expanded_malloc(char **expanded, t_data *data, t_red *curr_red)
 	if (curr_red->was_s_quote)
 		*expanded = allocate_gc(ft_strdup(curr_red->value));
 	else if (curr_red->was_d_quote)
-		*expanded = expand_var(curr_red->value, data, true);
+		*expanded = expand_double_quoted(curr_red->value, data);
 	else
-		*expanded = expand_var(curr_red->value, data, false);
+		*expanded = expand_double_quoted(curr_red->value, data);
 	if (!*expanded)
 		return (EXIT_FAILURE);
 	return (EXIT_SUCCESS);

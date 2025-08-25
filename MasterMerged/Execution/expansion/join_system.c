@@ -37,28 +37,28 @@ char	*o_ft_strjoin(char *s1, char *s2)
 	return ((ptr));
 }
 
-static char	*merge_pockets(char **lst)
-{
-	char	*joined;
-	size_t	i;
+// static char	*merge_pockets(char **lst)
+// {
+// 	char	*joined;
+// 	size_t	i;
 
-	i = 0;
-	joined = NULL;
-	while (lst[i])
-	{
-		joined = allocate_gc(o_ft_strjoin(joined, lst[i]));
-		i++;
-	}
-	return (joined);
-}
+// 	i = 0;
+// 	joined = NULL;
+// 	while (lst[i])
+// 	{
+// 		joined = allocate_gc(o_ft_strjoin(joined, lst[i]));
+// 		i++;
+// 	}
+// 	return (joined);
+// }
 
-char	*pocket_joiner(char **pockets)
-{
-	char	*res;
+// char	*pocket_joiner(char **pockets)
+// {
+// 	char	*res;
 
-	res = merge_pockets(pockets);
-	return (res);
-}
+// 	res = merge_pockets(pockets);
+// 	return (res);
+// }
 
 char	*join_system(t_arg **p_arg)
 {

@@ -37,6 +37,8 @@ static int	process_expansion(t_arg *arg, t_data *data, t_arg **curr, bool in_ass
 	{
 		expanded_value = expand_double_quoted(arg->value, data);
 		new_nodes = split_and_create_nodes(expanded_value, arg);
+        if (!new_nodes)
+            return (EXIT_FAILURE);
 		last_new_node = last_arg(new_nodes);
 		last_new_node->next = arg->next;
         arg->value = new_nodes->value;
@@ -77,6 +79,8 @@ int	expand_list_new(t_arg *arg, t_data *data)
 				    return (EXIT_FAILURE);
             }
 		}
+		if (try_expand_wildcard(current) != EXIT_SUCCESS)
+			return (EXIT_FAILURE);
         prev = current;
 		current = current->next;
 	}

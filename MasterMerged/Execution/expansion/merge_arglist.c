@@ -39,6 +39,16 @@ static size_t	arglist_size(t_arg *arg)
 	}
 	return (size);
 }
+// // to remove
+// void print_argv(char **argv)
+// {
+// 	int i = 0;
+// 	while (argv[i])
+// 	{
+// 		printf("argv[%d]: '%s'\n", i, argv[i]);
+// 		i++;
+// 	}
+// }
 
 char	**convert_list_to_argv(t_arg *arg, t_data *data)
 {

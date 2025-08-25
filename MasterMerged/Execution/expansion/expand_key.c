@@ -63,13 +63,13 @@ char	*find_in_env(t_envlist *envlist, char *key)
 	return (allocate_gc(ft_strdup(anon)));
 }
 
-char	*expand_key(char *str, t_data *data, int keylen, int *i)
-{
-	char	*value;
-	char	*key;
+// char	*expand_key(char *str, t_data *data, int keylen, int *i)
+// {
+// 	char	*value;
+// 	char	*key;
 
-	key = allocate_gc(ft_substr(str, *i + 1, keylen));
-	*i += keylen + 1;
-	value = find_in_env(data->env, key);
-	return (value);
-}
+// 	key = allocate_gc(ft_substr(str, *i + 1, keylen));
+// 	*i += keylen + 1;
+// 	value = find_in_env(data->env, key);
+// 	return (value);
+// }

@@ -23,17 +23,17 @@ bool	ft_isalnum(int c)
 	return (false);
 }
 
-char	*expand_special_cases(char *str, t_data *data, int *i)
-{
-	if (str[*i + 1] == '?')
-	{
-		*i += 2;
-		return (allocate_gc(o_ft_itoa(data->exit_status)));
-	}
-	else if (str[*i + 1] == '$')
-	{
-		*i += 2;
-		return (allocate_gc(o_ft_itoa(data->pid)));
-	}
-	return (NULL);
-}
+// char	*expand_special_cases(char *str, t_data *data, int *i)
+// {
+// 	if (str[*i + 1] == '?')
+// 	{
+// 		*i += 2;
+// 		return (allocate_gc(o_ft_itoa(data->exit_status)));
+// 	}
+// 	else if (str[*i + 1] == '$')
+// 	{
+// 		*i += 2;
+// 		return (allocate_gc(o_ft_itoa(data->pid)));
+// 	}
+// 	return (NULL);
+// }

@@ -125,7 +125,7 @@ char *expand_double_quoted(char *str, t_data *data)
                 start = i;
                 while (str[i] != '\0' && (ft_isalnum(str[i]) || str[i] == '_'))
                     i++;
-                var_value = get_var_value(ft_substr(str, start, i - start), data);
+                var_value = get_var_value(allocate_gc(ft_substr(str, start, i - start)), data);
                 if (var_value != NULL)
                     add_node_back(&head, create_node(var_value));
             }
