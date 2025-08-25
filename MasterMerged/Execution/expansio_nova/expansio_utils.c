@@ -132,7 +132,7 @@ char *expand_double_quoted(char *str, t_data *data)
         }
         else
         {
-            char_str = ft_substr(str, i, 1);
+            char_str = allocate_gc(ft_substr(str, i, 1));
             add_node_back(&head, create_node(char_str));
             i++;
         }

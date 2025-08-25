@@ -64,7 +64,7 @@ int	expand_list_new(t_arg *arg, t_data *data)
 	while (current != NULL)
 	{
         prev = current;
-		if (should_expand(current))
+		if (should_expand(current) && ft_strchr(current->value, '$'))
 		{
             if (prev != NULL && ft_strchr(prev->value, '='))
                 process_expansion(current, data, &current, true);
